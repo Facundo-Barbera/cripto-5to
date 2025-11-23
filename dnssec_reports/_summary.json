@@ -1,0 +1,554 @@
+{
+  "unam.mx": {
+    "domain": "unam.mx",
+    "timestamp": "2025-11-23T15:36:55.144212",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns1.unam.mx",
+          "rname": "dns.unam.mx",
+          "serial": 2025118104,
+          "refresh": 3600,
+          "retry": 1200,
+          "expire": 1814400,
+          "minimum": 300,
+          "ttl": 6275
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns5.unam.mx",
+          "ttl": 6275
+        },
+        {
+          "nameserver": "ns1.unam.mx",
+          "ttl": 6275
+        },
+        {
+          "nameserver": "ns3.unam.mx",
+          "ttl": 6275
+        },
+        {
+          "nameserver": "ns2.unam.mx",
+          "ttl": 6275
+        },
+        {
+          "nameserver": "ns4.unam.mx",
+          "ttl": 6275
+        }
+      ],
+      "A": [
+        {
+          "address": "132.248.166.20",
+          "ttl": 6275
+        },
+        {
+          "address": "132.248.166.18",
+          "ttl": 6275
+        },
+        {
+          "address": "132.248.166.17",
+          "ttl": 6275
+        },
+        {
+          "address": "132.248.166.19",
+          "ttl": 6275
+        }
+      ],
+      "AAAA": [
+        {
+          "address": "2001:1218:3000:180::20",
+          "ttl": 6275
+        },
+        {
+          "address": "2001:1218:3000:180::17",
+          "ttl": 6275
+        },
+        {
+          "address": "2001:1218:3000:180::18",
+          "ttl": 6275
+        },
+        {
+          "address": "2001:1218:3000:180::19",
+          "ttl": 6275
+        }
+      ],
+      "MX": [
+        {
+          "exchange": "unam-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 6275
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": true,
+        "count": 2,
+        "keys": [
+          {
+            "flags": 256,
+            "protocol": 3,
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "key_size_bits": 256,
+            "is_sep": false,
+            "is_zone_key": true
+          },
+          {
+            "flags": 257,
+            "protocol": 3,
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "key_size_bits": 256,
+            "is_sep": true,
+            "is_zone_key": true
+          }
+        ],
+        "ttl": 6275
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "NSEC",
+        "nsec_present": true,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "details": {
+          "nsec": {
+            "count": 1,
+            "ttl": 118
+          }
+        }
+      },
+      "ds": {
+        "present": true,
+        "count": 1,
+        "records": [
+          {
+            "key_tag": 54058,
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "digest_type": 2,
+            "digest_type_name": "SHA-256",
+            "digest": "ea3eb01183e5bc13acac4692831ea81da9b6d8f402ab3ab4fa1a5c1ef52869e0"
+          }
+        ],
+        "ttl": 85475
+      },
+      "summary": {
+        "dnssec_enabled": true,
+        "has_signatures": false,
+        "has_ds_record": true,
+        "nsec_type": "NSEC",
+        "validation_status": "enabled_incomplete"
+      }
+    }
+  },
+  "ipn.mx": {
+    "domain": "ipn.mx",
+    "timestamp": "2025-11-23T15:36:56.718931",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "dns3.ipn.mx",
+          "rname": "tic.ipn.mx",
+          "serial": 2025112120,
+          "refresh": 10800,
+          "retry": 1800,
+          "expire": 1209600,
+          "minimum": 10800,
+          "ttl": 3418
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "dns2.ipn.mx",
+          "ttl": 1619
+        },
+        {
+          "nameserver": "dns1.ipn.mx",
+          "ttl": 1619
+        },
+        {
+          "nameserver": "dns3.ipn.mx",
+          "ttl": 1619
+        }
+      ],
+      "A": [
+        {
+          "address": "20.64.80.120",
+          "ttl": 963
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "ipn-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 3419
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": true,
+        "count": 2,
+        "keys": [
+          {
+            "flags": 256,
+            "protocol": 3,
+            "algorithm": 10,
+            "algorithm_name": "RSA/SHA-512",
+            "key_size_bits": 2080,
+            "is_sep": false,
+            "is_zone_key": true
+          },
+          {
+            "flags": 257,
+            "protocol": 3,
+            "algorithm": 10,
+            "algorithm_name": "RSA/SHA-512",
+            "key_size_bits": 2080,
+            "is_sep": true,
+            "is_zone_key": true
+          }
+        ],
+        "ttl": 86219
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": true,
+        "opt_out": false,
+        "details": {
+          "nsec3param": {
+            "count": 1,
+            "ttl": 3419,
+            "records": [
+              {
+                "hash_algorithm": 1,
+                "flags": 0,
+                "iterations": 1,
+                "salt": "bd7619cce6c97e8f"
+              }
+            ]
+          }
+        }
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": true,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "enabled_incomplete"
+      }
+    }
+  },
+  "gob.mx": {
+    "domain": "gob.mx",
+    "timestamp": "2025-11-23T15:36:58.350229",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "m.mx-ns.mx",
+          "rname": "hostmaster.nic.mx",
+          "serial": 1763924645,
+          "refresh": 900,
+          "retry": 900,
+          "expire": 604800,
+          "minimum": 1800,
+          "ttl": 86218
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "c.mx-ns.mx",
+          "ttl": 86218
+        },
+        {
+          "nameserver": "e.mx-ns.mx",
+          "ttl": 86218
+        },
+        {
+          "nameserver": "i.mx-ns.mx",
+          "ttl": 86218
+        },
+        {
+          "nameserver": "m.mx-ns.mx",
+          "ttl": 86218
+        },
+        {
+          "nameserver": "o.mx-ns.mx",
+          "ttl": 86218
+        },
+        {
+          "nameserver": "x.mx-ns.mx",
+          "ttl": 86218
+        }
+      ],
+      "A": [
+        {
+          "address": "207.249.118.158",
+          "ttl": 1610
+        }
+      ],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": true,
+        "count": 2,
+        "keys": [
+          {
+            "flags": 256,
+            "protocol": 3,
+            "algorithm": 8,
+            "algorithm_name": "RSA/SHA-256",
+            "key_size_bits": 1056,
+            "is_sep": false,
+            "is_zone_key": true
+          },
+          {
+            "flags": 257,
+            "protocol": 3,
+            "algorithm": 8,
+            "algorithm_name": "RSA/SHA-256",
+            "key_size_bits": 2080,
+            "is_sep": true,
+            "is_zone_key": true
+          }
+        ],
+        "ttl": 86218
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": true,
+        "opt_out": false,
+        "details": {
+          "nsec3param": {
+            "count": 1,
+            "ttl": 86219,
+            "records": [
+              {
+                "hash_algorithm": 1,
+                "flags": 0,
+                "iterations": 0,
+                "salt": "c53e9a024dea76c4"
+              }
+            ]
+          }
+        }
+      },
+      "ds": {
+        "present": true,
+        "count": 1,
+        "records": [
+          {
+            "key_tag": 12884,
+            "algorithm": 8,
+            "algorithm_name": "RSA/SHA-256",
+            "digest_type": 2,
+            "digest_type_name": "SHA-256",
+            "digest": "9b78b7939aeced1ee9a65cede1d20bc21f43f908e66ae2636ae0e191554eea47"
+          }
+        ],
+        "ttl": 86218
+      },
+      "summary": {
+        "dnssec_enabled": true,
+        "has_signatures": false,
+        "has_ds_record": true,
+        "nsec_type": "none",
+        "validation_status": "enabled_incomplete"
+      }
+    }
+  },
+  "sat.mx": {
+    "domain": "sat.mx",
+    "timestamp": "2025-11-23T15:36:59.920248",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "huitzilopochtli.sat.gob.mx",
+          "rname": "seguridad.sat.gob.mx",
+          "serial": 2018061141,
+          "refresh": 28800,
+          "retry": 3600,
+          "expire": 1728000,
+          "minimum": 86400,
+          "ttl": 172619
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "tochtli.sat.gob.mx",
+          "ttl": 172619
+        },
+        {
+          "nameserver": "xolotl.sat.gob.mx",
+          "ttl": 172619
+        },
+        {
+          "nameserver": "huitzilopochtli.sat.gob.mx",
+          "ttl": 172619
+        },
+        {
+          "nameserver": "quetzalcoatl.sat.gob.mx",
+          "ttl": 172619
+        }
+      ],
+      "A": [
+        {
+          "address": "200.33.84.233",
+          "ttl": 172619
+        }
+      ],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "tec.mx": {
+    "domain": "tec.mx",
+    "timestamp": "2025-11-23T15:37:01.500139",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns1e.itesm.mx",
+          "rname": "please_set_email.absolutely.nowhere",
+          "serial": 115,
+          "refresh": 10800,
+          "retry": 3600,
+          "expire": 2419200,
+          "minimum": 900,
+          "ttl": 3419
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns2e.itesm.mx",
+          "ttl": 3419
+        },
+        {
+          "nameserver": "ns1e.itesm.mx",
+          "ttl": 3419
+        }
+      ],
+      "A": [
+        {
+          "address": "45.60.86.212",
+          "ttl": 334
+        },
+        {
+          "address": "45.60.115.212",
+          "ttl": 334
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "tec-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 3419
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  }
+}

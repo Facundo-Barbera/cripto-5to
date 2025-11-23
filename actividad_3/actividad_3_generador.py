@@ -1,0 +1,635 @@
+#!/usr/bin/env python3
+
+import dns.resolver
+import dns.rdatatype
+import dns.exception
+import time
+import json
+import os
+import sys
+from datetime import datetime
+from typing import Dict, List, Any, Optional
+
+
+class DNSSECAnalyzer:
+
+    def __init__(self, nameserver: str = '8.8.8.8', delay_seconds: float = 1.0, timeout: int = 10):
+        self.resolver = dns.resolver.Resolver()
+        self.resolver.nameservers = [nameserver]
+        self.resolver.timeout = timeout
+        self.resolver.lifetime = timeout
+        self.delay = delay_seconds
+        self.cache = {}
+        self.results = {}
+
+    def _query_safe(self, domain: str, rdtype: str, use_dnssec: bool = True) -> Optional[Any]:
+        cache_key = f"{domain}:{rdtype}:{use_dnssec}"
+
+        if cache_key in self.cache:
+            return self.cache[cache_key]
+
+        try:
+            if use_dnssec:
+                answer = self.resolver.resolve(domain, rdtype, raise_on_no_answer=False)
+            else:
+                answer = self.resolver.resolve(domain, rdtype)
+
+            self.cache[cache_key] = answer
+            return answer
+        except dns.resolver.NoAnswer:
+            return None
+        except dns.resolver.NXDOMAIN:
+            print(f"WARNING: Domain does not exist: {domain}")
+            return None
+        except dns.exception.Timeout:
+            print(f"WARNING: Timeout on {domain} ({rdtype})")
+            return None
+        except Exception as e:
+            print(f"WARNING: Error on {domain} ({rdtype}): {e}")
+            return None
+
+    def analyze_dnskey(self, domain: str) -> Dict[str, Any]:
+        result = {
+            'present': False,
+            'count': 0,
+            'keys': [],
+            'ttl': None
+        }
+
+        answer = self._query_safe(domain, 'DNSKEY')
+        if not answer:
+            return result
+
+        result['present'] = True
+        result['count'] = len(answer)
+        result['ttl'] = answer.rrset.ttl if hasattr(answer, 'rrset') else None
+
+        for rdata in answer:
+            key_info = {
+                'flags': rdata.flags,
+                'protocol': rdata.protocol,
+                'algorithm': rdata.algorithm,
+                'algorithm_name': self._get_algorithm_name(rdata.algorithm),
+                'key_size_bits': self._calculate_key_size(rdata),
+                'is_sep': bool(rdata.flags & 0x0001),
+                'is_zone_key': bool(rdata.flags & 0x0100)
+            }
+            result['keys'].append(key_info)
+
+        return result
+
+    def analyze_rrsig(self, domain: str) -> Dict[str, Any]:
+        result = {
+            'present': False,
+            'count': 0,
+            'signatures': [],
+            'ttl': None
+        }
+
+        answer = self._query_safe(domain, 'RRSIG')
+        if not answer:
+            return result
+
+        result['present'] = True
+        result['count'] = len(answer)
+        result['ttl'] = answer.rrset.ttl if hasattr(answer, 'rrset') else None
+
+        for rdata in answer:
+            sig_info = {
+                'type_covered': dns.rdatatype.to_text(rdata.type_covered),
+                'algorithm': rdata.algorithm,
+                'algorithm_name': self._get_algorithm_name(rdata.algorithm),
+                'labels': rdata.labels,
+                'original_ttl': rdata.original_ttl,
+                'expiration': datetime.fromtimestamp(rdata.expiration).isoformat(),
+                'inception': datetime.fromtimestamp(rdata.inception).isoformat(),
+                'key_tag': rdata.key_tag,
+                'signer': str(rdata.signer).rstrip('.'),
+                'is_expired': rdata.expiration < int(time.time()),
+                'days_until_expiration': (rdata.expiration - int(time.time())) // 86400
+            }
+            result['signatures'].append(sig_info)
+
+        return result
+
+    def analyze_nsec(self, domain: str) -> Dict[str, Any]:
+        result = {
+            'nsec_type': 'none',
+            'nsec_present': False,
+            'nsec3_present': False,
+            'nsec3param_present': False,
+            'opt_out': False,
+            'details': {}
+        }
+
+        nsec_answer = self._query_safe(domain, 'NSEC')
+        if nsec_answer:
+            result['nsec_present'] = True
+            result['nsec_type'] = 'NSEC'
+            result['details']['nsec'] = {
+                'count': len(nsec_answer),
+                'ttl': nsec_answer.rrset.ttl if hasattr(nsec_answer, 'rrset') else None
+            }
+
+        nsec3_answer = self._query_safe(domain, 'NSEC3')
+        if nsec3_answer:
+            result['nsec3_present'] = True
+            result['nsec_type'] = 'NSEC3'
+            nsec3_records = []
+            for rdata in nsec3_answer:
+                nsec3_info = {
+                    'hash_algorithm': rdata.algorithm,
+                    'flags': rdata.flags,
+                    'iterations': rdata.iterations,
+                    'salt': rdata.salt.hex() if rdata.salt else 'none'
+                }
+                if rdata.flags & 0x01:
+                    result['opt_out'] = True
+                nsec3_records.append(nsec3_info)
+
+            result['details']['nsec3'] = {
+                'count': len(nsec_answer),
+                'ttl': nsec3_answer.rrset.ttl if hasattr(nsec3_answer, 'rrset') else None,
+                'records': nsec3_records
+            }
+
+        nsec3param_answer = self._query_safe(domain, 'NSEC3PARAM')
+        if nsec3param_answer:
+            result['nsec3param_present'] = True
+            param_records = []
+            for rdata in nsec3param_answer:
+                param_info = {
+                    'hash_algorithm': rdata.algorithm,
+                    'flags': rdata.flags,
+                    'iterations': rdata.iterations,
+                    'salt': rdata.salt.hex() if rdata.salt else 'none'
+                }
+                param_records.append(param_info)
+
+            result['details']['nsec3param'] = {
+                'count': len(nsec3param_answer),
+                'ttl': nsec3param_answer.rrset.ttl if hasattr(nsec3param_answer, 'rrset') else None,
+                'records': param_records
+            }
+
+        return result
+
+    def analyze_ds(self, domain: str) -> Dict[str, Any]:
+        result = {
+            'present': False,
+            'count': 0,
+            'records': [],
+            'ttl': None
+        }
+
+        answer = self._query_safe(domain, 'DS')
+        if not answer:
+            return result
+
+        result['present'] = True
+        result['count'] = len(answer)
+        result['ttl'] = answer.rrset.ttl if hasattr(answer, 'rrset') else None
+
+        for rdata in answer:
+            ds_info = {
+                'key_tag': rdata.key_tag,
+                'algorithm': rdata.algorithm,
+                'algorithm_name': self._get_algorithm_name(rdata.algorithm),
+                'digest_type': rdata.digest_type,
+                'digest_type_name': self._get_digest_type_name(rdata.digest_type),
+                'digest': rdata.digest.hex()
+            }
+            result['records'].append(ds_info)
+
+        return result
+
+    def analyze_basic_dns(self, domain: str) -> Dict[str, Any]:
+        result = {
+            'SOA': [],
+            'NS': [],
+            'A': [],
+            'AAAA': [],
+            'MX': []
+        }
+
+        soa_answer = self._query_safe(domain, 'SOA', use_dnssec=False)
+        if soa_answer:
+            for rdata in soa_answer:
+                result['SOA'].append({
+                    'mname': str(rdata.mname).rstrip('.'),
+                    'rname': str(rdata.rname).rstrip('.'),
+                    'serial': rdata.serial,
+                    'refresh': rdata.refresh,
+                    'retry': rdata.retry,
+                    'expire': rdata.expire,
+                    'minimum': rdata.minimum,
+                    'ttl': soa_answer.rrset.ttl if hasattr(soa_answer, 'rrset') else None
+                })
+
+        ns_answer = self._query_safe(domain, 'NS', use_dnssec=False)
+        if ns_answer:
+            for rdata in ns_answer:
+                result['NS'].append({
+                    'nameserver': str(rdata.target).rstrip('.'),
+                    'ttl': ns_answer.rrset.ttl if hasattr(ns_answer, 'rrset') else None
+                })
+
+        a_answer = self._query_safe(domain, 'A', use_dnssec=False)
+        if a_answer:
+            for rdata in a_answer:
+                result['A'].append({
+                    'address': str(rdata.address),
+                    'ttl': a_answer.rrset.ttl if hasattr(a_answer, 'rrset') else None
+                })
+
+        aaaa_answer = self._query_safe(domain, 'AAAA', use_dnssec=False)
+        if aaaa_answer:
+            for rdata in aaaa_answer:
+                result['AAAA'].append({
+                    'address': str(rdata.address),
+                    'ttl': aaaa_answer.rrset.ttl if hasattr(aaaa_answer, 'rrset') else None
+                })
+
+        mx_answer = self._query_safe(domain, 'MX', use_dnssec=False)
+        if mx_answer:
+            for rdata in mx_answer:
+                result['MX'].append({
+                    'exchange': str(rdata.exchange).rstrip('.'),
+                    'preference': rdata.preference,
+                    'ttl': mx_answer.rrset.ttl if hasattr(mx_answer, 'rrset') else None
+                })
+
+        return result
+
+    def analyze_domain(self, domain: str) -> Dict[str, Any]:
+        print(f"Analyzing: {domain}")
+
+        result = {
+            'domain': domain,
+            'timestamp': datetime.now().isoformat(),
+            'dns_basic': {},
+            'dnssec': {
+                'dnskey': {},
+                'rrsig': {},
+                'nsec': {},
+                'ds': {},
+                'summary': {}
+            }
+        }
+
+        result['dns_basic'] = self.analyze_basic_dns(domain)
+        result['dnssec']['dnskey'] = self.analyze_dnskey(domain)
+        result['dnssec']['rrsig'] = self.analyze_rrsig(domain)
+        result['dnssec']['nsec'] = self.analyze_nsec(domain)
+        result['dnssec']['ds'] = self.analyze_ds(domain)
+
+        result['dnssec']['summary'] = {
+            'dnssec_enabled': result['dnssec']['dnskey']['present'],
+            'has_signatures': result['dnssec']['rrsig']['present'],
+            'has_ds_record': result['dnssec']['ds']['present'],
+            'nsec_type': result['dnssec']['nsec']['nsec_type'],
+            'validation_status': self._determine_validation_status(result['dnssec'])
+        }
+
+        time.sleep(self.delay)
+
+        return result
+
+    def analyze_domains_from_file(self, input_file: str, output_dir: str = 'dnssec_reports'):
+        if not os.path.exists(input_file):
+            print(f"ERROR: Input file not found: {input_file}")
+            sys.exit(1)
+
+        with open(input_file, 'r') as f:
+            domains = [line.strip() for line in f if line.strip() and not line.startswith('#')]
+
+        if not domains:
+            print(f"ERROR: No domains found in {input_file}")
+            sys.exit(1)
+
+        os.makedirs(output_dir, exist_ok=True)
+
+        print(f"\nDNSSEC Analysis")
+        print(f"Total domains: {len(domains)}")
+        print(f"DNS server: {self.resolver.nameservers[0]}")
+        print(f"Output directory: {output_dir}")
+        print(f"Delay between queries: {self.delay}s\n")
+
+        results = {}
+        start_time = time.time()
+
+        for i, domain in enumerate(domains, 1):
+            print(f"[{i}/{len(domains)}] {domain}")
+
+            try:
+                result = self.analyze_domain(domain)
+                results[domain] = result
+
+                self._generate_markdown_report(domain, result, output_dir)
+
+                status = result['dnssec']['summary']['validation_status']
+                print(f"  Status: {status}")
+
+            except Exception as e:
+                print(f"  ERROR: {e}")
+                results[domain] = {
+                    'domain': domain,
+                    'error': str(e),
+                    'timestamp': datetime.now().isoformat()
+                }
+
+        summary_file = os.path.join(output_dir, '_summary.json')
+        with open(summary_file, 'w', encoding='utf-8') as f:
+            json.dump(results, f, indent=2, ensure_ascii=False)
+
+        elapsed = time.time() - start_time
+        print(f"\nAnalysis completed")
+        print(f"Time elapsed: {elapsed/60:.1f} minutes")
+        print(f"Domains analyzed: {len(results)}")
+        print(f"Summary saved to: {summary_file}")
+        print(f"Individual reports in: {output_dir}/")
+
+        self.results = results
+        return results
+
+    def _generate_markdown_report(self, domain: str, result: Dict, output_dir: str):
+        if 'error' in result:
+            filename = os.path.join(output_dir, f"{domain.replace('.', '_')}.md")
+            with open(filename, 'w', encoding='utf-8') as f:
+                f.write(f"# DNSSEC Analysis Report: {domain}\n\n")
+                f.write(f"**Analysis Date:** {result['timestamp']}\n\n")
+                f.write(f"## Error\n\n")
+                f.write(f"```\n{result['error']}\n```\n")
+            return
+
+        filename = os.path.join(output_dir, f"{domain.replace('.', '_')}.md")
+
+        with open(filename, 'w', encoding='utf-8') as f:
+            f.write(f"# DNSSEC Analysis Report: {domain}\n\n")
+            f.write(f"**Analysis Date:** {result['timestamp']}\n\n")
+
+            dns_basic = result.get('dns_basic', {})
+            dnssec = result.get('dnssec', {})
+            summary = dnssec.get('summary', {})
+
+            f.write("## Summary\n\n")
+            f.write(f"- **DNSSEC Enabled:** {summary.get('dnssec_enabled', False)}\n")
+            f.write(f"- **Validation Status:** {summary.get('validation_status', 'unknown')}\n")
+            f.write(f"- **Has Signatures:** {summary.get('has_signatures', False)}\n")
+            f.write(f"- **Has DS Record:** {summary.get('has_ds_record', False)}\n")
+            f.write(f"- **NSEC Type:** {summary.get('nsec_type', 'none')}\n\n")
+
+            f.write("---\n\n")
+
+            if dns_basic.get('SOA'):
+                f.write("## SOA Records\n\n")
+                for soa in dns_basic['SOA']:
+                    f.write(f"- **Primary Server:** {soa['mname']}\n")
+                    f.write(f"- **Responsible Email:** {soa['rname']}\n")
+                    f.write(f"- **Serial:** {soa['serial']}\n")
+                    f.write(f"- **Refresh:** {soa['refresh']}s\n")
+                    f.write(f"- **Retry:** {soa['retry']}s\n")
+                    f.write(f"- **Expire:** {soa['expire']}s\n")
+                    f.write(f"- **Minimum TTL:** {soa['minimum']}s\n")
+                    f.write(f"- **Record TTL:** {soa['ttl']}s\n\n")
+
+            if dns_basic.get('NS'):
+                f.write("## NS Records\n\n")
+                f.write(f"Total: {len(dns_basic['NS'])}\n\n")
+                for ns in dns_basic['NS']:
+                    f.write(f"- {ns['nameserver']} (TTL: {ns['ttl']}s)\n")
+                f.write("\n")
+
+            if dns_basic.get('A'):
+                f.write("## A Records\n\n")
+                f.write(f"Total: {len(dns_basic['A'])}\n\n")
+                for a in dns_basic['A']:
+                    f.write(f"- {a['address']} (TTL: {a['ttl']}s)\n")
+                f.write("\n")
+
+            if dns_basic.get('AAAA'):
+                f.write("## AAAA Records\n\n")
+                f.write(f"Total: {len(dns_basic['AAAA'])}\n\n")
+                for aaaa in dns_basic['AAAA']:
+                    f.write(f"- {aaaa['address']} (TTL: {aaaa['ttl']}s)\n")
+                f.write("\n")
+
+            if dns_basic.get('MX'):
+                f.write("## MX Records\n\n")
+                f.write(f"Total: {len(dns_basic['MX'])}\n\n")
+                for mx in dns_basic['MX']:
+                    f.write(f"- {mx['exchange']} (Priority: {mx['preference']}, TTL: {mx['ttl']}s)\n")
+                f.write("\n")
+
+            f.write("---\n\n")
+            f.write("# DNSSEC Records\n\n")
+
+            dnskey = dnssec.get('dnskey', {})
+            if dnskey.get('present'):
+                f.write("## DNSKEY Records\n\n")
+                f.write(f"- **Total Keys:** {dnskey['count']}\n")
+                f.write(f"- **TTL:** {dnskey['ttl']}s\n\n")
+
+                for i, key in enumerate(dnskey['keys'], 1):
+                    f.write(f"### Key {i}\n\n")
+                    f.write(f"- **Algorithm:** {key['algorithm_name']} ({key['algorithm']})\n")
+                    f.write(f"- **Key Size:** {key['key_size_bits']} bits\n")
+                    f.write(f"- **Flags:** {key['flags']}\n")
+                    f.write(f"- **Protocol:** {key['protocol']}\n")
+                    f.write(f"- **Type:** {'KSK (Key Signing Key)' if key['is_sep'] else 'ZSK (Zone Signing Key)'}\n")
+                    f.write(f"- **Zone Key:** {key['is_zone_key']}\n\n")
+            else:
+                f.write("## DNSKEY Records\n\n")
+                f.write("No DNSKEY records found.\n\n")
+
+            rrsig = dnssec.get('rrsig', {})
+            if rrsig.get('present'):
+                f.write("## RRSIG Records\n\n")
+                f.write(f"- **Total Signatures:** {rrsig['count']}\n")
+                f.write(f"- **TTL:** {rrsig['ttl']}s\n\n")
+
+                for i, sig in enumerate(rrsig['signatures'], 1):
+                    f.write(f"### Signature {i}\n\n")
+                    f.write(f"- **Type Covered:** {sig['type_covered']}\n")
+                    f.write(f"- **Algorithm:** {sig['algorithm_name']} ({sig['algorithm']})\n")
+                    f.write(f"- **Labels:** {sig['labels']}\n")
+                    f.write(f"- **Original TTL:** {sig['original_ttl']}s\n")
+                    f.write(f"- **Inception:** {sig['inception']}\n")
+                    f.write(f"- **Expiration:** {sig['expiration']}\n")
+                    f.write(f"- **Days Until Expiration:** {sig['days_until_expiration']}\n")
+                    f.write(f"- **Key Tag:** {sig['key_tag']}\n")
+                    f.write(f"- **Signer:** {sig['signer']}\n")
+                    f.write(f"- **Status:** {'EXPIRED' if sig['is_expired'] else 'VALID'}\n\n")
+            else:
+                f.write("## RRSIG Records\n\n")
+                f.write("No RRSIG records found.\n\n")
+
+            ds = dnssec.get('ds', {})
+            if ds.get('present'):
+                f.write("## DS Records\n\n")
+                f.write(f"- **Total DS Records:** {ds['count']}\n")
+                f.write(f"- **TTL:** {ds['ttl']}s\n\n")
+
+                for i, record in enumerate(ds['records'], 1):
+                    f.write(f"### DS Record {i}\n\n")
+                    f.write(f"- **Key Tag:** {record['key_tag']}\n")
+                    f.write(f"- **Algorithm:** {record['algorithm_name']} ({record['algorithm']})\n")
+                    f.write(f"- **Digest Type:** {record['digest_type_name']} ({record['digest_type']})\n")
+                    f.write(f"- **Digest:** `{record['digest']}`\n\n")
+            else:
+                f.write("## DS Records\n\n")
+                f.write("No DS records found in parent zone.\n\n")
+
+            nsec = dnssec.get('nsec', {})
+            f.write("## NSEC/NSEC3 Records\n\n")
+            f.write(f"- **Type:** {nsec.get('nsec_type', 'none').upper()}\n")
+            f.write(f"- **NSEC Present:** {nsec.get('nsec_present', False)}\n")
+            f.write(f"- **NSEC3 Present:** {nsec.get('nsec3_present', False)}\n")
+            f.write(f"- **NSEC3PARAM Present:** {nsec.get('nsec3param_present', False)}\n")
+            f.write(f"- **Opt-Out:** {nsec.get('opt_out', False)}\n\n")
+
+            if nsec.get('details'):
+                if 'nsec' in nsec['details']:
+                    nsec_data = nsec['details']['nsec']
+                    f.write("### NSEC Details\n\n")
+                    f.write(f"- **Count:** {nsec_data.get('count', 0)}\n")
+                    f.write(f"- **TTL:** {nsec_data.get('ttl', 'N/A')}s\n\n")
+
+                if 'nsec3' in nsec['details']:
+                    nsec3_data = nsec['details']['nsec3']
+                    f.write("### NSEC3 Details\n\n")
+                    f.write(f"- **Count:** {nsec3_data.get('count', 0)}\n")
+                    f.write(f"- **TTL:** {nsec3_data.get('ttl', 'N/A')}s\n\n")
+
+                    for i, record in enumerate(nsec3_data.get('records', []), 1):
+                        f.write(f"#### NSEC3 Record {i}\n\n")
+                        f.write(f"- **Hash Algorithm:** {record['hash_algorithm']}\n")
+                        f.write(f"- **Flags:** {record['flags']}\n")
+                        f.write(f"- **Iterations:** {record['iterations']}\n")
+                        f.write(f"- **Salt:** {record['salt']}\n\n")
+
+                if 'nsec3param' in nsec['details']:
+                    nsec3param_data = nsec['details']['nsec3param']
+                    f.write("### NSEC3PARAM Details\n\n")
+                    f.write(f"- **Count:** {nsec3param_data.get('count', 0)}\n")
+                    f.write(f"- **TTL:** {nsec3param_data.get('ttl', 'N/A')}s\n\n")
+
+                    for i, record in enumerate(nsec3param_data.get('records', []), 1):
+                        f.write(f"#### NSEC3PARAM Record {i}\n\n")
+                        f.write(f"- **Hash Algorithm:** {record['hash_algorithm']}\n")
+                        f.write(f"- **Flags:** {record['flags']}\n")
+                        f.write(f"- **Iterations:** {record['iterations']}\n")
+                        f.write(f"- **Salt:** {record['salt']}\n\n")
+
+            f.write("---\n\n")
+            f.write("## DNS Tree Structure\n\n")
+
+            parts = domain.split('.')
+            if len(parts) > 1:
+                parent = '.'.join(parts[1:])
+                f.write(f"- **Domain:** {domain}\n")
+                f.write(f"- **Parent Zone:** {parent}\n")
+                f.write(f"- **Level:** {len(parts)}\n\n")
+
+                if dns_basic.get('NS'):
+                    f.write("### Nameserver Hierarchy\n\n")
+                    f.write("```\n")
+                    f.write(f"{domain}\n")
+                    for i, ns in enumerate(dns_basic['NS']):
+                        prefix = "└──" if i == len(dns_basic['NS']) - 1 else "├──"
+                        f.write(f"{prefix} {ns['nameserver']} (TTL: {ns['ttl']}s)\n")
+                    f.write("```\n\n")
+
+                f.write("### Cryptographic Chain of Trust\n\n")
+                if ds.get('present'):
+                    f.write(f"DS record exists in parent zone ({parent}), establishing cryptographic chain of trust.\n\n")
+                    f.write("```\n")
+                    f.write(f"{parent} (parent zone)\n")
+                    f.write(f"  └── DS Record → {domain}\n")
+                    for record in ds['records']:
+                        f.write(f"      └── KeyTag: {record['key_tag']}, Algorithm: {record['algorithm_name']}\n")
+                    f.write("```\n")
+                else:
+                    f.write(f"No DS record found in parent zone ({parent}). Chain of trust not established.\n")
+
+    def _determine_validation_status(self, dnssec: Dict) -> str:
+        dnskey_present = dnssec.get('dnskey', {}).get('present', False)
+        rrsig_present = dnssec.get('rrsig', {}).get('present', False)
+        ds_present = dnssec.get('ds', {}).get('present', False)
+
+        if not dnskey_present:
+            return 'disabled'
+
+        if dnskey_present and rrsig_present and ds_present:
+            signatures = dnssec.get('rrsig', {}).get('signatures', [])
+            if any(sig.get('is_expired', False) for sig in signatures):
+                return 'enabled_incomplete'
+            return 'valid'
+
+        return 'enabled_incomplete'
+
+    def _calculate_key_size(self, dnskey_rdata) -> int:
+        try:
+            key_bytes = len(dnskey_rdata.key)
+
+            if dnskey_rdata.algorithm in [5, 7, 8, 10]:
+                return key_bytes * 8
+            elif dnskey_rdata.algorithm == 13:
+                return 256
+            elif dnskey_rdata.algorithm == 14:
+                return 384
+            elif dnskey_rdata.algorithm == 15:
+                return 256
+            elif dnskey_rdata.algorithm == 16:
+                return 448
+            else:
+                return key_bytes * 8
+        except:
+            return 0
+
+    def _get_algorithm_name(self, num: int) -> str:
+        algorithms = {
+            1: 'RSA/MD5',
+            3: 'DSA/SHA-1',
+            5: 'RSA/SHA-1',
+            6: 'DSA-NSEC3-SHA1',
+            7: 'RSASHA1-NSEC3-SHA1',
+            8: 'RSA/SHA-256',
+            10: 'RSA/SHA-512',
+            12: 'GOST R 34.10-2001',
+            13: 'ECDSA-P256/SHA-256',
+            14: 'ECDSA-P384/SHA-384',
+            15: 'Ed25519',
+            16: 'Ed448'
+        }
+        return algorithms.get(num, f'Unknown-{num}')
+
+    def _get_digest_type_name(self, num: int) -> str:
+        digest_types = {
+            1: 'SHA-1',
+            2: 'SHA-256',
+            3: 'GOST R 34.11-94',
+            4: 'SHA-384'
+        }
+        return digest_types.get(num, f'Unknown-{num}')
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python3 dnssec_analyzer.py <domains_file.txt> [output_directory]")
+        sys.exit(1)
+
+    input_file = sys.argv[1]
+    output_dir = sys.argv[2] if len(sys.argv) > 2 else 'dnssec_reports'
+
+    analyzer = DNSSECAnalyzer(
+        nameserver='8.8.8.8',
+        delay_seconds=1.5,
+        timeout=10
+    )
+
+    analyzer.analyze_domains_from_file(input_file, output_dir)
+
+
+if __name__ == '__main__':
+    main()
