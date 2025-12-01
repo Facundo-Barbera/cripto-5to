@@ -134,6 +134,9 @@ async function setLanguage(lang) {
         return false;
     }
 
+    // Check if recommendations are displayed BEFORE re-rendering
+    const hadRecommendations = typeof areRecommendationsDisplayed === 'function' && areRecommendationsDisplayed();
+
     localStorage.setItem('preferred-language', lang);
 
     await loadTranslations(lang);
@@ -142,6 +145,11 @@ async function setLanguage(lang) {
     // Re-render dynamic content if data exists
     if (typeof currentData !== 'undefined' && currentData) {
         renderResults(currentData);
+    }
+
+    // Re-generate recommendations in new language if they were displayed
+    if (hadRecommendations && typeof regenerateRecommendationsForLanguage === 'function') {
+        regenerateRecommendationsForLanguage();
     }
 
     // Close dropdowns

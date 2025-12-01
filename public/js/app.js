@@ -82,6 +82,7 @@ async function analyzeDomain() {
     const btn = getActiveButton();
     const errorEl = document.getElementById('error-message');
     const resultsEl = document.getElementById('results');
+    const batchResultsEl = document.getElementById('batch-results');
 
     const domain = input.value.trim();
     if (!domain) {
@@ -93,6 +94,9 @@ async function analyzeDomain() {
     btn.disabled = true;
     errorEl.classList.remove('visible');
     resultsEl.classList.add('hidden');
+    // Hide batch results when analyzing a single domain
+    batchResultsEl.classList.add('hidden');
+    isViewingBatchDetail = false;
 
     try {
         const response = await fetch('/api/analyze', {
@@ -156,7 +160,12 @@ function showError(message) {
 function renderResults(data) {
     renderChainGraph(data);
     renderChainStatus(data);
+    renderDomainDetails(data);
     renderRFCCompliance(data);
+    // Reset AI recommendations UI for new domain
+    resetRecommendationsUI();
+    // Clear recommendations cache for fresh start
+    recommendationsCache = {};
 }
 
 function renderChainGraph(data) {
@@ -457,11 +466,509 @@ function toggleNavMenu() {
     document.getElementById('navbar').classList.toggle('menu-open');
 }
 
+// ==================== DOMAIN DETAILS FUNCTIONS ====================
+
+function toggleDomainDetails() {
+    const content = document.getElementById('domain-details-content');
+    const section = document.querySelector('.domain-details-section');
+    content.classList.toggle('hidden');
+    section.classList.toggle('expanded');
+}
+
+function toggleDetailsGroup(header) {
+    const group = header.parentElement;
+    group.classList.toggle('expanded');
+}
+
+function renderDomainDetails(data) {
+    const body = document.getElementById('domain-details-body');
+    if (!body || !data) return;
+
+    let html = '';
+
+    // Basic DNS Section
+    html += renderBasicDNSSection(data);
+
+    // DNSKEY Section
+    html += renderDNSKEYSection(data);
+
+    // RRSIG Section
+    html += renderRRSIGSection(data);
+
+    // DS Records Section
+    html += renderDSSection(data);
+
+    // NSEC/NSEC3 Section
+    html += renderNSECSection(data);
+
+    body.innerHTML = html;
+}
+
+function renderBasicDNSSection(data) {
+    const dnsBasic = data.analysis?.dns_basic || {};
+
+    let content = '';
+
+    // SOA Records
+    if (dnsBasic.SOA && dnsBasic.SOA.length > 0) {
+        const soa = dnsBasic.SOA[0];
+        content += `
+            <div class="details-subsection">
+                <div class="subsection-title">${t('domainDetails.soa')}</div>
+                <div class="details-grid">
+                    <div class="detail-row">
+                        <span class="detail-label">${t('domainDetails.primaryServer')}</span>
+                        <span class="detail-value">${soa.mname}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">${t('domainDetails.adminEmail')}</span>
+                        <span class="detail-value">${soa.rname.replace('.', '@')}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">${t('domainDetails.serial')}</span>
+                        <span class="detail-value">${soa.serial}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">${t('domainDetails.refresh')}</span>
+                        <span class="detail-value">${formatSeconds(soa.refresh)}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">${t('domainDetails.retry')}</span>
+                        <span class="detail-value">${formatSeconds(soa.retry)}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">${t('domainDetails.expire')}</span>
+                        <span class="detail-value">${formatSeconds(soa.expire)}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">${t('domainDetails.ttl')}</span>
+                        <span class="detail-value">${formatSeconds(soa.ttl)}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // NS Records
+    if (dnsBasic.NS && dnsBasic.NS.length > 0) {
+        content += `
+            <div class="details-subsection">
+                <div class="subsection-title">${t('domainDetails.nameservers')} (${dnsBasic.NS.length})</div>
+                <div class="details-list">
+                    ${dnsBasic.NS.map(ns => `
+                        <div class="detail-row">
+                            <span class="detail-value">${ns.nameserver}</span>
+                            <span class="detail-ttl">TTL: ${formatSeconds(ns.ttl)}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+
+    // A Records
+    if (dnsBasic.A && dnsBasic.A.length > 0) {
+        content += `
+            <div class="details-subsection">
+                <div class="subsection-title">${t('domainDetails.ipv4')} (${dnsBasic.A.length})</div>
+                <div class="details-list">
+                    ${dnsBasic.A.map(a => `
+                        <div class="detail-row">
+                            <span class="detail-value mono">${a.address}</span>
+                            <span class="detail-ttl">TTL: ${formatSeconds(a.ttl)}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+
+    // AAAA Records
+    if (dnsBasic.AAAA && dnsBasic.AAAA.length > 0) {
+        content += `
+            <div class="details-subsection">
+                <div class="subsection-title">${t('domainDetails.ipv6')} (${dnsBasic.AAAA.length})</div>
+                <div class="details-list">
+                    ${dnsBasic.AAAA.map(aaaa => `
+                        <div class="detail-row">
+                            <span class="detail-value mono">${aaaa.address}</span>
+                            <span class="detail-ttl">TTL: ${formatSeconds(aaaa.ttl)}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+
+    // MX Records
+    if (dnsBasic.MX && dnsBasic.MX.length > 0) {
+        content += `
+            <div class="details-subsection">
+                <div class="subsection-title">${t('domainDetails.mailServers')} (${dnsBasic.MX.length})</div>
+                <div class="details-list">
+                    ${dnsBasic.MX.map(mx => `
+                        <div class="detail-row">
+                            <span class="detail-value">${mx.exchange}</span>
+                            <span class="detail-priority">${t('domainDetails.priority')}: ${mx.preference}</span>
+                            <span class="detail-ttl">TTL: ${formatSeconds(mx.ttl)}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+
+    if (!content) {
+        content = `<div class="no-data">${t('domainDetails.noData')}</div>`;
+    }
+
+    return `
+        <div class="details-group">
+            <div class="details-group-header" onclick="toggleDetailsGroup(this)">
+                <div class="details-group-title">${t('domainDetails.basicDns')}</div>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="details-group-content">
+                ${content}
+            </div>
+        </div>
+    `;
+}
+
+function renderDNSKEYSection(data) {
+    const dnskey = data.analysis?.dnssec?.dnskey || {};
+
+    let content = '';
+
+    if (dnskey.present && dnskey.keys && dnskey.keys.length > 0) {
+        content = `
+            <div class="details-subsection">
+                <div class="subsection-info">
+                    <span>${t('domainDetails.totalKeys')}: ${dnskey.count}</span>
+                    <span>TTL: ${formatSeconds(dnskey.ttl)}</span>
+                </div>
+                ${dnskey.keys.map((key, i) => `
+                    <div class="key-card">
+                        <div class="key-header">
+                            <span class="key-type ${key.is_sep ? 'ksk' : 'zsk'}">${key.is_sep ? 'KSK' : 'ZSK'}</span>
+                            <span class="key-algo">${key.algorithm_name}</span>
+                        </div>
+                        <div class="details-grid">
+                            <div class="detail-row">
+                                <span class="detail-label">${t('domainDetails.algorithm')}</span>
+                                <span class="detail-value">${key.algorithm_name} (${key.algorithm})</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">${t('domainDetails.keySize')}</span>
+                                <span class="detail-value">${key.key_size_bits} bits</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">${t('domainDetails.flags')}</span>
+                                <span class="detail-value">${key.flags}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">${t('domainDetails.protocol')}</span>
+                                <span class="detail-value">${key.protocol}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">${t('domainDetails.zoneKey')}</span>
+                                <span class="detail-value">${key.is_zone_key ? t('domainDetails.yes') : t('domainDetails.no')}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    } else {
+        content = `<div class="no-data">${t('domainDetails.noDnskey')}</div>`;
+    }
+
+    return `
+        <div class="details-group">
+            <div class="details-group-header" onclick="toggleDetailsGroup(this)">
+                <div class="details-group-title">${t('domainDetails.dnskeyRecords')}</div>
+                <span class="details-group-status ${dnskey.present ? 'present' : 'absent'}">${dnskey.present ? t('domainDetails.present') : t('domainDetails.absent')}</span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="details-group-content">
+                ${content}
+            </div>
+        </div>
+    `;
+}
+
+function renderRRSIGSection(data) {
+    const rrsig = data.analysis?.dnssec?.rrsig || {};
+
+    let content = '';
+
+    if (rrsig.present && rrsig.signatures && rrsig.signatures.length > 0) {
+        const byType = rrsig.signatures_by_type || {};
+
+        content = `
+            <div class="details-subsection">
+                <div class="subsection-info">
+                    <span>${t('domainDetails.totalSignatures')}: ${rrsig.count}</span>
+                    ${rrsig.ttl ? `<span>TTL: ${formatSeconds(rrsig.ttl)}</span>` : ''}
+                </div>
+                ${Object.entries(byType).map(([type, sigs]) => `
+                    <div class="sig-type-group">
+                        <div class="sig-type-header">${type} ${t('domainDetails.signatures')} (${sigs.length})</div>
+                        ${sigs.map(sig => `
+                            <div class="sig-card ${sig.is_expired ? 'expired' : 'valid'}">
+                                <div class="sig-status ${sig.is_expired ? 'expired' : 'valid'}">
+                                    ${sig.is_expired ? t('domainDetails.expired') : t('domainDetails.valid')}
+                                </div>
+                                <div class="details-grid">
+                                    <div class="detail-row">
+                                        <span class="detail-label">${t('domainDetails.algorithm')}</span>
+                                        <span class="detail-value">${sig.algorithm_name}</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">${t('domainDetails.keyTag')}</span>
+                                        <span class="detail-value">${sig.key_tag}</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">${t('domainDetails.signer')}</span>
+                                        <span class="detail-value">${sig.signer}</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">${t('domainDetails.inception')}</span>
+                                        <span class="detail-value">${formatDate(sig.inception)}</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">${t('domainDetails.expiration')}</span>
+                                        <span class="detail-value">${formatDate(sig.expiration)}</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">${t('domainDetails.daysUntilExpiration')}</span>
+                                        <span class="detail-value ${sig.days_until_expiration < 7 ? 'warning' : ''}">${sig.days_until_expiration} ${t('domainDetails.days')}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    } else {
+        content = `<div class="no-data">${t('domainDetails.noRrsig')}</div>`;
+    }
+
+    return `
+        <div class="details-group">
+            <div class="details-group-header" onclick="toggleDetailsGroup(this)">
+                <div class="details-group-title">${t('domainDetails.rrsigRecords')}</div>
+                <span class="details-group-status ${rrsig.present ? 'present' : 'absent'}">${rrsig.present ? t('domainDetails.present') : t('domainDetails.absent')}</span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="details-group-content">
+                ${content}
+            </div>
+        </div>
+    `;
+}
+
+function renderDSSection(data) {
+    const ds = data.analysis?.dnssec?.ds || {};
+
+    let content = '';
+
+    if (ds.present && ds.records && ds.records.length > 0) {
+        content = `
+            <div class="details-subsection">
+                <div class="subsection-info">
+                    <span>${t('domainDetails.totalRecords')}: ${ds.count}</span>
+                    <span>TTL: ${formatSeconds(ds.ttl)}</span>
+                </div>
+                ${ds.records.map((record, i) => `
+                    <div class="ds-card">
+                        <div class="details-grid">
+                            <div class="detail-row">
+                                <span class="detail-label">${t('domainDetails.keyTag')}</span>
+                                <span class="detail-value">${record.key_tag}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">${t('domainDetails.algorithm')}</span>
+                                <span class="detail-value">${record.algorithm_name} (${record.algorithm})</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">${t('domainDetails.digestType')}</span>
+                                <span class="detail-value">${record.digest_type_name} (${record.digest_type})</span>
+                            </div>
+                            <div class="detail-row digest-row">
+                                <span class="detail-label">${t('domainDetails.digest')}</span>
+                                <span class="detail-value mono digest">${record.digest}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    } else {
+        content = `<div class="no-data">${t('domainDetails.noDs')}</div>`;
+    }
+
+    return `
+        <div class="details-group">
+            <div class="details-group-header" onclick="toggleDetailsGroup(this)">
+                <div class="details-group-title">${t('domainDetails.dsRecords')}</div>
+                <span class="details-group-status ${ds.present ? 'present' : 'absent'}">${ds.present ? t('domainDetails.present') : t('domainDetails.absent')}</span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="details-group-content">
+                ${content}
+            </div>
+        </div>
+    `;
+}
+
+function renderNSECSection(data) {
+    const nsec = data.analysis?.dnssec?.nsec || {};
+
+    let content = '';
+    const hasNSEC = nsec.nsec_present || nsec.nsec3_present;
+
+    if (hasNSEC) {
+        content = `
+            <div class="details-subsection">
+                <div class="nsec-type-badge ${nsec.nsec_type?.toLowerCase()}">${nsec.nsec_type || 'NONE'}</div>
+                <div class="details-grid">
+                    <div class="detail-row">
+                        <span class="detail-label">${t('domainDetails.nsecType')}</span>
+                        <span class="detail-value">${nsec.nsec_type || t('domainDetails.none')}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">${t('domainDetails.nsecPresent')}</span>
+                        <span class="detail-value">${nsec.nsec_present ? t('domainDetails.yes') : t('domainDetails.no')}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">${t('domainDetails.nsec3Present')}</span>
+                        <span class="detail-value">${nsec.nsec3_present ? t('domainDetails.yes') : t('domainDetails.no')}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">${t('domainDetails.nsec3paramPresent')}</span>
+                        <span class="detail-value">${nsec.nsec3param_present ? t('domainDetails.yes') : t('domainDetails.no')}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">${t('domainDetails.optOut')}</span>
+                        <span class="detail-value">${nsec.opt_out ? t('domainDetails.yes') : t('domainDetails.no')}</span>
+                    </div>
+                    ${nsec.detection_source ? `
+                    <div class="detail-row">
+                        <span class="detail-label">${t('domainDetails.detectionSource')}</span>
+                        <span class="detail-value">${nsec.detection_source}</span>
+                    </div>
+                    ` : ''}
+                </div>
+                ${renderNSECDetails(nsec.details)}
+            </div>
+        `;
+    } else {
+        content = `<div class="no-data">${t('domainDetails.noNsec')}</div>`;
+    }
+
+    return `
+        <div class="details-group">
+            <div class="details-group-header" onclick="toggleDetailsGroup(this)">
+                <div class="details-group-title">${t('domainDetails.nsecConfig')}</div>
+                <span class="details-group-status ${hasNSEC ? 'present' : 'absent'}">${hasNSEC ? nsec.nsec_type : t('domainDetails.none')}</span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="details-group-content">
+                ${content}
+            </div>
+        </div>
+    `;
+}
+
+function renderNSECDetails(details) {
+    if (!details) return '';
+
+    let html = '';
+
+    if (details.nsec3param && details.nsec3param.records && details.nsec3param.records.length > 0) {
+        html += `
+            <div class="nsec-details-section">
+                <div class="subsection-title">${t('domainDetails.nsec3param')}</div>
+                ${details.nsec3param.records.map(record => `
+                    <div class="details-grid">
+                        <div class="detail-row">
+                            <span class="detail-label">${t('domainDetails.hashAlgorithm')}</span>
+                            <span class="detail-value">${record.hash_algorithm}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">${t('domainDetails.iterations')}</span>
+                            <span class="detail-value">${record.iterations}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">${t('domainDetails.salt')}</span>
+                            <span class="detail-value mono">${record.salt || t('domainDetails.none')}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">${t('domainDetails.flags')}</span>
+                            <span class="detail-value">${record.flags}</span>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    if (details.nsec3 && details.nsec3.records && details.nsec3.records.length > 0) {
+        html += `
+            <div class="nsec-details-section">
+                <div class="subsection-title">${t('domainDetails.nsec3Records')} (${details.nsec3.count})</div>
+                ${details.nsec3.records.slice(0, 3).map(record => `
+                    <div class="details-grid">
+                        <div class="detail-row">
+                            <span class="detail-label">${t('domainDetails.hashAlgorithm')}</span>
+                            <span class="detail-value">${record.hash_algorithm}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">${t('domainDetails.iterations')}</span>
+                            <span class="detail-value">${record.iterations}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">${t('domainDetails.optOut')}</span>
+                            <span class="detail-value">${record.opt_out ? t('domainDetails.yes') : t('domainDetails.no')}</span>
+                        </div>
+                    </div>
+                `).join('')}
+                ${details.nsec3.records.length > 3 ? `<div class="more-records">+ ${details.nsec3.records.length - 3} ${t('domainDetails.moreRecords')}</div>` : ''}
+            </div>
+        `;
+    }
+
+    return html;
+}
+
+function formatSeconds(seconds) {
+    if (seconds === null || seconds === undefined) return 'N/A';
+    if (seconds < 60) return `${seconds}s`;
+    if (seconds < 3600) return `${Math.floor(seconds / 60)}m`;
+    if (seconds < 86400) return `${Math.floor(seconds / 3600)}h`;
+    return `${Math.floor(seconds / 86400)}d`;
+}
+
+function formatDate(isoString) {
+    if (!isoString) return 'N/A';
+    const date = new Date(isoString);
+    return date.toLocaleDateString(getCurrentLanguage(), {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
 // ==================== BATCH MODE FUNCTIONS ====================
 
 function setAnalysisMode(mode) {
     const singleMode = document.getElementById('single-mode');
     const batchMode = document.getElementById('batch-mode');
+    const batchResultsEl = document.getElementById('batch-results');
     const modeButtons = document.querySelectorAll('.mode-btn');
 
     modeButtons.forEach(btn => {
@@ -471,6 +978,10 @@ function setAnalysisMode(mode) {
     if (mode === 'single') {
         singleMode.classList.remove('hidden');
         batchMode.classList.add('hidden');
+        // Hide batch results and reset batch state when switching to single mode
+        batchResultsEl.classList.add('hidden');
+        batchResults = [];
+        isViewingBatchDetail = false;
     } else {
         singleMode.classList.add('hidden');
         batchMode.classList.remove('hidden');
@@ -860,3 +1371,20 @@ function resetRecommendationsUI() {
         </button>
     `;
 }
+
+function areRecommendationsDisplayed() {
+    const body = document.getElementById('recommendations-body');
+    // Check if recommendations text is displayed (not just the generate button)
+    return body && body.querySelector('.recommendations-text') !== null;
+}
+
+async function regenerateRecommendationsForLanguage() {
+    // Only regenerate if recommendations are currently displayed and we have data
+    if (currentData && areRecommendationsDisplayed()) {
+        await generateRecommendations();
+    }
+}
+
+// Export for use by i18n.js
+window.areRecommendationsDisplayed = areRecommendationsDisplayed;
+window.regenerateRecommendationsForLanguage = regenerateRecommendationsForLanguage;
