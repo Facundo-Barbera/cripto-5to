@@ -9,7 +9,7 @@
       }
     },
     {
-      "src": "public/**",
+      "src": "static/**",
       "use": "@vercel/static"
     }
   ],
@@ -35,20 +35,28 @@
       "dest": "/api/batch.py"
     },
     {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
       "src": "/css/(.*)",
-      "dest": "/public/css/$1"
+      "dest": "/static/css/$1"
     },
     {
       "src": "/js/(.*)",
-      "dest": "/public/js/$1"
+      "dest": "/static/js/$1"
     },
     {
       "src": "/locales/(.*)",
-      "dest": "/public/locales/$1"
+      "dest": "/static/locales/$1"
+    },
+    {
+      "src": "/(favicon\\.png|logo\\.png)",
+      "dest": "/static/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "dest": "/static/$1"
     }
   ]
 }
