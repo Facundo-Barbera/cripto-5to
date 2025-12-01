@@ -24,10 +24,14 @@ class handler(BaseHTTPRequestHandler):
 
         analysis = data['analysis']
         mode = data.get('mode', 'executive')
+        language = data.get('language', 'en')
 
         if mode not in ('executive', 'technical'):
             self._send_error(400, 'Mode must be "executive" or "technical"')
             return
+
+        if language not in ('en', 'es'):
+            language = 'en'
 
         # Check for API key
         api_key = os.environ.get('GEMINI_API_KEY')
@@ -38,10 +42,11 @@ class handler(BaseHTTPRequestHandler):
         try:
             from analyzer.llm_advisor import LLMAdvisor
             advisor = LLMAdvisor(api_key=api_key)
-            recommendations = advisor.get_recommendations(analysis, mode=mode)
+            recommendations = advisor.get_recommendations(analysis, mode=mode, language=language)
             self._send_json(200, {
                 'recommendations': recommendations,
-                'mode': mode
+                'mode': mode,
+                'language': language
             })
         except ImportError as e:
             self._send_error(503, f'AI recommendations module not available: {str(e)}')
