@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DNSSEC Chain of Trust Visualizer</title>
+    <title data-i18n="page.title">DNSSEC Chain of Trust Visualizer</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -12,44 +12,78 @@
     <nav id="navbar" class="navbar hidden">
         <div class="nav-title" onclick="resetToHome()">
             <img src="/logo.png" alt="Logo" class="nav-logo">
-            <h1>DNSSEC Chain of Trust</h1>
+            <h1 data-i18n="navbar.title">DNSSEC Chain of Trust</h1>
         </div>
         <div class="nav-current-domain">
-            <span class="current-label">Analyzing</span>
+            <span class="current-label" data-i18n="navbar.analyzing">Analyzing</span>
             <span id="current-domain-display" class="current-domain"></span>
         </div>
         <div class="nav-search">
-            <input type="text" id="nav-domain-input" placeholder="Analyze another domain..." autocomplete="off">
+            <input type="text" id="nav-domain-input" data-i18n-placeholder="search.placeholderNav" placeholder="Analyze another domain..." autocomplete="off">
             <button id="nav-analyze-btn" onclick="analyzeDomain()">
-                <span class="btn-text">Analyze</span>
+                <span class="btn-text" data-i18n="search.button">Analyze</span>
                 <span class="btn-loader"></span>
             </button>
+        </div>
+        <div class="language-switcher" id="nav-lang-switcher">
+            <button class="lang-toggle" aria-label="Select language">
+                <span class="lang-current">EN</span>
+                <span class="lang-arrow">▼</span>
+            </button>
+            <div class="lang-dropdown">
+                <button data-lang="en" class="lang-option active">
+                    <span class="lang-code">EN</span>
+                    <span class="lang-name">English</span>
+                </button>
+                <button data-lang="es" class="lang-option">
+                    <span class="lang-code">ES</span>
+                    <span class="lang-name">Español</span>
+                </button>
+            </div>
         </div>
     </nav>
 
     <div id="main-container" class="container">
         <header id="hero-header">
             <img src="/logo.png" alt="DNSSEC Logo" class="hero-logo">
-            <h1>DNSSEC Chain of Trust</h1>
-            <p class="subtitle">Visualize DNSSEC validation and RFC compliance</p>
+            <h1 data-i18n="hero.title">DNSSEC Chain of Trust</h1>
+            <p class="subtitle" data-i18n="hero.subtitle">Visualize DNSSEC validation and RFC compliance</p>
         </header>
 
         <div id="hero-search" class="search-section">
             <div class="input-wrapper">
-                <input type="text" id="domain-input" placeholder="Enter domain (e.g., gob.mx)" autocomplete="off">
+                <input type="text" id="domain-input" data-i18n-placeholder="search.placeholder" placeholder="Enter domain (e.g., gob.mx)" autocomplete="off">
                 <button id="analyze-btn" onclick="analyzeDomain()">
-                    <span class="btn-text">Analyze</span>
+                    <span class="btn-text" data-i18n="search.button">Analyze</span>
                     <span class="btn-loader"></span>
                 </button>
             </div>
-            <p class="hint">Press Enter or click Analyze to start</p>
+            <p class="hint" data-i18n="search.hint">Press Enter or click Analyze to start</p>
+            <div class="hero-lang-switcher">
+                <div class="language-switcher" id="hero-lang-switcher">
+                    <button class="lang-toggle" aria-label="Select language">
+                        <span class="lang-current">EN</span>
+                        <span class="lang-arrow">▼</span>
+                    </button>
+                    <div class="lang-dropdown">
+                        <button data-lang="en" class="lang-option active">
+                            <span class="lang-code">EN</span>
+                            <span class="lang-name">English</span>
+                        </button>
+                        <button data-lang="es" class="lang-option">
+                            <span class="lang-code">ES</span>
+                            <span class="lang-name">Español</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="error-message" class="error-message"></div>
 
         <div id="results" class="results hidden">
             <div class="graph-section">
-                <h2>Chain of Trust</h2>
+                <h2 data-i18n="results.chainOfTrust">Chain of Trust</h2>
                 <div id="chain-graph"></div>
                 <div id="chain-status" class="chain-status"></div>
             </div>
@@ -63,13 +97,14 @@
             </div>
 
             <div class="rfc-section">
-                <h2>RFC Compliance</h2>
+                <h2 data-i18n="results.rfcCompliance">RFC Compliance</h2>
                 <div id="rfc-summary" class="rfc-summary"></div>
                 <div id="rfc-checks" class="rfc-checks"></div>
             </div>
         </div>
     </div>
 
+    <script src="/js/i18n.js"></script>
     <script src="/js/app.js"></script>
 </body>
 </html>

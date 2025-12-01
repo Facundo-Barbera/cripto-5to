@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "lang": "en",
+    "name": "English"
+  },
+  "page": {
+    "title": "DNSSEC Chain of Trust Visualizer"
+  },
+  "navbar": {
+    "title": "DNSSEC Chain of Trust",
+    "analyzing": "Analyzing"
+  },
+  "hero": {
+    "title": "DNSSEC Chain of Trust",
+    "subtitle": "Visualize DNSSEC validation and RFC compliance"
+  },
+  "search": {
+    "placeholder": "Enter domain (e.g., gob.mx)",
+    "placeholderNav": "Analyze another domain...",
+    "button": "Analyze",
+    "hint": "Press Enter or click Analyze to start"
+  },
+  "errors": {
+    "emptyDomain": "Please enter a domain name",
+    "analysisFailed": "Analysis failed"
+  },
+  "results": {
+    "chainOfTrust": "Chain of Trust",
+    "rfcCompliance": "RFC Compliance",
+    "chainComplete": "Chain of Trust Complete - Full validation path to root",
+    "chainBroken": "Chain Broken at"
+  },
+  "detail": {
+    "rootZone": "Root Zone (.)",
+    "dnskey": "DNSKEY",
+    "dsRecord": "DS Record",
+    "rrsig": "RRSIG",
+    "status": "Status",
+    "algorithms": "Algorithms",
+    "rfcCompliance": "RFC Compliance",
+    "present": "Present",
+    "missing": "Missing",
+    "naRoot": "N/A (Root)",
+    "signed": "Signed",
+    "unsigned": "Unsigned"
+  },
+  "rfc": {
+    "passed": "Passed",
+    "failed": "Failed",
+    "score": "Score",
+    "passedCount": "passed",
+    "failedCount": "failed",
+    "names": {
+      "RFC4034": "RFC 4034 - Resource Records",
+      "RFC4035": "RFC 4035 - Protocol Modifications",
+      "RFC6840": "RFC 6840 - Clarifications",
+      "RFC9364": "RFC 9364 - Operational Practices"
+    }
+  }
+}

@@ -25,6 +25,10 @@
       "dest": "/public/js/$1"
     },
     {
+      "src": "/locales/(.*)",
+      "dest": "/public/locales/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/public/$1"
     }

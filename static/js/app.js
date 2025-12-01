@@ -1,16 +1,21 @@
 let currentData = null;
 let isNavbarMode = false;
 
-document.getElementById('domain-input').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        analyzeDomain();
-    }
-});
+// Initialize app after i18n is loaded
+document.addEventListener('DOMContentLoaded', async function() {
+    await initI18n();
 
-document.getElementById('nav-domain-input').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        analyzeDomain();
-    }
+    document.getElementById('domain-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            analyzeDomain();
+        }
+    });
+
+    document.getElementById('nav-domain-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            analyzeDomain();
+        }
+    });
 });
 
 function getActiveInput() {
@@ -74,7 +79,7 @@ async function analyzeDomain() {
 
     const domain = input.value.trim();
     if (!domain) {
-        showError('Please enter a domain name');
+        showError(t('errors.emptyDomain'));
         return;
     }
 
@@ -93,7 +98,7 @@ async function analyzeDomain() {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error || 'Analysis failed');
+            throw new Error(data.error || t('errors.analysisFailed'));
         }
 
         currentData = data;
@@ -251,10 +256,10 @@ function renderChainStatus(data) {
 
     if (chainData.is_complete) {
         statusEl.className = 'chain-status complete';
-        statusEl.innerHTML = '✓ Chain of Trust Complete - Full validation path to root';
+        statusEl.innerHTML = `✓ ${t('results.chainComplete')}`;
     } else {
         statusEl.className = 'chain-status broken';
-        statusEl.innerHTML = `✗ Chain Broken at <strong>${chainData.broken_at}</strong>`;
+        statusEl.innerHTML = `✗ ${t('results.chainBroken')} <strong>${chainData.broken_at}</strong>`;
     }
 }
 
@@ -263,31 +268,31 @@ function showDetailPanel(zone, data) {
     const zoneEl = document.getElementById('detail-zone');
     const contentEl = document.getElementById('detail-content');
 
-    zoneEl.textContent = zone.zone === '.' ? 'Root Zone (.)' : zone.zone;
+    zoneEl.textContent = zone.zone === '.' ? t('detail.rootZone') : zone.zone;
 
     let html = `
         <div class="detail-item">
-            <div class="label">DNSKEY</div>
+            <div class="label">${t('detail.dnskey')}</div>
             <div class="value ${zone.has_dnskey ? 'yes' : 'no'}">
-                ${zone.has_dnskey ? '✓ Present' : '✗ Missing'}
+                ${zone.has_dnskey ? `✓ ${t('detail.present')}` : `✗ ${t('detail.missing')}`}
             </div>
         </div>
         <div class="detail-item">
-            <div class="label">DS Record</div>
+            <div class="label">${t('detail.dsRecord')}</div>
             <div class="value ${zone.has_ds ? 'yes' : 'no'}">
-                ${zone.zone === '.' ? 'N/A (Root)' : (zone.has_ds ? '✓ Present' : '✗ Missing')}
+                ${zone.zone === '.' ? t('detail.naRoot') : (zone.has_ds ? `✓ ${t('detail.present')}` : `✗ ${t('detail.missing')}`)}
             </div>
         </div>
         <div class="detail-item">
-            <div class="label">RRSIG</div>
+            <div class="label">${t('detail.rrsig')}</div>
             <div class="value ${zone.has_rrsig ? 'yes' : 'no'}">
-                ${zone.has_rrsig ? '✓ Present' : '✗ Missing'}
+                ${zone.has_rrsig ? `✓ ${t('detail.present')}` : `✗ ${t('detail.missing')}`}
             </div>
         </div>
         <div class="detail-item">
-            <div class="label">Status</div>
+            <div class="label">${t('detail.status')}</div>
             <div class="value ${zone.is_signed ? 'yes' : 'no'}">
-                ${zone.is_signed ? '✓ Signed' : '✗ Unsigned'}
+                ${zone.is_signed ? `✓ ${t('detail.signed')}` : `✗ ${t('detail.unsigned')}`}
             </div>
         </div>
     `;
@@ -295,7 +300,7 @@ function showDetailPanel(zone, data) {
     if (zone.algorithms && zone.algorithms.length > 0) {
         html += `
             <div class="detail-item">
-                <div class="label">Algorithms</div>
+                <div class="label">${t('detail.algorithms')}</div>
                 <div class="value">${zone.algorithms.join(', ')}</div>
             </div>
         `;
@@ -305,7 +310,7 @@ function showDetailPanel(zone, data) {
         const compliance = data.rfc_compliance;
         html += `
             <div class="detail-item">
-                <div class="label">RFC Compliance</div>
+                <div class="label">${t('detail.rfcCompliance')}</div>
                 <div class="value">${compliance.score} (${compliance.percentage}%)</div>
             </div>
         `;
@@ -326,15 +331,15 @@ function renderRFCCompliance(data) {
     summaryEl.innerHTML = `
         <div class="summary-card">
             <div class="number passed">${compliance.passed}</div>
-            <div class="label">Passed</div>
+            <div class="label">${t('rfc.passed')}</div>
         </div>
         <div class="summary-card">
             <div class="number failed">${compliance.failed}</div>
-            <div class="label">Failed</div>
+            <div class="label">${t('rfc.failed')}</div>
         </div>
         <div class="summary-card">
             <div class="number percentage">${compliance.percentage}%</div>
-            <div class="label">Score</div>
+            <div class="label">${t('rfc.score')}</div>
         </div>
     `;
 
@@ -342,10 +347,10 @@ function renderRFCCompliance(data) {
     checksEl.innerHTML = '';
 
     const rfcNames = {
-        'RFC4034': 'RFC 4034 - Resource Records',
-        'RFC4035': 'RFC 4035 - Protocol Modifications',
-        'RFC6840': 'RFC 6840 - Clarifications',
-        'RFC9364': 'RFC 9364 - Operational Practices'
+        'RFC4034': t('rfc.names.RFC4034'),
+        'RFC4035': t('rfc.names.RFC4035'),
+        'RFC6840': t('rfc.names.RFC6840'),
+        'RFC9364': t('rfc.names.RFC9364')
     };
 
     const rfcOrder = ['RFC4034', 'RFC4035', 'RFC6840', 'RFC9364'];
@@ -366,8 +371,8 @@ function renderRFCCompliance(data) {
                     <span>${rfcNames[rfc] || rfc}</span>
                 </div>
                 <div class="rfc-group-stats">
-                    <span class="passed-count">${passed} passed</span>
-                    <span class="failed-count">${failed} failed</span>
+                    <span class="passed-count">${passed} ${t('rfc.passedCount')}</span>
+                    <span class="failed-count">${failed} ${t('rfc.failedCount')}</span>
                     <span class="expand-icon">▼</span>
                 </div>
             </div>

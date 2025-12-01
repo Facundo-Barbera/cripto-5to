@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "lang": "es",
+    "name": "Español"
+  },
+  "page": {
+    "title": "Visualizador de Cadena de Confianza DNSSEC"
+  },
+  "navbar": {
+    "title": "Cadena de Confianza DNSSEC",
+    "analyzing": "Analizando"
+  },
+  "hero": {
+    "title": "Cadena de Confianza DNSSEC",
+    "subtitle": "Visualiza la validación DNSSEC y cumplimiento RFC"
+  },
+  "search": {
+    "placeholder": "Ingresa un dominio (ej., gob.mx)",
+    "placeholderNav": "Analizar otro dominio...",
+    "button": "Analizar",
+    "hint": "Presiona Enter o haz clic en Analizar para comenzar"
+  },
+  "errors": {
+    "emptyDomain": "Por favor ingresa un nombre de dominio",
+    "analysisFailed": "El análisis falló"
+  },
+  "results": {
+    "chainOfTrust": "Cadena de Confianza",
+    "rfcCompliance": "Cumplimiento RFC",
+    "chainComplete": "Cadena de Confianza Completa - Ruta de validación completa hasta la raíz",
+    "chainBroken": "Cadena Rota en"
+  },
+  "detail": {
+    "rootZone": "Zona Raíz (.)",
+    "dnskey": "DNSKEY",
+    "dsRecord": "Registro DS",
+    "rrsig": "RRSIG",
+    "status": "Estado",
+    "algorithms": "Algoritmos",
+    "rfcCompliance": "Cumplimiento RFC",
+    "present": "Presente",
+    "missing": "Ausente",
+    "naRoot": "N/A (Raíz)",
+    "signed": "Firmado",
+    "unsigned": "Sin firmar"
+  },
+  "rfc": {
+    "passed": "Aprobados",
+    "failed": "Fallidos",
+    "score": "Puntuación",
+    "passedCount": "aprobados",
+    "failedCount": "fallidos",
+    "names": {
+      "RFC4034": "RFC 4034 - Registros de Recursos",
+      "RFC4035": "RFC 4035 - Modificaciones de Protocolo",
+      "RFC6840": "RFC 6840 - Aclaraciones",
+      "RFC9364": "RFC 9364 - Prácticas Operacionales"
+    }
+  }
+}
