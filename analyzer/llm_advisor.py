@@ -26,26 +26,32 @@ class LLMAdvisor:
             raise ValueError("Gemini API key is required. Set GEMINI_API_KEY environment variable.")
         self.cache = {}
 
-    def get_recommendations(self, analysis: Dict[str, Any], mode: str = 'executive') -> str:
+    LANGUAGE_NAMES = {
+        'en': 'English',
+        'es': 'Spanish'
+    }
+
+    def get_recommendations(self, analysis: Dict[str, Any], mode: str = 'executive', language: str = 'en') -> str:
         """
         Generate recommendations based on DNSSEC analysis.
 
         Args:
             analysis: The full analysis result from the DNSSEC analyzer
             mode: 'executive' or 'technical'
+            language: Language code ('en' or 'es')
 
         Returns:
             Markdown-formatted recommendations string
         """
         domain = analysis.get('domain', 'unknown')
-        cache_key = f"{domain}:{mode}"
+        cache_key = f"{domain}:{mode}:{language}"
 
         # Check cache
         if cache_key in self.cache:
             return self.cache[cache_key]
 
         # Build prompt
-        prompt = self._build_prompt(analysis, mode)
+        prompt = self._build_prompt(analysis, mode, language)
 
         try:
             result = self._call_gemini_api(prompt)
@@ -101,9 +107,10 @@ class LLMAdvisor:
         except urllib.error.URLError as e:
             raise RuntimeError(f"Network error: {str(e.reason)}")
 
-    def _build_prompt(self, analysis: Dict[str, Any], mode: str) -> str:
-        """Build the prompt for the LLM based on analysis data and mode."""
+    def _build_prompt(self, analysis: Dict[str, Any], mode: str, language: str = 'en') -> str:
+        """Build the prompt for the LLM based on analysis data, mode, and language."""
         domain = analysis.get('domain', 'unknown')
+        lang_name = self.LANGUAGE_NAMES.get(language, 'English')
         dnssec = analysis.get('analysis', {}).get('dnssec', {})
         rfc_compliance = analysis.get('rfc_compliance', {})
 
@@ -165,11 +172,13 @@ class LLMAdvisor:
         if mode == 'executive':
             prompt = f"""You are a cybersecurity advisor providing a brief executive summary for non-technical stakeholders.
 
+IMPORTANT: You MUST respond entirely in {lang_name}. All text, headers, and content must be in {lang_name}.
+
 Based on the following DNSSEC analysis for the domain **{domain}**, provide a concise executive summary.
 
 {analysis_summary}
 
-Please provide your response in the following format (use Markdown):
+Please provide your response in the following format (use Markdown, but write all content in {lang_name}):
 
 ## Security Posture
 [1-2 sentences describing the overall security state]
@@ -187,15 +196,18 @@ Please provide your response in the following format (use Markdown):
 [Brief explanation of what this means for the organization]
 
 Keep the response concise and avoid technical jargon. Focus on business impact and actionable recommendations.
+Remember: Your entire response must be in {lang_name}.
 """
         else:  # technical mode
             prompt = f"""You are a DNS/DNSSEC expert providing detailed technical recommendations.
+
+IMPORTANT: You MUST respond entirely in {lang_name}. All text, headers, and content must be in {lang_name}.
 
 Based on the following DNSSEC analysis for the domain **{domain}**, provide comprehensive technical guidance.
 
 {analysis_summary}
 
-Please provide your response in the following format (use Markdown):
+Please provide your response in the following format (use Markdown, but write all content in {lang_name}):
 
 ## Technical Assessment
 [Detailed assessment of the current DNSSEC configuration]
@@ -224,6 +236,7 @@ Please provide your response in the following format (use Markdown):
 [What to monitor and how to maintain DNSSEC health]
 
 Be specific and technical. Include command examples or DNS record formats where helpful.
+Remember: Your entire response must be in {lang_name}.
 """
 
         return prompt

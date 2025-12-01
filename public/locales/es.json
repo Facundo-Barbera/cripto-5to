@@ -106,6 +106,8 @@
     "dnssecEnabledCount": "DNSSEC Habilitado",
     "chainCompleteCount": "Cadena Completa",
     "errorsCount": "Errores",
-    "avgScore": "Puntuación Promedio"
+    "avgScore": "Puntuación Promedio",
+    "backToResults": "Volver a Resultados",
+    "clickToView": "Clic para ver detalles"
   }
 }

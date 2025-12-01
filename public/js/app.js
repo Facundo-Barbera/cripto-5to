@@ -5,6 +5,7 @@ let batchPollInterval = null;
 let batchResults = [];
 let currentRecommendationMode = 'executive';
 let recommendationsCache = {};
+let isViewingBatchDetail = false;
 
 // Initialize app after i18n is loaded
 document.addEventListener('DOMContentLoaded', async function() {
@@ -603,7 +604,7 @@ function updateBatchResultsTable(results) {
     const tbody = document.getElementById('batch-results-body');
     tbody.innerHTML = '';
 
-    results.forEach(result => {
+    results.forEach((result, index) => {
         const row = document.createElement('tr');
         row.className = result.status === 'error' ? 'row-error' : '';
 
@@ -611,8 +612,13 @@ function updateBatchResultsTable(results) {
         const chainClass = result.chain_complete ? 'status-yes' : 'status-no';
         const statusClass = result.status === 'success' ? 'status-success' : 'status-error';
 
+        // Make domain clickable if we have full results
+        const domainCell = result.full_result
+            ? `<td class="domain-cell domain-clickable" onclick="viewBatchDomainDetail(${index})">${result.domain}</td>`
+            : `<td class="domain-cell">${result.domain}</td>`;
+
         row.innerHTML = `
-            <td class="domain-cell">${result.domain}</td>
+            ${domainCell}
             <td class="${dnssecClass}">${result.dnssec_enabled ? t('batch.yes') : t('batch.no')}</td>
             <td class="${chainClass}">${result.chain_complete ? t('batch.yes') : t('batch.no')}</td>
             <td>${result.rfc_percentage.toFixed(1)}%</td>
@@ -667,6 +673,72 @@ function downloadFile(content, filename, mimeType) {
     URL.revokeObjectURL(url);
 }
 
+function viewBatchDomainDetail(index) {
+    const result = batchResults[index];
+    if (!result || !result.full_result) return;
+
+    isViewingBatchDetail = true;
+    currentData = result.full_result;
+
+    // Hide batch results, show single domain results
+    const batchResultsEl = document.getElementById('batch-results');
+    const resultsEl = document.getElementById('results');
+
+    batchResultsEl.classList.add('hidden');
+    resultsEl.classList.remove('hidden');
+
+    // Show back button
+    showBackToBatchButton();
+
+    // Switch to navbar mode if not already
+    if (!isNavbarMode) {
+        switchToNavbarMode();
+    }
+
+    // Update navbar display
+    document.getElementById('current-domain-display').textContent = result.domain;
+
+    // Render the results
+    renderResults(result.full_result);
+}
+
+function showBackToBatchButton() {
+    // Add back button if not already present
+    let backBtn = document.getElementById('back-to-batch-btn');
+    if (!backBtn) {
+        const resultsEl = document.getElementById('results');
+        backBtn = document.createElement('button');
+        backBtn.id = 'back-to-batch-btn';
+        backBtn.className = 'btn-back-to-batch';
+        backBtn.innerHTML = `<span class="back-arrow">←</span> <span data-i18n="batch.backToResults">${t('batch.backToResults')}</span>`;
+        backBtn.onclick = backToBatchResults;
+        resultsEl.insertBefore(backBtn, resultsEl.firstChild);
+    } else {
+        backBtn.classList.remove('hidden');
+    }
+}
+
+function backToBatchResults() {
+    isViewingBatchDetail = false;
+    currentData = null;
+
+    // Hide single results, show batch results
+    const batchResultsEl = document.getElementById('batch-results');
+    const resultsEl = document.getElementById('results');
+
+    resultsEl.classList.add('hidden');
+    batchResultsEl.classList.remove('hidden');
+
+    // Hide back button
+    const backBtn = document.getElementById('back-to-batch-btn');
+    if (backBtn) {
+        backBtn.classList.add('hidden');
+    }
+
+    // Update navbar display
+    document.getElementById('current-domain-display').textContent = t('batch.batchMode');
+}
+
 // ==================== AI RECOMMENDATIONS FUNCTIONS ====================
 
 function toggleRecommendations() {
@@ -683,9 +755,9 @@ function setRecommendationMode(mode) {
         btn.classList.toggle('active', btn.dataset.mode === mode);
     });
 
-    // If we have cached recommendations for this mode and domain, show them
+    // If we have cached recommendations for this mode, domain, and language, show them
     if (currentData) {
-        const cacheKey = `${currentData.domain}:${mode}`;
+        const cacheKey = `${currentData.domain}:${mode}:${getCurrentLanguage()}`;
         if (recommendationsCache[cacheKey]) {
             renderRecommendations(recommendationsCache[cacheKey]);
         } else {
@@ -700,6 +772,7 @@ async function generateRecommendations() {
 
     const btn = document.getElementById('generate-recommendations-btn');
     const body = document.getElementById('recommendations-body');
+    const currentLanguage = getCurrentLanguage();
 
     btn.classList.add('loading');
     btn.disabled = true;
@@ -710,7 +783,8 @@ async function generateRecommendations() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 analysis: currentData,
-                mode: currentRecommendationMode
+                mode: currentRecommendationMode,
+                language: currentLanguage
             })
         });
 
@@ -720,8 +794,8 @@ async function generateRecommendations() {
             throw new Error(data.error || t('recommendations.error'));
         }
 
-        // Cache the result
-        const cacheKey = `${currentData.domain}:${currentRecommendationMode}`;
+        // Cache the result (include language in cache key)
+        const cacheKey = `${currentData.domain}:${currentRecommendationMode}:${currentLanguage}`;
         recommendationsCache[cacheKey] = data.recommendations;
 
         // Render recommendations
