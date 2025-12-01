@@ -12,8 +12,32 @@ import uuid
 import json
 import os
 import sys
+import re
 from datetime import datetime
 from typing import Dict, List, Any, Optional
+
+
+def sanitize_domain(input_str: str) -> str:
+    """
+    Sanitize user input to extract clean domain.
+    - Strip protocol (http://, https://)
+    - Strip www. prefix
+    - Strip trailing slashes and paths
+    - Convert to lowercase
+    """
+    if not input_str:
+        return ''
+
+    domain = input_str.strip().lower()
+    # Remove protocol
+    domain = re.sub(r'^https?://', '', domain)
+    # Remove www. prefix
+    domain = re.sub(r'^www\.', '', domain)
+    # Remove path/query/fragment
+    domain = domain.split('/')[0].split('?')[0].split('#')[0]
+    # Remove any trailing dots
+    domain = domain.rstrip('.')
+    return domain
 
 
 class DNSSECAnalyzer:
@@ -26,6 +50,79 @@ class DNSSECAnalyzer:
         self.delay = delay_seconds
         self.cache = {}
         self.results = {}
+
+    def check_domain_status(self, domain: str) -> Dict[str, Any]:
+        """
+        Pre-flight check to detect domain status before full analysis.
+        Returns status: OK, NXDOMAIN, SERVFAIL, TIMEOUT, NO_NS, NO_ADDRESS
+        """
+        try:
+            # Try to resolve NS records first
+            try:
+                ns_answer = self.resolver.resolve(domain, 'NS')
+            except dns.resolver.NoAnswer:
+                # Domain exists but has no NS records
+                return {
+                    'status': 'NO_NS',
+                    'message': 'Domain exists but has no nameserver records configured',
+                    'can_analyze': False
+                }
+            except dns.resolver.NXDOMAIN:
+                return {
+                    'status': 'NXDOMAIN',
+                    'message': 'Domain does not exist',
+                    'can_analyze': False
+                }
+            except dns.resolver.NoNameservers:
+                return {
+                    'status': 'SERVFAIL',
+                    'message': 'DNS server failure - no nameservers could be reached',
+                    'can_analyze': False
+                }
+            except dns.exception.Timeout:
+                return {
+                    'status': 'TIMEOUT',
+                    'message': 'DNS query timed out',
+                    'can_analyze': False
+                }
+
+            # Try to resolve A/AAAA records (domain exists, check if it has addresses)
+            try:
+                a_answer = self.resolver.resolve(domain, 'A')
+                return {
+                    'status': 'OK',
+                    'message': None,
+                    'can_analyze': True
+                }
+            except dns.resolver.NoAnswer:
+                # Try AAAA
+                try:
+                    aaaa_answer = self.resolver.resolve(domain, 'AAAA')
+                    return {
+                        'status': 'OK',
+                        'message': None,
+                        'can_analyze': True
+                    }
+                except dns.resolver.NoAnswer:
+                    # Domain has NS but no A/AAAA - still analyzable for DNSSEC
+                    return {
+                        'status': 'NO_ADDRESS',
+                        'message': 'Domain has nameservers but no A/AAAA records',
+                        'can_analyze': True
+                    }
+
+            return {
+                'status': 'OK',
+                'message': None,
+                'can_analyze': True
+            }
+
+        except Exception as e:
+            return {
+                'status': 'ERROR',
+                'message': str(e),
+                'can_analyze': False
+            }
 
     def _get_authoritative_ns(self, domain: str) -> Optional[str]:
         try:

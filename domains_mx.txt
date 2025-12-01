@@ -1,0 +1,65 @@
+# 50 Mexican (.mx) domains for DNSSEC batch analysis
+# Organized by category
+
+# Registry and DNS infrastructure
+nic.mx
+mx.
+
+# Government (.gob.mx)
+gob.mx
+sat.gob.mx
+imss.gob.mx
+sep.gob.mx
+segob.gob.mx
+sre.gob.mx
+banxico.gob.mx
+inegi.gob.mx
+conacyt.gob.mx
+shcp.gob.mx
+salud.gob.mx
+economia.gob.mx
+cfe.gob.mx
+pemex.gob.mx
+
+# Universities and Education (.edu.mx)
+unam.mx
+ipn.mx
+itesm.mx
+uag.mx
+uanl.mx
+udg.mx
+buap.mx
+uaemex.mx
+uabc.mx
+uach.mx
+
+# Financial Institutions
+bbva.mx
+banorte.com.mx
+santander.com.mx
+hsbc.com.mx
+citibanamex.com.mx
+scotiabank.com.mx
+
+# Major Companies and Corporations
+telmex.com.mx
+telcel.com
+televisa.com.mx
+tv-azteca.com.mx
+liverpool.com.mx
+cemex.com.mx
+bimbo.com.mx
+femsa.com.mx
+elektra.com.mx
+walmart.com.mx
+coppel.com.mx
+oxxo.com.mx
+
+# Media and News
+eluniversal.com.mx
+reforma.com.mx
+milenio.com
+
+# Technology and Services
+mercadolibre.com.mx
+amazon.com.mx

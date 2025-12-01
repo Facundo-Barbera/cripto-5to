@@ -24,6 +24,18 @@
     "emptyDomain": "Por favor ingresa un nombre de dominio",
     "analysisFailed": "El análisis falló"
   },
+  "sanitized": {
+    "message": "Entrada limpiada: analizando",
+    "from": "de"
+  },
+  "domainStatus": {
+    "NXDOMAIN": "El dominio no existe",
+    "SERVFAIL": "Fallo del servidor DNS - no se puede contactar a los servidores de nombres",
+    "TIMEOUT": "Tiempo de espera agotado - el servidor no responde",
+    "NO_NS": "El dominio no tiene registros de servidor de nombres configurados",
+    "NO_ADDRESS": "El dominio tiene servidores de nombres pero no direcciones IP",
+    "ERROR": "Ocurrió un error al verificar el dominio"
+  },
   "results": {
     "chainOfTrust": "Cadena de Confianza",
     "rfcCompliance": "Cumplimiento RFC",
@@ -56,5 +68,44 @@
       "RFC6840": "RFC 6840 - Aclaraciones",
       "RFC9364": "RFC 9364 - Prácticas Operacionales"
     }
+  },
+  "recommendations": {
+    "title": "Recomendaciones IA",
+    "executive": "Resumen Ejecutivo",
+    "technical": "Detalles Técnicos",
+    "loading": "Generando recomendaciones...",
+    "error": "Error al cargar recomendaciones",
+    "notAvailable": "Recomendaciones IA no disponibles",
+    "generate": "Obtener Recomendaciones IA",
+    "regenerate": "Regenerar"
+  },
+  "batch": {
+    "title": "Análisis por Lotes",
+    "singleMode": "Dominio Individual",
+    "batchMode": "Modo Lotes",
+    "placeholder": "Ingresa dominios (uno por línea)...",
+    "loadDefault": "Cargar 50 Dominios .mx",
+    "startAnalysis": "Iniciar Análisis",
+    "analyzing": "Analizando...",
+    "progress": "Progreso",
+    "completed": "Completado",
+    "of": "de",
+    "domains": "dominios",
+    "results": "Resultados",
+    "domain": "Dominio",
+    "dnssecEnabled": "DNSSEC",
+    "chainComplete": "Cadena",
+    "rfcScore": "Puntuación RFC",
+    "status": "Estado",
+    "yes": "Sí",
+    "no": "No",
+    "error": "Error",
+    "exportCSV": "Exportar CSV",
+    "exportJSON": "Exportar JSON",
+    "summary": "Resumen",
+    "dnssecEnabledCount": "DNSSEC Habilitado",
+    "chainCompleteCount": "Cadena Completa",
+    "errorsCount": "Errores",
+    "avgScore": "Puntuación Promedio"
   }
 }
