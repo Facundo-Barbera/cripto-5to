@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: umm.edu.mx
 
-**Analysis Date:** 2025-11-29T14:49:08.141359
+**Analysis Date:** 2025-12-01T10:07:14.776451
 
 ## Summary
 
@@ -27,8 +27,8 @@
 
 Total: 2
 
-- tess.ns.cloudflare.com (TTL: 86400s)
-- lee.ns.cloudflare.com (TTL: 86400s)
+- tess.ns.cloudflare.com (TTL: 21600s)
+- lee.ns.cloudflare.com (TTL: 21600s)
 
 ## A Records
 
@@ -86,10 +86,21 @@ No DS records found in parent zone.
 
 ```
 umm.edu.mx
-├── tess.ns.cloudflare.com (TTL: 86400s)
-└── lee.ns.cloudflare.com (TTL: 86400s)
+├── tess.ns.cloudflare.com (TTL: 21600s)
+└── lee.ns.cloudflare.com (TTL: 21600s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (edu.mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| umm.edu.mx | No | No | No | Unsigned |
+| edu.mx | Yes | Yes | Yes | Signed |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `umm.edu.mx`

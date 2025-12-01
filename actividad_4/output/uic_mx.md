@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: uic.mx
 
-**Analysis Date:** 2025-11-29T14:49:15.579579
+**Analysis Date:** 2025-12-01T10:07:24.151500
 
 ## Summary
 
@@ -27,14 +27,14 @@
 
 Total: 2
 
-- uicsistmg.uic.edu.mx (TTL: 3600s)
 - mail.uic.mx (TTL: 3600s)
+- uicsistmg.uic.edu.mx (TTL: 3600s)
 
 ## A Records
 
 Total: 1
 
-- 23.92.208.70 (TTL: 3600s)
+- 23.92.208.70 (TTL: 1759s)
 
 ## MX Records
 
@@ -78,10 +78,20 @@ No DS records found in parent zone.
 
 ```
 uic.mx
-├── uicsistmg.uic.edu.mx (TTL: 3600s)
-└── mail.uic.mx (TTL: 3600s)
+├── mail.uic.mx (TTL: 3600s)
+└── uicsistmg.uic.edu.mx (TTL: 3600s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| uic.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `uic.mx`

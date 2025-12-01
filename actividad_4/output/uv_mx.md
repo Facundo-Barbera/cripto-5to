@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: uv.mx
 
-**Analysis Date:** 2025-11-29T14:48:55.417367
+**Analysis Date:** 2025-12-01T10:06:58.995726
 
 ## Summary
 
@@ -27,21 +27,21 @@
 
 Total: 3
 
-- ns3.uv.mx (TTL: 3600s)
 - ns1.uv.mx (TTL: 3600s)
 - ns2.uv.mx (TTL: 3600s)
+- ns3.uv.mx (TTL: 3600s)
 
 ## A Records
 
 Total: 1
 
-- 20.88.208.126 (TTL: 2892s)
+- 20.88.208.126 (TTL: 1994s)
 
 ## MX Records
 
 Total: 1
 
-- uv-mx.mail.protection.outlook.com (Priority: 0, TTL: 2525s)
+- uv-mx.mail.protection.outlook.com (Priority: 0, TTL: 2162s)
 
 ---
 
@@ -79,11 +79,21 @@ No DS records found in parent zone.
 
 ```
 uv.mx
-├── ns3.uv.mx (TTL: 3600s)
 ├── ns1.uv.mx (TTL: 3600s)
-└── ns2.uv.mx (TTL: 3600s)
+├── ns2.uv.mx (TTL: 3600s)
+└── ns3.uv.mx (TTL: 3600s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| uv.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `uv.mx`

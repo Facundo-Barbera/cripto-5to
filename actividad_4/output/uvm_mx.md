@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: uvm.mx
 
-**Analysis Date:** 2025-11-29T14:49:17.440266
+**Analysis Date:** 2025-12-01T10:07:26.373884
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Validation Status:** enabled_incomplete
 - **Has Signatures:** False
 - **Has DS Record:** True
-- **NSEC Type:** none
+- **NSEC Type:** NSEC
 
 ---
 
@@ -27,15 +27,15 @@
 
 Total: 2
 
-- margot.ns.cloudflare.com (TTL: 86400s)
-- thaddeus.ns.cloudflare.com (TTL: 86400s)
+- margot.ns.cloudflare.com (TTL: 21600s)
+- thaddeus.ns.cloudflare.com (TTL: 21600s)
 
 ## A Records
 
 Total: 2
 
-- 104.18.35.78 (TTL: 161s)
-- 172.64.152.178 (TTL: 161s)
+- 104.18.35.78 (TTL: 300s)
+- 172.64.152.178 (TTL: 300s)
 
 ## AAAA Records
 
@@ -48,9 +48,9 @@ Total: 2
 
 Total: 5
 
-- aspmx.l.google.com (Priority: 1, TTL: 300s)
-- aspmx2.googlemail.com (Priority: 10, TTL: 300s)
 - aspmx3.googlemail.com (Priority: 10, TTL: 300s)
+- aspmx2.googlemail.com (Priority: 10, TTL: 300s)
+- aspmx.l.google.com (Priority: 1, TTL: 300s)
 - alt1.aspmx.l.google.com (Priority: 5, TTL: 300s)
 - alt2.aspmx.l.google.com (Priority: 5, TTL: 300s)
 
@@ -67,18 +67,18 @@ Total: 5
 
 - **Algorithm:** ECDSA-P256/SHA-256 (13)
 - **Key Size:** 256 bits
-- **Flags:** 257
+- **Flags:** 256
 - **Protocol:** 3
-- **Type:** KSK (Key Signing Key)
+- **Type:** ZSK (Zone Signing Key)
 - **Zone Key:** True
 
 ### Key 2
 
 - **Algorithm:** ECDSA-P256/SHA-256 (13)
 - **Key Size:** 256 bits
-- **Flags:** 256
+- **Flags:** 257
 - **Protocol:** 3
-- **Type:** ZSK (Zone Signing Key)
+- **Type:** KSK (Key Signing Key)
 - **Zone Key:** True
 
 ## RRSIG Records
@@ -88,7 +88,7 @@ No RRSIG records found.
 ## DS Records
 
 - **Total DS Records:** 1
-- **TTL:** 17584s
+- **TTL:** 21600s
 
 ### DS Record 1
 
@@ -99,11 +99,16 @@ No RRSIG records found.
 
 ## NSEC/NSEC3 Records
 
-- **Type:** NONE
-- **NSEC Present:** False
+- **Type:** NSEC
+- **NSEC Present:** True
 - **NSEC3 Present:** False
 - **NSEC3PARAM Present:** False
 - **Opt-Out:** False
+
+### NSEC Details
+
+- **Count:** 1
+- **TTL:** 1800s
 
 ---
 
@@ -117,8 +122,8 @@ No RRSIG records found.
 
 ```
 uvm.mx
-├── margot.ns.cloudflare.com (TTL: 86400s)
-└── thaddeus.ns.cloudflare.com (TTL: 86400s)
+├── margot.ns.cloudflare.com (TTL: 21600s)
+└── thaddeus.ns.cloudflare.com (TTL: 21600s)
 ```
 
 ### Cryptographic Chain of Trust
@@ -130,3 +135,13 @@ mx (parent zone)
   └── DS Record → uvm.mx
       └── KeyTag: 2371, Algorithm: ECDSA-P256/SHA-256
 ```
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| uvm.mx | Yes | Yes | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `uvm.mx`

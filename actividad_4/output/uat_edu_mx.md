@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: uat.edu.mx
 
-**Analysis Date:** 2025-11-29T14:49:34.216968
+**Analysis Date:** 2025-12-01T10:10:19.569123
 
 ## Summary
 
@@ -14,9 +14,9 @@
 
 ## SOA Records
 
-- **Primary Server:** ns1-06.azure-dns.com
+- **Primary Server:** ns1-05.azure-dns.com
 - **Responsible Email:** administrator.uat.edu.mx
-- **Serial:** 2004136045
+- **Serial:** 294
 - **Refresh:** 900s
 - **Retry:** 600s
 - **Expire:** 86400s
@@ -27,16 +27,16 @@
 
 Total: 4
 
-- ns4-06.azure-dns.info (TTL: 9694s)
-- ns3-06.azure-dns.org (TTL: 9694s)
-- ns1-06.azure-dns.com (TTL: 9694s)
-- ns2-06.azure-dns.net (TTL: 9694s)
+- ns4-05.azure-dns.info (TTL: 2335s)
+- ns2-05.azure-dns.net (TTL: 2335s)
+- ns1-05.azure-dns.com (TTL: 2335s)
+- ns3-05.azure-dns.org (TTL: 2335s)
 
 ## MX Records
 
 Total: 1
 
-- uat-edu-mx.mail.protection.outlook.com (Priority: 0, TTL: 1118s)
+- uat-edu-mx.mail.protection.outlook.com (Priority: 0, TTL: 1177s)
 
 ---
 
@@ -74,12 +74,23 @@ No DS records found in parent zone.
 
 ```
 uat.edu.mx
-├── ns4-06.azure-dns.info (TTL: 9694s)
-├── ns3-06.azure-dns.org (TTL: 9694s)
-├── ns1-06.azure-dns.com (TTL: 9694s)
-└── ns2-06.azure-dns.net (TTL: 9694s)
+├── ns4-05.azure-dns.info (TTL: 2335s)
+├── ns2-05.azure-dns.net (TTL: 2335s)
+├── ns1-05.azure-dns.com (TTL: 2335s)
+└── ns3-05.azure-dns.org (TTL: 2335s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (edu.mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| uat.edu.mx | No | No | No | Unsigned |
+| edu.mx | Yes | Yes | Yes | Signed |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `uat.edu.mx`

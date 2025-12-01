@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: ute.edu.mx
 
-**Analysis Date:** 2025-11-29T14:49:51.880939
+**Analysis Date:** 2025-12-01T10:10:44.944858
 
 ## Summary
 
@@ -47,3 +47,14 @@ No DS records found in parent zone.
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (edu.mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| ute.edu.mx | No | No | No | Unsigned |
+| edu.mx | Yes | Yes | Yes | Signed |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `ute.edu.mx`

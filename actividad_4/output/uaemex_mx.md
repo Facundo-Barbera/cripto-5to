@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: uaemex.mx
 
-**Analysis Date:** 2025-11-29T14:49:40.833764
+**Analysis Date:** 2025-12-01T10:10:30.236811
 
 ## Summary
 
@@ -27,22 +27,22 @@
 
 Total: 4
 
-- ns4-06.azure-dns.info (TTL: 172800s)
-- ns1-06.azure-dns.com (TTL: 172800s)
-- ns2-06.azure-dns.net (TTL: 172800s)
-- ns3-06.azure-dns.org (TTL: 172800s)
+- ns4-06.azure-dns.info (TTL: 21600s)
+- ns2-06.azure-dns.net (TTL: 21600s)
+- ns3-06.azure-dns.org (TTL: 21600s)
+- ns1-06.azure-dns.com (TTL: 21600s)
 
 ## A Records
 
 Total: 1
 
-- 148.215.154.13 (TTL: 230s)
+- 148.215.154.13 (TTL: 220s)
 
 ## MX Records
 
 Total: 1
 
-- uaemex-mx.mail.protection.outlook.com (Priority: 0, TTL: 87s)
+- uaemex-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
 
 ---
 
@@ -80,12 +80,22 @@ No DS records found in parent zone.
 
 ```
 uaemex.mx
-├── ns4-06.azure-dns.info (TTL: 172800s)
-├── ns1-06.azure-dns.com (TTL: 172800s)
-├── ns2-06.azure-dns.net (TTL: 172800s)
-└── ns3-06.azure-dns.org (TTL: 172800s)
+├── ns4-06.azure-dns.info (TTL: 21600s)
+├── ns2-06.azure-dns.net (TTL: 21600s)
+├── ns3-06.azure-dns.org (TTL: 21600s)
+└── ns1-06.azure-dns.com (TTL: 21600s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| uaemex.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `uaemex.mx`

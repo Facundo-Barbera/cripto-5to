@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: uanl.mx
 
-**Analysis Date:** 2025-11-29T14:48:45.265270
+**Analysis Date:** 2025-12-01T10:06:43.253015
 
 ## Summary
 
@@ -34,16 +34,16 @@ Total: 2
 
 Total: 1
 
-- 148.234.5.222 (TTL: 176s)
+- 148.234.5.222 (TTL: 514s)
 
 ## MX Records
 
 Total: 4
 
-- mx04.hornetsecurity.com (Priority: 13, TTL: 2400s)
-- mx03.hornetsecurity.com (Priority: 12, TTL: 2400s)
-- mx02.hornetsecurity.com (Priority: 11, TTL: 2400s)
-- mx01.hornetsecurity.com (Priority: 10, TTL: 2400s)
+- mx02.hornetsecurity.com (Priority: 11, TTL: 985s)
+- mx03.hornetsecurity.com (Priority: 12, TTL: 985s)
+- mx01.hornetsecurity.com (Priority: 10, TTL: 985s)
+- mx04.hornetsecurity.com (Priority: 13, TTL: 985s)
 
 ---
 
@@ -88,3 +88,13 @@ uanl.mx
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| uanl.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `uanl.mx`

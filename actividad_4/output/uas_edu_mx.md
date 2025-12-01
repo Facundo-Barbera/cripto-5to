@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: uas.edu.mx
 
-**Analysis Date:** 2025-11-29T14:49:06.213146
+**Analysis Date:** 2025-12-01T10:07:12.599769
 
 ## Summary
 
@@ -21,7 +21,7 @@
 - **Retry:** 3600s
 - **Expire:** 2419200s
 - **Minimum TTL:** 900s
-- **Record TTL:** 28800s
+- **Record TTL:** 21600s
 
 ## NS Records
 
@@ -33,13 +33,13 @@ Total: 1
 
 Total: 1
 
-- 148.227.1.12 (TTL: 20037s)
+- 148.227.1.12 (TTL: 18949s)
 
 ## MX Records
 
 Total: 1
 
-- aspmx.l.google.com (Priority: 10, TTL: 21600s)
+- aspmx.l.google.com (Priority: 10, TTL: 18305s)
 
 ---
 
@@ -83,3 +83,14 @@ uas.edu.mx
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (edu.mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| uas.edu.mx | No | No | No | Unsigned |
+| edu.mx | Yes | Yes | Yes | Signed |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `uas.edu.mx`

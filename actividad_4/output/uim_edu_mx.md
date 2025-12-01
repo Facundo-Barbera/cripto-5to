@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: uim.edu.mx
 
-**Analysis Date:** 2025-11-29T14:49:36.007892
+**Analysis Date:** 2025-12-01T10:10:22.416142
 
 ## Summary
 
@@ -47,3 +47,14 @@ No DS records found in parent zone.
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (edu.mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| uim.edu.mx | No | No | No | Unsigned |
+| edu.mx | Yes | Yes | Yes | Signed |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `uim.edu.mx`

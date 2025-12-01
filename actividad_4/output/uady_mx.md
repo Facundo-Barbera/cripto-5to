@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: uady.mx
 
-**Analysis Date:** 2025-11-29T14:49:20.823286
+**Analysis Date:** 2025-12-01T10:07:31.008274
 
 ## Summary
 
@@ -16,33 +16,33 @@
 
 - **Primary Server:** tunku.uady.mx
 - **Responsible Email:** soporte.tunku.uady.mx
-- **Serial:** 2025112701
+- **Serial:** 2025120101
 - **Refresh:** 3600s
 - **Retry:** 1200s
 - **Expire:** 1814400s
 - **Minimum TTL:** 7200s
-- **Record TTL:** 86400s
+- **Record TTL:** 21600s
 
 ## NS Records
 
 Total: 3
 
-- tunku.uady.mx (TTL: 86400s)
-- dziu.uady.mx (TTL: 86400s)
-- kuklincloud.uady.mx (TTL: 86400s)
+- kuklincloud.uady.mx (TTL: 20161s)
+- dziu.uady.mx (TTL: 20161s)
+- tunku.uady.mx (TTL: 20161s)
 
 ## A Records
 
 Total: 1
 
-- 20.169.251.95 (TTL: 20920s)
+- 20.169.251.95 (TTL: 18331s)
 
 ## MX Records
 
 Total: 2
 
-- mail.uady.mx (Priority: 0, TTL: 13914s)
-- mail2.uady.mx (Priority: 5, TTL: 13914s)
+- mail.uady.mx (Priority: 0, TTL: 7728s)
+- mail2.uady.mx (Priority: 5, TTL: 7728s)
 
 ---
 
@@ -80,11 +80,21 @@ No DS records found in parent zone.
 
 ```
 uady.mx
-├── tunku.uady.mx (TTL: 86400s)
-├── dziu.uady.mx (TTL: 86400s)
-└── kuklincloud.uady.mx (TTL: 86400s)
+├── kuklincloud.uady.mx (TTL: 20161s)
+├── dziu.uady.mx (TTL: 20161s)
+└── tunku.uady.mx (TTL: 20161s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| uady.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `uady.mx`

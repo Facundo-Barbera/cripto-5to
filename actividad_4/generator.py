@@ -328,6 +328,86 @@ class DNSSECAnalyzer:
 
         return result
 
+    def _get_zone_hierarchy(self, domain: str) -> List[str]:
+        parts = domain.rstrip('.').split('.')
+        hierarchy = []
+        for i in range(len(parts)):
+            zone = '.'.join(parts[i:])
+            hierarchy.append(zone)
+        hierarchy.append('.')
+        return hierarchy
+
+    def _analyze_zone_dnssec(self, zone: str) -> Dict[str, Any]:
+        result = {
+            'zone': zone,
+            'has_dnskey': False,
+            'has_ds': False,
+            'has_rrsig': False,
+            'algorithms': [],
+            'key_tags': [],
+            'is_signed': False
+        }
+
+        if zone == '.':
+            result['has_dnskey'] = True
+            result['has_rrsig'] = True
+            result['is_signed'] = True
+            result['algorithms'] = [8]
+            result['key_tags'] = [20326]
+            return result
+
+        dnskey_answer = self._query_safe(zone, 'DNSKEY')
+        if dnskey_answer:
+            result['has_dnskey'] = True
+            for rdata in dnskey_answer:
+                if rdata.algorithm not in result['algorithms']:
+                    result['algorithms'].append(rdata.algorithm)
+
+        ds_answer = self._query_safe(zone, 'DS')
+        if ds_answer:
+            result['has_ds'] = True
+            for rdata in ds_answer:
+                if rdata.key_tag not in result['key_tags']:
+                    result['key_tags'].append(rdata.key_tag)
+
+        response = self._query_raw(zone, 'RRSIG')
+        if response:
+            for rrset in response.answer:
+                if rrset.rdtype == dns.rdatatype.RRSIG:
+                    result['has_rrsig'] = True
+                    break
+
+        result['is_signed'] = result['has_dnskey'] and result['has_rrsig']
+        return result
+
+    def analyze_chain_of_trust(self, domain: str) -> Dict[str, Any]:
+        hierarchy = self._get_zone_hierarchy(domain)
+        chain = []
+        broken_at = None
+
+        for zone in hierarchy:
+            zone_status = self._analyze_zone_dnssec(zone)
+            chain.append(zone_status)
+
+            if not zone_status['is_signed'] and broken_at is None:
+                broken_at = zone
+
+        for i in range(len(chain) - 1):
+            current = chain[i]
+            if current['is_signed'] and not current['has_ds'] and current['zone'] != '.':
+                if broken_at is None:
+                    broken_at = current['zone']
+
+        chain_valid = broken_at is None
+
+        return {
+            'hierarchy': hierarchy,
+            'chain': chain,
+            'is_complete': chain_valid,
+            'broken_at': broken_at,
+            'depth': len(hierarchy)
+        }
+
     def analyze_basic_dns(self, domain: str) -> Dict[str, Any]:
         result = {
             'SOA': [],
@@ -409,11 +489,21 @@ class DNSSECAnalyzer:
         result['dnssec']['rrsig'] = self.analyze_rrsig(domain, nsec_rrsig_records=nsec_rrsig)
         result['dnssec']['ds'] = self.analyze_ds(domain)
 
+        result['dnssec']['chain_of_trust'] = self.analyze_chain_of_trust(domain)
+
+        parts = domain.rstrip('.').split('.')
+        result['dns_tree'] = {
+            'parent_zone': '.'.join(parts[1:]) if len(parts) > 1 else None,
+            'level': len(parts),
+            'labels': parts
+        }
+
         result['dnssec']['summary'] = {
             'dnssec_enabled': result['dnssec']['dnskey']['present'],
             'has_signatures': result['dnssec']['rrsig']['present'],
             'has_ds_record': result['dnssec']['ds']['present'],
             'nsec_type': result['dnssec']['nsec']['nsec_type'],
+            'chain_complete': result['dnssec']['chain_of_trust']['is_complete'],
             'validation_status': self._determine_validation_status(result['dnssec'])
         }
 
@@ -688,9 +778,33 @@ class DNSSECAnalyzer:
                     f.write(f"  └── DS Record → {domain}\n")
                     for record in ds['records']:
                         f.write(f"      └── KeyTag: {record['key_tag']}, Algorithm: {record['algorithm_name']}\n")
-                    f.write("```\n")
+                    f.write("```\n\n")
                 else:
-                    f.write(f"No DS record found in parent zone ({parent}). Chain of trust not established.\n")
+                    f.write(f"No DS record found in parent zone ({parent}). Chain of trust not established.\n\n")
+
+            chain_data = dnssec.get('chain_of_trust', {})
+            if chain_data:
+                f.write("### Full Chain of Trust to Root\n\n")
+                f.write("| Zone | DNSKEY | DS | RRSIG | Status |\n")
+                f.write("|------|--------|----|----- |--------|\n")
+                for zone_info in chain_data.get('chain', []):
+                    zone = zone_info['zone']
+                    dnskey_status = 'Yes' if zone_info['has_dnskey'] else 'No'
+                    ds_status = 'N/A' if zone == '.' else ('Yes' if zone_info['has_ds'] else 'No')
+                    rrsig_status = 'Yes' if zone_info['has_rrsig'] else 'No'
+                    if zone == '.':
+                        status = 'Signed (Root)'
+                    elif zone_info['is_signed']:
+                        status = 'Signed'
+                    else:
+                        status = 'Unsigned'
+                    f.write(f"| {zone} | {dnskey_status} | {ds_status} | {rrsig_status} | {status} |\n")
+                f.write("\n")
+
+                if chain_data.get('is_complete'):
+                    f.write("**Chain Status:** Complete - Full trust path to root\n")
+                else:
+                    f.write(f"**Chain Status:** Broken at `{chain_data.get('broken_at')}`\n")
 
     def _determine_validation_status(self, dnssec: Dict) -> str:
         dnskey_present = dnssec.get('dnskey', {}).get('present', False)

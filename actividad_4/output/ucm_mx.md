@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: ucm.mx
 
-**Analysis Date:** 2025-11-29T14:49:13.544072
+**Analysis Date:** 2025-12-01T10:07:21.380461
 
 ## Summary
 
@@ -14,32 +14,36 @@
 
 ## SOA Records
 
-- **Primary Server:** freedns1.registrar-servers.com
-- **Responsible Email:** hostmaster.registrar-servers.com
+- **Primary Server:** ns1.ucm.mx
+- **Responsible Email:** hostmaster.ucm.mx
 - **Serial:** 1746391940
 - **Refresh:** 43200s
 - **Retry:** 3600s
-- **Expire:** 604800s
-- **Minimum TTL:** 3601s
-- **Record TTL:** 3601s
+- **Expire:** 1209600s
+- **Minimum TTL:** 10800s
+- **Record TTL:** 21600s
 
 ## NS Records
 
-Total: 1
+Total: 5
 
-- ns1.ucm.mx (TTL: 21600s)
+- freedns4.registrar-servers.com (TTL: 1800s)
+- freedns2.registrar-servers.com (TTL: 1800s)
+- freedns1.registrar-servers.com (TTL: 1800s)
+- freedns5.registrar-servers.com (TTL: 1800s)
+- freedns3.registrar-servers.com (TTL: 1800s)
 
 ## A Records
 
 Total: 1
 
-- 187.188.28.51 (TTL: 86400s)
+- 187.188.28.51 (TTL: 1799s)
 
 ## MX Records
 
 Total: 1
 
-- atenea.ucm.mx (Priority: 10, TTL: 86400s)
+- atenea.ucm.mx (Priority: 10, TTL: 1799s)
 
 ---
 
@@ -77,9 +81,23 @@ No DS records found in parent zone.
 
 ```
 ucm.mx
-└── ns1.ucm.mx (TTL: 21600s)
+├── freedns4.registrar-servers.com (TTL: 1800s)
+├── freedns2.registrar-servers.com (TTL: 1800s)
+├── freedns1.registrar-servers.com (TTL: 1800s)
+├── freedns5.registrar-servers.com (TTL: 1800s)
+└── freedns3.registrar-servers.com (TTL: 1800s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| ucm.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `ucm.mx`

@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: udlc.edu.mx
 
-**Analysis Date:** 2025-11-29T14:50:13.551376
+**Analysis Date:** 2025-12-01T10:11:11.075508
 
 ## Summary
 
@@ -27,8 +27,8 @@
 
 Total: 2
 
-- rs13b.registrar-servers.com (TTL: 604800s)
-- rs13a.registrar-servers.com (TTL: 604800s)
+- rs13a.registrar-servers.com (TTL: 21600s)
+- rs13b.registrar-servers.com (TTL: 21600s)
 
 ## A Records
 
@@ -40,8 +40,8 @@ Total: 1
 
 Total: 3
 
-- mx2-hosting.jellyfish.systems (Priority: 20, TTL: 1200s)
 - mx1-hosting.jellyfish.systems (Priority: 10, TTL: 1200s)
+- mx2-hosting.jellyfish.systems (Priority: 20, TTL: 1200s)
 - mx3-hosting.jellyfish.systems (Priority: 30, TTL: 1200s)
 
 ---
@@ -80,10 +80,21 @@ No DS records found in parent zone.
 
 ```
 udlc.edu.mx
-├── rs13b.registrar-servers.com (TTL: 604800s)
-└── rs13a.registrar-servers.com (TTL: 604800s)
+├── rs13a.registrar-servers.com (TTL: 21600s)
+└── rs13b.registrar-servers.com (TTL: 21600s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (edu.mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| udlc.edu.mx | No | No | No | Unsigned |
+| edu.mx | Yes | Yes | Yes | Signed |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `udlc.edu.mx`

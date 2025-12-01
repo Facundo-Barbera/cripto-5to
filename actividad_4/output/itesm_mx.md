@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: itesm.mx
 
-**Analysis Date:** 2025-11-29T14:48:46.939812
+**Analysis Date:** 2025-12-01T10:06:45.364928
 
 ## Summary
 
@@ -21,20 +21,20 @@
 - **Retry:** 3600s
 - **Expire:** 2419200s
 - **Minimum TTL:** 900s
-- **Record TTL:** 1850s
+- **Record TTL:** 3053s
 
 ## NS Records
 
 Total: 2
 
-- ns2e.itesm.mx (TTL: 1865s)
-- ns1e.itesm.mx (TTL: 1865s)
+- ns2e.itesm.mx (TTL: 830s)
+- ns1e.itesm.mx (TTL: 830s)
 
 ## MX Records
 
 Total: 1
 
-- itesm-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
+- itesm-mx.mail.protection.outlook.com (Priority: 0, TTL: 2541s)
 
 ---
 
@@ -72,10 +72,20 @@ No DS records found in parent zone.
 
 ```
 itesm.mx
-├── ns2e.itesm.mx (TTL: 1865s)
-└── ns1e.itesm.mx (TTL: 1865s)
+├── ns2e.itesm.mx (TTL: 830s)
+└── ns1e.itesm.mx (TTL: 830s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| itesm.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `itesm.mx`

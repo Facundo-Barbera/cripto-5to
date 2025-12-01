@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: upp.edu.mx
 
-**Analysis Date:** 2025-11-29T14:49:09.885540
+**Analysis Date:** 2025-12-01T10:07:16.893971
 
 ## Summary
 
@@ -21,7 +21,7 @@
 - **Retry:** 86400s
 - **Expire:** 2419200s
 - **Minimum TTL:** 604800s
-- **Record TTL:** 21600s
+- **Record TTL:** 21599s
 
 ## NS Records
 
@@ -33,17 +33,17 @@ Total: 1
 
 Total: 1
 
-- 200.79.182.193 (TTL: 8455s)
+- 200.79.182.193 (TTL: 11702s)
 
 ## MX Records
 
 Total: 5
 
-- ALT1.ASPMX.L.GOOGLE.COM (Priority: 20, TTL: 8349s)
-- ALT2.ASPMX.L.GOOGLE.COM (Priority: 20, TTL: 8349s)
-- ASPMX2.GOOGLEMAIL.COM (Priority: 30, TTL: 8349s)
-- ASPMX3.GOOGLEMAIL.COM (Priority: 30, TTL: 8349s)
-- ASPMX.L.GOOGLE.COM (Priority: 10, TTL: 8349s)
+- ASPMX2.GOOGLEMAIL.COM (Priority: 30, TTL: 14260s)
+- ASPMX3.GOOGLEMAIL.COM (Priority: 30, TTL: 14260s)
+- ASPMX.L.GOOGLE.COM (Priority: 10, TTL: 14260s)
+- ALT1.ASPMX.L.GOOGLE.COM (Priority: 20, TTL: 14260s)
+- ALT2.ASPMX.L.GOOGLE.COM (Priority: 20, TTL: 14260s)
 
 ---
 
@@ -87,3 +87,14 @@ upp.edu.mx
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (edu.mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| upp.edu.mx | No | No | No | Unsigned |
+| edu.mx | Yes | Yes | Yes | Signed |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `upp.edu.mx`

@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: uaq.mx
 
-**Analysis Date:** 2025-11-29T14:49:00.781447
+**Analysis Date:** 2025-12-01T10:07:06.129054
 
 ## Summary
 
@@ -34,7 +34,7 @@ Total: 2
 
 Total: 1
 
-- uaq-mx.mail.protection.outlook.com (Priority: 0, TTL: 3509s)
+- uaq-mx.mail.protection.outlook.com (Priority: 0, TTL: 1234s)
 
 ---
 
@@ -79,3 +79,13 @@ uaq.mx
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| uaq.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `uaq.mx`

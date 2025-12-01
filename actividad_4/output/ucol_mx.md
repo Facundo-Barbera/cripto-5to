@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: ucol.mx
 
-**Analysis Date:** 2025-11-29T14:49:11.684749
+**Analysis Date:** 2025-12-01T10:07:19.094028
 
 ## Summary
 
@@ -21,24 +21,24 @@
 - **Retry:** 86400s
 - **Expire:** 2419200s
 - **Minimum TTL:** 604800s
-- **Record TTL:** 86400s
+- **Record TTL:** 21600s
 
 ## NS Records
 
 Total: 2
 
-- volcan.ucol.mx (TTL: 86400s)
-- orion.ucol.mx (TTL: 86400s)
+- orion.ucol.mx (TTL: 21600s)
+- volcan.ucol.mx (TTL: 21600s)
 
 ## MX Records
 
 Total: 5
 
-- ALT1.ASPMX.L.GOOGLE.COM (Priority: 20, TTL: 16515s)
-- ASPMX.L.GOOGLE.COM (Priority: 10, TTL: 16515s)
-- ASPMX3.GOOGLEMAIL.COM (Priority: 30, TTL: 16515s)
-- ALT2.ASPMX.L.GOOGLE.COM (Priority: 20, TTL: 16515s)
-- ASPMX2.GOOGLEMAIL.COM (Priority: 30, TTL: 16515s)
+- ASPMX3.GOOGLEMAIL.COM (Priority: 30, TTL: 4419s)
+- ALT2.ASPMX.L.GOOGLE.COM (Priority: 20, TTL: 4419s)
+- ASPMX2.GOOGLEMAIL.COM (Priority: 30, TTL: 4419s)
+- ALT1.ASPMX.L.GOOGLE.COM (Priority: 20, TTL: 4419s)
+- ASPMX.L.GOOGLE.COM (Priority: 10, TTL: 4419s)
 
 ---
 
@@ -76,10 +76,20 @@ No DS records found in parent zone.
 
 ```
 ucol.mx
-├── volcan.ucol.mx (TTL: 86400s)
-└── orion.ucol.mx (TTL: 86400s)
+├── orion.ucol.mx (TTL: 21600s)
+└── volcan.ucol.mx (TTL: 21600s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| ucol.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `ucol.mx`

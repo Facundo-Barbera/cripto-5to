@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: uad.edu.mx
 
-**Analysis Date:** 2025-11-29T14:49:30.412893
+**Analysis Date:** 2025-12-01T10:10:14.522337
 
 ## Summary
 
@@ -23,10 +23,10 @@ Total: 1
 Total: 5
 
 - aspmx2.googlemail.com\032 (Priority: 10, TTL: 3600s)
-- alt2.aspmx.l.google.com (Priority: 10, TTL: 3600s)
-- alt1.aspmx.l.google.com\032 (Priority: 10, TTL: 3600s)
 - aspmx.l.google.com (Priority: 1, TTL: 3600s)
+- alt1.aspmx.l.google.com\032 (Priority: 10, TTL: 3600s)
 - aspmx3.googlemail.com\032\032 (Priority: 10, TTL: 3600s)
+- alt2.aspmx.l.google.com (Priority: 10, TTL: 3600s)
 
 ---
 
@@ -63,3 +63,14 @@ No DS records found in parent zone.
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (edu.mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| uad.edu.mx | No | No | No | Unsigned |
+| edu.mx | Yes | Yes | Yes | Signed |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `uad.edu.mx`

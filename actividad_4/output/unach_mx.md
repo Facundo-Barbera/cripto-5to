@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: unach.mx
 
-**Analysis Date:** 2025-11-29T14:49:42.640351
+**Analysis Date:** 2025-12-01T10:10:32.955999
 
 ## Summary
 
@@ -34,17 +34,17 @@ Total: 2
 
 Total: 1
 
-- 35.209.142.91 (TTL: 133s)
+- 35.209.142.91 (TTL: 300s)
 
 ## MX Records
 
 Total: 5
 
-- ALT4.ASPMX.L.GOOGLE.COM (Priority: 10, TTL: 3600s)
-- ASPMX.L.GOOGLE.COM (Priority: 1, TTL: 3600s)
-- ALT3.ASPMX.L.GOOGLE.COM (Priority: 10, TTL: 3600s)
-- ALT2.ASPMX.L.GOOGLE.COM (Priority: 5, TTL: 3600s)
-- ALT1.ASPMX.L.GOOGLE.COM (Priority: 5, TTL: 3600s)
+- ALT3.ASPMX.L.GOOGLE.COM (Priority: 10, TTL: 2580s)
+- ASPMX.L.GOOGLE.COM (Priority: 1, TTL: 2580s)
+- ALT1.ASPMX.L.GOOGLE.COM (Priority: 5, TTL: 2580s)
+- ALT4.ASPMX.L.GOOGLE.COM (Priority: 10, TTL: 2580s)
+- ALT2.ASPMX.L.GOOGLE.COM (Priority: 5, TTL: 2580s)
 
 ---
 
@@ -89,3 +89,13 @@ unach.mx
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| unach.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `unach.mx`

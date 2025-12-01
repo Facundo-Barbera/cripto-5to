@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: uc.edu.mx
 
-**Analysis Date:** 2025-11-29T14:50:07.591583
+**Analysis Date:** 2025-12-01T10:11:03.568598
 
 ## Summary
 
@@ -27,14 +27,14 @@
 
 Total: 2
 
-- ns1.hostpapa.com (TTL: 21600s)
 - ns2.hostpapa.com (TTL: 21600s)
+- ns1.hostpapa.com (TTL: 21600s)
 
 ## A Records
 
 Total: 1
 
-- 172.96.180.55 (TTL: 6751s)
+- 172.96.180.55 (TTL: 16003s)
 
 ## MX Records
 
@@ -78,10 +78,21 @@ No DS records found in parent zone.
 
 ```
 uc.edu.mx
-├── ns1.hostpapa.com (TTL: 21600s)
-└── ns2.hostpapa.com (TTL: 21600s)
+├── ns2.hostpapa.com (TTL: 21600s)
+└── ns1.hostpapa.com (TTL: 21600s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (edu.mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| uc.edu.mx | No | No | No | Unsigned |
+| edu.mx | Yes | Yes | Yes | Signed |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `uc.edu.mx`

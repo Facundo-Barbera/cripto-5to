@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: utm.edu.mx
 
-**Analysis Date:** 2025-11-29T14:50:11.490530
+**Analysis Date:** 2025-12-01T10:11:08.580509
 
 ## Summary
 
@@ -27,8 +27,8 @@
 
 Total: 2
 
-- ns1e.itesm.mx (TTL: 3600s)
 - ns2e.itesm.mx (TTL: 3600s)
+- ns1e.itesm.mx (TTL: 3600s)
 
 ## MX Records
 
@@ -73,10 +73,21 @@ No DS records found in parent zone.
 
 ```
 utm.edu.mx
-├── ns1e.itesm.mx (TTL: 3600s)
-└── ns2e.itesm.mx (TTL: 3600s)
+├── ns2e.itesm.mx (TTL: 3600s)
+└── ns1e.itesm.mx (TTL: 3600s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (edu.mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| utm.edu.mx | No | No | No | Unsigned |
+| edu.mx | Yes | Yes | Yes | Signed |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `utm.edu.mx`

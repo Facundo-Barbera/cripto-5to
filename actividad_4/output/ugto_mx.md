@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: ugto.mx
 
-**Analysis Date:** 2025-11-29T14:48:57.232963
+**Analysis Date:** 2025-12-01T10:07:01.388548
 
 ## Summary
 
@@ -34,13 +34,13 @@ Total: 2
 
 Total: 1
 
-- 148.214.50.10 (TTL: 2183s)
+- 148.214.50.10 (TTL: 3600s)
 
 ## MX Records
 
 Total: 1
 
-- ugto-mx.mail.protection.outlook.com (Priority: 0, TTL: 1556s)
+- ugto-mx.mail.protection.outlook.com (Priority: 0, TTL: 1369s)
 
 ---
 
@@ -85,3 +85,13 @@ ugto.mx
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| ugto.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `ugto.mx`

@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: udc.edu.mx
 
-**Analysis Date:** 2025-11-29T14:49:22.852463
+**Analysis Date:** 2025-12-01T10:07:33.368211
 
 ## Summary
 
@@ -11,40 +11,6 @@
 - **NSEC Type:** none
 
 ---
-
-## SOA Records
-
-- **Primary Server:** ns47.domaincontrol.com
-- **Responsible Email:** dns.jomax.net
-- **Serial:** 2024082100
-- **Refresh:** 28800s
-- **Retry:** 7200s
-- **Expire:** 604800s
-- **Minimum TTL:** 600s
-- **Record TTL:** 600s
-
-## NS Records
-
-Total: 2
-
-- ns47.domaincontrol.com (TTL: 3600s)
-- ns48.domaincontrol.com (TTL: 3600s)
-
-## A Records
-
-Total: 1
-
-- 200.77.221.3 (TTL: 3600s)
-
-## MX Records
-
-Total: 5
-
-- alt4.aspmx.l.google.com (Priority: 10, TTL: 3600s)
-- alt3.aspmx.l.google.com (Priority: 10, TTL: 3600s)
-- aspmx.l.google.com (Priority: 1, TTL: 3600s)
-- alt1.aspmx.l.google.com (Priority: 5, TTL: 3600s)
-- alt2.aspmx.l.google.com (Priority: 5, TTL: 3600s)
 
 ---
 
@@ -78,14 +44,17 @@ No DS records found in parent zone.
 - **Parent Zone:** edu.mx
 - **Level:** 3
 
-### Nameserver Hierarchy
-
-```
-udc.edu.mx
-├── ns47.domaincontrol.com (TTL: 3600s)
-└── ns48.domaincontrol.com (TTL: 3600s)
-```
-
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (edu.mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| udc.edu.mx | No | No | No | Unsigned |
+| edu.mx | Yes | Yes | Yes | Signed |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `udc.edu.mx`

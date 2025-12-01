@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: udlap.mx
 
-**Analysis Date:** 2025-11-29T14:49:02.520139
+**Analysis Date:** 2025-12-01T10:07:08.122634
 
 ## Summary
 
@@ -21,31 +21,30 @@
 - **Retry:** 7200s
 - **Expire:** 1296000s
 - **Minimum TTL:** 21600s
-- **Record TTL:** 16188s
+- **Record TTL:** 7772s
 
 ## NS Records
 
-Total: 6
+Total: 5
 
-- srvudlans02.udlap.mx (TTL: 21600s)
-- srvudlans03.udlap.mx (TTL: 21600s)
-- ns1-35.azure-dns.com (TTL: 21600s)
 - ns4-35.azure-dns.info (TTL: 21600s)
+- ns1-35.azure-dns.com (TTL: 21600s)
+- srvudlans03.udlap.mx (TTL: 21600s)
 - ns2-35.azure-dns.net (TTL: 21600s)
-- ns3-35.azure-dns.org (TTL: 21600s)
+- srvudlans02.udlap.mx (TTL: 21600s)
 
 ## A Records
 
 Total: 2
 
-- 45.60.11.114 (TTL: 17805s)
-- 45.60.17.114 (TTL: 17805s)
+- 45.60.17.114 (TTL: 10195s)
+- 45.60.11.114 (TTL: 10195s)
 
 ## MX Records
 
 Total: 1
 
-- udlap-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
+- udlap-mx.mail.protection.outlook.com (Priority: 0, TTL: 10s)
 
 ---
 
@@ -83,14 +82,23 @@ No DS records found in parent zone.
 
 ```
 udlap.mx
-├── srvudlans02.udlap.mx (TTL: 21600s)
-├── srvudlans03.udlap.mx (TTL: 21600s)
-├── ns1-35.azure-dns.com (TTL: 21600s)
 ├── ns4-35.azure-dns.info (TTL: 21600s)
+├── ns1-35.azure-dns.com (TTL: 21600s)
+├── srvudlans03.udlap.mx (TTL: 21600s)
 ├── ns2-35.azure-dns.net (TTL: 21600s)
-└── ns3-35.azure-dns.org (TTL: 21600s)
+└── srvudlans02.udlap.mx (TTL: 21600s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| udlap.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `udlap.mx`

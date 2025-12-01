@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: uaslp.mx
 
-**Analysis Date:** 2025-11-29T14:49:04.425659
+**Analysis Date:** 2025-12-01T10:07:10.205353
 
 ## Summary
 
@@ -27,10 +27,10 @@
 
 Total: 4
 
-- dns206.ifisica.uaslp.mx (TTL: 3600s)
-- dns2.uaslp.mx (TTL: 3600s)
-- dns1.uaslp.mx (TTL: 3600s)
 - dns3.uaslp.mx (TTL: 3600s)
+- dns1.uaslp.mx (TTL: 3600s)
+- dns2.uaslp.mx (TTL: 3600s)
+- dns206.ifisica.uaslp.mx (TTL: 3600s)
 
 ## A Records
 
@@ -42,7 +42,7 @@ Total: 1
 
 Total: 1
 
-- uaslp-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
+- uaslp-mx.mail.protection.outlook.com (Priority: 0, TTL: 577s)
 
 ---
 
@@ -80,12 +80,22 @@ No DS records found in parent zone.
 
 ```
 uaslp.mx
-├── dns206.ifisica.uaslp.mx (TTL: 3600s)
-├── dns2.uaslp.mx (TTL: 3600s)
+├── dns3.uaslp.mx (TTL: 3600s)
 ├── dns1.uaslp.mx (TTL: 3600s)
-└── dns3.uaslp.mx (TTL: 3600s)
+├── dns2.uaslp.mx (TTL: 3600s)
+└── dns206.ifisica.uaslp.mx (TTL: 3600s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| uaslp.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `uaslp.mx`

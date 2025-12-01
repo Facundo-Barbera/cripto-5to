@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: uabc.mx
 
-**Analysis Date:** 2025-11-29T14:48:51.267855
+**Analysis Date:** 2025-12-01T10:06:53.796786
 
 ## Summary
 
@@ -28,8 +28,8 @@
 Total: 3
 
 - dns.uabc.mx (TTL: 3600s)
-- dns3.uabc.mx (TTL: 3600s)
 - dns2.uabc.mx (TTL: 3600s)
+- dns3.uabc.mx (TTL: 3600s)
 
 ---
 
@@ -68,10 +68,20 @@ No DS records found in parent zone.
 ```
 uabc.mx
 ├── dns.uabc.mx (TTL: 3600s)
-├── dns3.uabc.mx (TTL: 3600s)
-└── dns2.uabc.mx (TTL: 3600s)
+├── dns2.uabc.mx (TTL: 3600s)
+└── dns3.uabc.mx (TTL: 3600s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| uabc.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `uabc.mx`

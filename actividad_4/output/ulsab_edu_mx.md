@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: ulsab.edu.mx
 
-**Analysis Date:** 2025-11-29T14:50:20.868216
+**Analysis Date:** 2025-12-01T10:11:22.544983
 
 ## Summary
 
@@ -21,16 +21,16 @@
 - **Retry:** 1800s
 - **Expire:** 1209600s
 - **Minimum TTL:** 86400s
-- **Record TTL:** 86400s
+- **Record TTL:** 21600s
 
 ## NS Records
 
 Total: 4
 
-- dns2.akkyhosting26.mx (TTL: 21600s)
-- dns1.akkyhosting26.mx (TTL: 21600s)
 - dns4.akkyhosting26.mx (TTL: 21600s)
+- dns2.akkyhosting26.mx (TTL: 21600s)
 - dns3.akkyhosting26.mx (TTL: 21600s)
+- dns1.akkyhosting26.mx (TTL: 21600s)
 
 ## A Records
 
@@ -43,11 +43,11 @@ Total: 1
 Total: 6
 
 - ALT3.ASPMX.L.GOOGLE.COM (Priority: 10, TTL: 14400s)
-- ALT2.ASPMX.L.GOOGLE.COM (Priority: 5, TTL: 14400s)
-- ALT4.ASPMX.L.GOOGLE.COM (Priority: 10, TTL: 14400s)
-- ALT1.ASPMX.L.GOOGLE.COM (Priority: 5, TTL: 14400s)
-- smtp.GOOGLE.COM (Priority: 1, TTL: 14400s)
 - ASPMX.L.GOOGLE.COM (Priority: 1, TTL: 14400s)
+- smtp.GOOGLE.COM (Priority: 1, TTL: 14400s)
+- ALT2.ASPMX.L.GOOGLE.COM (Priority: 5, TTL: 14400s)
+- ALT1.ASPMX.L.GOOGLE.COM (Priority: 5, TTL: 14400s)
+- ALT4.ASPMX.L.GOOGLE.COM (Priority: 10, TTL: 14400s)
 
 ---
 
@@ -85,12 +85,23 @@ No DS records found in parent zone.
 
 ```
 ulsab.edu.mx
-├── dns2.akkyhosting26.mx (TTL: 21600s)
-├── dns1.akkyhosting26.mx (TTL: 21600s)
 ├── dns4.akkyhosting26.mx (TTL: 21600s)
-└── dns3.akkyhosting26.mx (TTL: 21600s)
+├── dns2.akkyhosting26.mx (TTL: 21600s)
+├── dns3.akkyhosting26.mx (TTL: 21600s)
+└── dns1.akkyhosting26.mx (TTL: 21600s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (edu.mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| ulsab.edu.mx | No | No | No | Unsigned |
+| edu.mx | Yes | Yes | Yes | Signed |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `ulsab.edu.mx`

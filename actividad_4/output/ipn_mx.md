@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: ipn.mx
 
-**Analysis Date:** 2025-11-29T14:48:41.638108
+**Analysis Date:** 2025-12-01T10:06:37.471763
 
 ## Summary
 
@@ -27,21 +27,21 @@
 
 Total: 3
 
-- dns1.ipn.mx (TTL: 1800s)
-- dns2.ipn.mx (TTL: 1800s)
-- dns3.ipn.mx (TTL: 1800s)
+- dns3.ipn.mx (TTL: 1451s)
+- dns2.ipn.mx (TTL: 1451s)
+- dns1.ipn.mx (TTL: 1451s)
 
 ## A Records
 
 Total: 1
 
-- 20.64.80.120 (TTL: 2469s)
+- 20.64.80.120 (TTL: 1534s)
 
 ## MX Records
 
 Total: 1
 
-- ipn-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
+- ipn-mx.mail.protection.outlook.com (Priority: 0, TTL: 2851s)
 
 ---
 
@@ -50,7 +50,7 @@ Total: 1
 ## DNSKEY Records
 
 - **Total Keys:** 2
-- **TTL:** 86400s
+- **TTL:** 21600s
 
 ### Key 1
 
@@ -88,8 +88,29 @@ No DS records found in parent zone.
 
 ### NSEC3 Details
 
-- **Count:** 0
-- **TTL:** Nones
+- **Count:** 3
+- **TTL:** 10800s
+
+#### NSEC3 Record 1
+
+- **Hash Algorithm:** 1
+- **Flags:** 0
+- **Iterations:** 1
+- **Salt:** d7aab40d8efb259a
+
+#### NSEC3 Record 2
+
+- **Hash Algorithm:** 1
+- **Flags:** 0
+- **Iterations:** 1
+- **Salt:** d7aab40d8efb259a
+
+#### NSEC3 Record 3
+
+- **Hash Algorithm:** 1
+- **Flags:** 0
+- **Iterations:** 1
+- **Salt:** d7aab40d8efb259a
 
 ### NSEC3PARAM Details
 
@@ -101,7 +122,7 @@ No DS records found in parent zone.
 - **Hash Algorithm:** 1
 - **Flags:** 0
 - **Iterations:** 1
-- **Salt:** adabc49b1f947ef5
+- **Salt:** 933abad2d83f2577
 
 ---
 
@@ -115,11 +136,21 @@ No DS records found in parent zone.
 
 ```
 ipn.mx
-├── dns1.ipn.mx (TTL: 1800s)
-├── dns2.ipn.mx (TTL: 1800s)
-└── dns3.ipn.mx (TTL: 1800s)
+├── dns3.ipn.mx (TTL: 1451s)
+├── dns2.ipn.mx (TTL: 1451s)
+└── dns1.ipn.mx (TTL: 1451s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| ipn.mx | Yes | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `ipn.mx`

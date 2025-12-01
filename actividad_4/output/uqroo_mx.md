@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: uqroo.mx
 
-**Analysis Date:** 2025-11-29T14:49:48.108778
+**Analysis Date:** 2025-12-01T10:10:40.047572
 
 ## Summary
 
@@ -33,7 +33,7 @@ Total: 1
 
 Total: 1
 
-- uqroo-mx.mail.protection.outlook.com (Priority: 0, TTL: 2034s)
+- uqroo-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
 
 ---
 
@@ -77,3 +77,13 @@ uqroo.mx
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| uqroo.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `uqroo.mx`

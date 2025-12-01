@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: tec.mx
 
-**Analysis Date:** 2025-11-29T14:48:38.014764
+**Analysis Date:** 2025-12-01T10:06:33.127765
 
 ## Summary
 
@@ -27,21 +27,21 @@
 
 Total: 2
 
-- ns1e.itesm.mx (TTL: 3600s)
 - ns2e.itesm.mx (TTL: 3600s)
+- ns1e.itesm.mx (TTL: 3600s)
 
 ## A Records
 
 Total: 2
 
-- 45.60.86.212 (TTL: 841s)
-- 45.60.115.212 (TTL: 841s)
+- 45.60.115.212 (TTL: 537s)
+- 45.60.86.212 (TTL: 537s)
 
 ## MX Records
 
 Total: 1
 
-- tec-mx.mail.protection.outlook.com (Priority: 0, TTL: 3458s)
+- tec-mx.mail.protection.outlook.com (Priority: 0, TTL: 3309s)
 
 ---
 
@@ -79,10 +79,20 @@ No DS records found in parent zone.
 
 ```
 tec.mx
-├── ns1e.itesm.mx (TTL: 3600s)
-└── ns2e.itesm.mx (TTL: 3600s)
+├── ns2e.itesm.mx (TTL: 3600s)
+└── ns1e.itesm.mx (TTL: 3600s)
 ```
 
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| tec.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `tec.mx`

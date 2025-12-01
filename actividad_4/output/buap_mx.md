@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: buap.mx
 
-**Analysis Date:** 2025-11-29T14:48:48.797634
+**Analysis Date:** 2025-12-01T10:06:47.486304
 
 ## Summary
 
@@ -16,7 +16,7 @@
 
 - **Primary Server:** dns1.buap.mx
 - **Responsible Email:** please_set_email.absolutely.nowhere
-- **Serial:** 3793
+- **Serial:** 3794
 - **Refresh:** 10800s
 - **Retry:** 3600s
 - **Expire:** 2419200s
@@ -34,15 +34,15 @@ Total: 2
 
 Total: 2
 
-- 45.60.113.125 (TTL: 3241s)
-- 45.60.86.125 (TTL: 3241s)
+- 45.60.86.125 (TTL: 90s)
+- 45.60.113.125 (TTL: 90s)
 
 ## MX Records
 
 Total: 2
 
-- buap-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
 - d35d9d16f40e054b9d3ebf71042431.mail.outlook.com (Priority: 5, TTL: 3600s)
+- buap-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
 
 ---
 
@@ -87,3 +87,13 @@ buap.mx
 ### Cryptographic Chain of Trust
 
 No DS record found in parent zone (mx). Chain of trust not established.
+
+### Full Chain of Trust to Root
+
+| Zone | DNSKEY | DS | RRSIG | Status |
+|------|--------|----|----- |--------|
+| buap.mx | No | No | No | Unsigned |
+| mx | Yes | Yes | Yes | Signed |
+| . | Yes | N/A | Yes | Signed (Root) |
+
+**Chain Status:** Broken at `buap.mx`
