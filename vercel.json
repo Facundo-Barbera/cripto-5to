@@ -2,20 +2,11 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/analyze.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "api/recommendations.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "api/domains_default.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "api/batch.py",
-      "use": "@vercel/python"
+      "src": "api/*.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
     },
     {
       "src": "public/**",

@@ -1,14 +1,18 @@
 """
 LLM Advisor module for generating DNSSEC recommendations using Google Gemini.
+Uses REST API directly to avoid heavy SDK dependencies on serverless platforms.
 """
 import os
 import json
-import google.generativeai as genai
+import urllib.request
+import urllib.error
 from typing import Dict, Any, Optional
 
 
 class LLMAdvisor:
     """Generates AI-powered recommendations based on DNSSEC analysis results."""
+
+    GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
 
     def __init__(self, api_key: Optional[str] = None):
         """
@@ -20,9 +24,6 @@ class LLMAdvisor:
         self.api_key = api_key or os.environ.get('GEMINI_API_KEY')
         if not self.api_key:
             raise ValueError("Gemini API key is required. Set GEMINI_API_KEY environment variable.")
-
-        genai.configure(api_key=self.api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
         self.cache = {}
 
     def get_recommendations(self, analysis: Dict[str, Any], mode: str = 'executive') -> str:
@@ -47,12 +48,58 @@ class LLMAdvisor:
         prompt = self._build_prompt(analysis, mode)
 
         try:
-            response = self.model.generate_content(prompt)
-            result = response.text
+            result = self._call_gemini_api(prompt)
             self.cache[cache_key] = result
             return result
         except Exception as e:
             raise RuntimeError(f"Failed to generate recommendations: {str(e)}")
+
+    def _call_gemini_api(self, prompt: str) -> str:
+        """Call the Gemini API directly using REST."""
+        url = f"{self.GEMINI_API_URL}?key={self.api_key}"
+
+        payload = {
+            "contents": [{
+                "parts": [{
+                    "text": prompt
+                }]
+            }],
+            "generationConfig": {
+                "temperature": 0.7,
+                "maxOutputTokens": 2048
+            }
+        }
+
+        data = json.dumps(payload).encode('utf-8')
+
+        req = urllib.request.Request(
+            url,
+            data=data,
+            headers={
+                'Content-Type': 'application/json'
+            },
+            method='POST'
+        )
+
+        try:
+            with urllib.request.urlopen(req, timeout=30) as response:
+                result = json.loads(response.read().decode('utf-8'))
+
+                # Extract the text from the response
+                candidates = result.get('candidates', [])
+                if candidates:
+                    content = candidates[0].get('content', {})
+                    parts = content.get('parts', [])
+                    if parts:
+                        return parts[0].get('text', 'No recommendations generated.')
+
+                return 'No recommendations generated.'
+
+        except urllib.error.HTTPError as e:
+            error_body = e.read().decode('utf-8') if e.fp else ''
+            raise RuntimeError(f"Gemini API error ({e.code}): {error_body}")
+        except urllib.error.URLError as e:
+            raise RuntimeError(f"Network error: {str(e.reason)}")
 
     def _build_prompt(self, analysis: Dict[str, Any], mode: str) -> str:
         """Build the prompt for the LLM based on analysis data and mode."""
