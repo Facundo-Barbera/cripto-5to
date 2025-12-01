@@ -15,8 +15,8 @@
     "subtitle": "Visualize DNSSEC validation and RFC compliance"
   },
   "search": {
-    "placeholder": "Enter domain (e.g., gob.mx)",
-    "placeholderNav": "Analyze another domain...",
+    "placeholder": "gob.mx",
+    "placeholderNav": "gob.mx",
     "button": "Analyze",
     "hint": "Press Enter or click Analyze to start"
   },

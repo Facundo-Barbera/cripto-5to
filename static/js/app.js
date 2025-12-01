@@ -235,13 +235,29 @@ function renderChainGraph(data) {
             .attr('r', bubbleRadius);
 
         const displayName = zone.zone === '.' ? 'ROOT' : zone.zone;
-        const fontSize = displayName.length > 10 ? 11 : 14;
+
+        // Better font scaling for long domains
+        let fontSize;
+        if (displayName.length <= 6) {
+            fontSize = 14;
+        } else if (displayName.length <= 10) {
+            fontSize = 12;
+        } else if (displayName.length <= 14) {
+            fontSize = 10;
+        } else {
+            fontSize = 9;
+        }
+
+        // Truncate very long domains with ellipsis
+        const truncatedName = displayName.length > 18
+            ? displayName.substring(0, 15) + '...'
+            : displayName;
 
         const text = bubble.append('text')
             .attr('y', 5)
             .attr('font-size', fontSize)
             .style('opacity', 0)
-            .text(displayName);
+            .text(truncatedName);
 
         text.transition()
             .delay(i * 150 + 200)
@@ -413,4 +429,8 @@ function renderCheck(check) {
 function toggleRFCGroup(header) {
     const group = header.parentElement;
     group.classList.toggle('expanded');
+}
+
+function toggleNavMenu() {
+    document.getElementById('navbar').classList.toggle('menu-open');
 }
