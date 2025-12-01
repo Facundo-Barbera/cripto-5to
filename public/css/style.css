@@ -55,6 +55,15 @@ body {
 
 .nav-title {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.nav-logo {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
 }
 
 .nav-title h1 {
@@ -164,6 +173,13 @@ body {
 header {
     text-align: center;
     margin-bottom: 3rem;
+}
+
+.hero-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 1.5rem;
 }
 
 header h1 {
