@@ -63,3 +63,4 @@ milenio.com
 # Technology and Services
 mercadolibre.com.mx
 amazon.com.mx
+aeromexico.com.mx

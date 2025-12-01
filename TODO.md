@@ -8,27 +8,27 @@ Implement batch scanning system with pre-loaded .mx domains.
 
 #### Backend
 
-- [ ] Create `/api/analyze/batch` endpoint that accepts array of domains
-- [ ] Add progress tracking for batch operations
-- [ ] Return aggregated results with summary statistics
-- [ ] Create `domains_mx.txt` with 50 .mx domains (prioritize DNSSEC-enabled)
+- [x] Create `/api/analyze/batch` endpoint that accepts array of domains
+- [x] Add progress tracking for batch operations
+- [x] Return aggregated results with summary statistics
+- [x] Create `domains_mx.txt` with 50 .mx domains (prioritize DNSSEC-enabled)
 
 #### Frontend
 
-- [ ] Add "Batch Mode" toggle/tab in UI
-- [ ] Textarea input for multiple domains (one per line)
-- [ ] "Load Default 50" button to populate with .mx domains
-- [ ] Progress indicator during batch scan
-- [ ] Results table with sortable columns (domain, DNSSEC status, score)
-- [ ] Export results to CSV/JSON
+- [x] Add "Batch Mode" toggle/tab in UI
+- [x] Textarea input for multiple domains (one per line)
+- [x] "Load Default 50" button to populate with .mx domains
+- [x] Progress indicator during batch scan
+- [x] Results table with sortable columns (domain, DNSSEC status, score)
+- [x] Export results to CSV/JSON
 
 #### Research: Find 50 .mx domains
 
-- [ ] Mexican government domains (.gob.mx) - likely have DNSSEC
-- [ ] Mexican universities (.edu.mx)
-- [ ] Mexican banks and financial institutions
-- [ ] Large Mexican companies
-- [ ] NIC Mexico (nic.mx) - registry, definitely has DNSSEC
+- [x] Mexican government domains (.gob.mx) - likely have DNSSEC
+- [x] Mexican universities (.edu.mx)
+- [x] Mexican banks and financial institutions
+- [x] Large Mexican companies
+- [x] NIC Mexico (nic.mx) - registry, definitely has DNSSEC
 
 ---
 
@@ -38,25 +38,25 @@ Add LLM-generated recommendations based on scan results.
 
 #### Backend
 
-- [ ] Create `/api/recommendations` endpoint
-- [ ] Integrate Gemini API (google-generativeai package)
-- [ ] Build prompt template with scan results context
-- [ ] Support `mode` parameter: `executive` | `technical`
-- [ ] Handle API errors gracefully (rate limits, unavailable)
-- [ ] Cache recommendations to avoid redundant API calls
+- [x] Create `/api/recommendations` endpoint
+- [x] Integrate Gemini API (REST API)
+- [x] Build prompt template with scan results context
+- [x] Support `mode` parameter: `executive` | `technical`
+- [x] Handle API errors gracefully (rate limits, unavailable)
+- [x] Cache recommendations to avoid redundant API calls
 
 #### Frontend
 
-- [ ] Add "Recommendations" section in results (collapsed by default)
-- [ ] Toggle switch: "Executive Summary" / "Technical Details"
-- [ ] Loading state while waiting for LLM response
-- [ ] Markdown rendering for LLM output
-- [ ] Error state if LLM unavailable
+- [x] Add "Recommendations" section in results (collapsed by default)
+- [x] Toggle switch: "Executive Summary" / "Technical Details"
+- [x] Loading state while waiting for LLM response
+- [x] Markdown rendering for LLM output
+- [x] Error state if LLM unavailable
 
 #### Prompt Design
 
-- [ ] Executive mode: Business impact, risk level, action items for management
-- [ ] Technical mode: Specific DNS records to add, configuration steps, RFC references
+- [x] Executive mode: Business impact, risk level, action items for management
+- [x] Technical mode: Specific DNS records to add, configuration steps, RFC references
 
 ---
 
@@ -66,13 +66,13 @@ Add LLM-generated recommendations based on scan results.
 
 Currently `https://unam.mx` breaks the chain analysis.
 
-- [ ] Strip protocol (`http://`, `https://`)
-- [ ] Strip `www.` prefix (optional, configurable)
-- [ ] Strip trailing slashes and paths (`/page/something`)
-- [ ] Validate resulting domain format
-- [ ] Show user the "cleaned" domain being analyzed
+- [x] Strip protocol (`http://`, `https://`)
+- [x] Strip `www.` prefix (optional, configurable)
+- [x] Strip trailing slashes and paths (`/page/something`)
+- [x] Validate resulting domain format
+- [x] Show user the "cleaned" domain being analyzed
 
-**Location:** `app.py` and/or `analyzer/generator.py`
+**Location:** `app.py` and `analyzer/generator.py`
 
 ---
 
@@ -82,66 +82,68 @@ Add pre-flight checks to detect domain status before running DNSSEC analysis.
 
 ### Backend (`analyzer/generator.py`)
 
-- [ ] Create `check_domain_status()` method that returns domain state
-- [ ] Detect `NXDOMAIN` - domain does not exist
-- [ ] Detect `SERVFAIL` - DNS server failure
-- [ ] Detect `Timeout` - DNS server not responding
-- [ ] Detect missing NS records - domain registered but not configured
-- [ ] Detect missing A/AAAA records - domain exists but no address
-- [ ] Add `domain_status` field to analysis response
+- [x] Create `check_domain_status()` method that returns domain state
+- [x] Detect `NXDOMAIN` - domain does not exist
+- [x] Detect `SERVFAIL` - DNS server failure
+- [x] Detect `Timeout` - DNS server not responding
+- [x] Detect missing NS records - domain registered but not configured
+- [x] Detect missing A/AAAA records - domain exists but no address
+- [x] Add `domain_status` field to analysis response
 
-### Frontend (`static/js/app.js`)
+### Frontend (`public/js/app.js`)
 
-- [ ] Handle `domain_status` in API response
-- [ ] Show appropriate error/info message based on status
-- [ ] Don't render DNSSEC chain if domain doesn't exist
+- [x] Handle `domain_status` in API response
+- [x] Show appropriate error/info message based on status
+- [x] Don't render DNSSEC chain if domain doesn't exist
 
 ---
 
-## Phase 2: Additional DNS Security Analysis (Optional)
+## Phase 2: Additional DNS Security Analysis
 
 Make the tool useful even for domains without DNSSEC.
 
 ### Email Authentication Records
 
-- [ ] **SPF** - Query TXT records, parse SPF policy
-- [ ] **DKIM** - Check for common DKIM selectors
-- [ ] **DMARC** - Query `_dmarc.domain` TXT record
+- [x] **SPF** - Query TXT records, parse SPF policy
+- [x] **DKIM** - Check for common DKIM selectors
+- [x] **DMARC** - Query `_dmarc.domain` TXT record
 
 ### Certificate Authority Authorization
 
-- [ ] **CAA Records** - Query CAA, show which CAs can issue certs
+- [x] **CAA Records** - Query CAA, show which CAs can issue certs
 
 ### UI for New Features
 
-- [ ] Add new section "Email Security" in results
-- [ ] Add new section "Certificate Policy" in results
-- [ ] Add i18n translations for new sections
+- [x] Add new section "Email Security" in results
+- [x] Add new section "Certificate Policy" (CAA) in results
+- [x] Add i18n translations for new sections
 
 ---
 
-## Phase 3: DNS Infrastructure Analysis (Optional)
+## Phase 3: DNS Infrastructure Analysis
 
-- [ ] NS diversity check (different networks/ASNs)
-- [ ] IPv6 support (AAAA records presence)
-- [ ] TTL analysis (appropriate values)
-- [ ] DNS provider detection
+- [x] NS diversity check (different networks/providers)
+- [x] IPv6 support (AAAA records presence)
+- [x] TTL analysis (appropriate values)
+- [x] DNS provider detection
 
 ---
 
 ## Notes
 
-- **Feature A & B are required** for final delivery
-- **Bug fix** (URL sanitization) should be done first - quick win
-- Phase 1 is essential - currently the app silently fails on invalid domains
-- Phase 2 adds value for the ~70% of domains without DNSSEC
-- Phase 3 is nice-to-have for comprehensive DNS analysis
+- **Feature A & B are required** for final delivery - COMPLETE
+- **Bug fix** (URL sanitization) - COMPLETE
+- **Phase 1** (Domain status detection) - COMPLETE
+- **Phase 2** (Email security: SPF, DKIM, DMARC, CAA) - COMPLETE
+- **Phase 3** (DNS infrastructure analysis) - COMPLETE
 
-## .mx Domains to Research
+## .mx Domains
 
-Known DNSSEC-enabled .mx domains:
-- `nic.mx` - Mexican domain registry (definitely has DNSSEC)
-- `gob.mx` - Government portal
-- `sat.gob.mx` - Tax authority
-
-Need to verify and find ~47 more...
+File `domains_mx.txt` contains 50 domains organized by category:
+- Registry (nic.mx)
+- Government (.gob.mx)
+- Universities (.edu.mx)
+- Financial institutions
+- Large companies
+- Media
+- Tech companies

@@ -505,6 +505,413 @@ class DNSSECAnalyzer:
             'depth': len(hierarchy)
         }
 
+    def analyze_spf(self, domain: str) -> Dict[str, Any]:
+        """Analyze SPF (Sender Policy Framework) records"""
+        result = {
+            'present': False,
+            'record': None,
+            'mechanisms': [],
+            'all_mechanism': None,
+            'includes': [],
+            'policy_strength': 'none'
+        }
+
+        txt_answer = self._query_safe(domain, 'TXT', use_dnssec=False)
+        if not txt_answer:
+            return result
+
+        for rdata in txt_answer:
+            txt_value = str(rdata).strip('"')
+            if txt_value.lower().startswith('v=spf1'):
+                result['present'] = True
+                result['record'] = txt_value
+
+                # Parse SPF mechanisms
+                parts = txt_value.split()
+                for part in parts[1:]:  # Skip v=spf1
+                    part_lower = part.lower()
+                    if part_lower.startswith('include:'):
+                        result['includes'].append(part[8:])
+                        result['mechanisms'].append({'type': 'include', 'value': part[8:]})
+                    elif part_lower.startswith('a:') or part_lower == 'a':
+                        result['mechanisms'].append({'type': 'a', 'value': part[2:] if ':' in part else domain})
+                    elif part_lower.startswith('mx:') or part_lower == 'mx':
+                        result['mechanisms'].append({'type': 'mx', 'value': part[3:] if ':' in part else domain})
+                    elif part_lower.startswith('ip4:'):
+                        result['mechanisms'].append({'type': 'ip4', 'value': part[4:]})
+                    elif part_lower.startswith('ip6:'):
+                        result['mechanisms'].append({'type': 'ip6', 'value': part[4:]})
+                    elif part_lower in ['-all', '~all', '?all', '+all']:
+                        result['all_mechanism'] = part_lower
+                        if part_lower == '-all':
+                            result['policy_strength'] = 'strict'
+                        elif part_lower == '~all':
+                            result['policy_strength'] = 'soft_fail'
+                        elif part_lower == '?all':
+                            result['policy_strength'] = 'neutral'
+                        elif part_lower == '+all':
+                            result['policy_strength'] = 'permissive'
+                    elif part_lower.startswith('redirect='):
+                        result['mechanisms'].append({'type': 'redirect', 'value': part[9:]})
+
+                break  # Only process first SPF record
+
+        return result
+
+    def analyze_dmarc(self, domain: str) -> Dict[str, Any]:
+        """Analyze DMARC (Domain-based Message Authentication) records"""
+        result = {
+            'present': False,
+            'record': None,
+            'policy': None,
+            'subdomain_policy': None,
+            'percentage': 100,
+            'rua': [],  # Aggregate report addresses
+            'ruf': [],  # Forensic report addresses
+            'adkim': 'relaxed',
+            'aspf': 'relaxed'
+        }
+
+        dmarc_domain = f'_dmarc.{domain}'
+        txt_answer = self._query_safe(dmarc_domain, 'TXT', use_dnssec=False)
+        if not txt_answer:
+            return result
+
+        for rdata in txt_answer:
+            txt_value = str(rdata).strip('"')
+            if txt_value.lower().startswith('v=dmarc1'):
+                result['present'] = True
+                result['record'] = txt_value
+
+                # Parse DMARC tags
+                tags = txt_value.split(';')
+                for tag in tags:
+                    tag = tag.strip()
+                    if '=' in tag:
+                        key, value = tag.split('=', 1)
+                        key = key.strip().lower()
+                        value = value.strip()
+
+                        if key == 'p':
+                            result['policy'] = value.lower()
+                        elif key == 'sp':
+                            result['subdomain_policy'] = value.lower()
+                        elif key == 'pct':
+                            try:
+                                result['percentage'] = int(value)
+                            except ValueError:
+                                pass
+                        elif key == 'rua':
+                            result['rua'] = [addr.strip() for addr in value.split(',')]
+                        elif key == 'ruf':
+                            result['ruf'] = [addr.strip() for addr in value.split(',')]
+                        elif key == 'adkim':
+                            result['adkim'] = 'strict' if value.lower() == 's' else 'relaxed'
+                        elif key == 'aspf':
+                            result['aspf'] = 'strict' if value.lower() == 's' else 'relaxed'
+
+                break  # Only process first DMARC record
+
+        return result
+
+    def analyze_dkim(self, domain: str) -> Dict[str, Any]:
+        """Check for common DKIM selectors"""
+        result = {
+            'selectors_checked': [],
+            'selectors_found': [],
+            'records': []
+        }
+
+        # Common DKIM selectors used by various providers
+        common_selectors = [
+            'default', 'dkim', 'mail', 'email',
+            'google', 'selector1', 'selector2',  # Microsoft 365
+            'k1', 'k2', 'k3',  # Mailchimp
+            's1', 's2',
+            'mandrill', 'smtp', 'mx'
+        ]
+
+        for selector in common_selectors:
+            dkim_domain = f'{selector}._domainkey.{domain}'
+            result['selectors_checked'].append(selector)
+
+            txt_answer = self._query_safe(dkim_domain, 'TXT', use_dnssec=False)
+            if txt_answer:
+                for rdata in txt_answer:
+                    txt_value = str(rdata).strip('"')
+                    if 'v=dkim1' in txt_value.lower() or 'k=rsa' in txt_value.lower():
+                        result['selectors_found'].append(selector)
+                        record_info = {
+                            'selector': selector,
+                            'record': txt_value[:200] + '...' if len(txt_value) > 200 else txt_value
+                        }
+
+                        # Parse some DKIM tags
+                        if 'k=' in txt_value:
+                            for part in txt_value.split(';'):
+                                part = part.strip()
+                                if part.startswith('k='):
+                                    record_info['key_type'] = part[2:]
+                                elif part.startswith('t='):
+                                    record_info['flags'] = part[2:]
+
+                        result['records'].append(record_info)
+                        break
+
+        result['found'] = len(result['selectors_found']) > 0
+        return result
+
+    def analyze_caa(self, domain: str) -> Dict[str, Any]:
+        """Analyze CAA (Certificate Authority Authorization) records"""
+        result = {
+            'present': False,
+            'records': [],
+            'issue': [],
+            'issuewild': [],
+            'iodef': []
+        }
+
+        caa_answer = self._query_safe(domain, 'CAA', use_dnssec=False)
+        if not caa_answer:
+            return result
+
+        result['present'] = True
+        for rdata in caa_answer:
+            record_info = {
+                'flags': rdata.flags,
+                'tag': rdata.tag.decode() if isinstance(rdata.tag, bytes) else str(rdata.tag),
+                'value': rdata.value.decode() if isinstance(rdata.value, bytes) else str(rdata.value)
+            }
+            result['records'].append(record_info)
+
+            tag = record_info['tag'].lower()
+            value = record_info['value']
+            if tag == 'issue':
+                result['issue'].append(value)
+            elif tag == 'issuewild':
+                result['issuewild'].append(value)
+            elif tag == 'iodef':
+                result['iodef'].append(value)
+
+        return result
+
+    def analyze_email_security(self, domain: str) -> Dict[str, Any]:
+        """Analyze all email security records (SPF, DKIM, DMARC)"""
+        return {
+            'spf': self.analyze_spf(domain),
+            'dkim': self.analyze_dkim(domain),
+            'dmarc': self.analyze_dmarc(domain)
+        }
+
+    def analyze_ns_diversity(self, domain: str) -> Dict[str, Any]:
+        """Analyze nameserver diversity (different networks/providers)"""
+        result = {
+            'nameservers': [],
+            'unique_tlds': [],
+            'unique_providers': [],
+            'ipv4_addresses': [],
+            'ipv6_addresses': [],
+            'has_ipv6': False,
+            'diversity_score': 0,
+            'recommendations': []
+        }
+
+        ns_answer = self._query_safe(domain, 'NS', use_dnssec=False)
+        if not ns_answer:
+            return result
+
+        ns_names = []
+        for rdata in ns_answer:
+            ns_name = str(rdata.target).rstrip('.')
+            ns_names.append(ns_name)
+            result['nameservers'].append(ns_name)
+
+            # Extract TLD/provider from NS name
+            parts = ns_name.split('.')
+            if len(parts) >= 2:
+                tld = '.'.join(parts[-2:])
+                if tld not in result['unique_tlds']:
+                    result['unique_tlds'].append(tld)
+
+        # Resolve NS IP addresses
+        for ns_name in ns_names:
+            # IPv4
+            a_answer = self._query_safe(ns_name, 'A', use_dnssec=False)
+            if a_answer:
+                for rdata in a_answer:
+                    ip = str(rdata.address)
+                    if ip not in result['ipv4_addresses']:
+                        result['ipv4_addresses'].append(ip)
+
+            # IPv6
+            aaaa_answer = self._query_safe(ns_name, 'AAAA', use_dnssec=False)
+            if aaaa_answer:
+                result['has_ipv6'] = True
+                for rdata in aaaa_answer:
+                    ip = str(rdata.address)
+                    if ip not in result['ipv6_addresses']:
+                        result['ipv6_addresses'].append(ip)
+
+        # Detect providers from NS names
+        provider_patterns = {
+            'cloudflare': ['cloudflare', 'ns.cloudflare'],
+            'aws_route53': ['awsdns', 'amazonaws'],
+            'google_cloud': ['googledomains', 'google'],
+            'godaddy': ['domaincontrol', 'godaddy'],
+            'namecheap': ['namecheap', 'registrar-servers'],
+            'digitalocean': ['digitalocean'],
+            'azure': ['azure-dns', 'microsoft'],
+            'dnsimple': ['dnsimple'],
+            'he.net': ['he.net'],
+            'ns1': ['ns1.'],
+            'ultradns': ['ultradns'],
+            'verisign': ['verisign']
+        }
+
+        for ns_name in ns_names:
+            ns_lower = ns_name.lower()
+            for provider, patterns in provider_patterns.items():
+                if any(p in ns_lower for p in patterns):
+                    if provider not in result['unique_providers']:
+                        result['unique_providers'].append(provider)
+                    break
+
+        # Calculate diversity score (0-100)
+        score = 0
+        ns_count = len(result['nameservers'])
+        if ns_count >= 2:
+            score += 25
+        if ns_count >= 4:
+            score += 15
+        if len(result['unique_tlds']) >= 2:
+            score += 20
+        if result['has_ipv6']:
+            score += 20
+        if len(result['ipv4_addresses']) >= 2:
+            score += 10
+        if len(result['unique_providers']) >= 1:
+            score += 10
+
+        result['diversity_score'] = min(score, 100)
+
+        # Generate recommendations
+        if ns_count < 2:
+            result['recommendations'].append('Add at least 2 nameservers for redundancy')
+        if not result['has_ipv6']:
+            result['recommendations'].append('Consider adding IPv6 support for nameservers')
+        if len(result['unique_tlds']) < 2 and ns_count >= 2:
+            result['recommendations'].append('Consider using nameservers from different providers for better resilience')
+
+        return result
+
+    def analyze_dns_provider(self, domain: str) -> Dict[str, Any]:
+        """Detect the DNS provider based on nameserver patterns"""
+        result = {
+            'detected_provider': None,
+            'provider_name': 'Unknown',
+            'confidence': 'low',
+            'nameservers': []
+        }
+
+        ns_answer = self._query_safe(domain, 'NS', use_dnssec=False)
+        if not ns_answer:
+            return result
+
+        ns_names = []
+        for rdata in ns_answer:
+            ns_name = str(rdata.target).rstrip('.').lower()
+            ns_names.append(ns_name)
+            result['nameservers'].append(ns_name)
+
+        # Provider detection patterns
+        providers = {
+            'cloudflare': {
+                'patterns': ['cloudflare.com'],
+                'name': 'Cloudflare'
+            },
+            'aws_route53': {
+                'patterns': ['awsdns-', 'amazonaws.com'],
+                'name': 'Amazon Route 53'
+            },
+            'google_cloud': {
+                'patterns': ['googledomains.com', 'google.com'],
+                'name': 'Google Cloud DNS'
+            },
+            'godaddy': {
+                'patterns': ['domaincontrol.com', 'godaddy.com'],
+                'name': 'GoDaddy'
+            },
+            'namecheap': {
+                'patterns': ['namecheaphosting.com', 'registrar-servers.com'],
+                'name': 'Namecheap'
+            },
+            'digitalocean': {
+                'patterns': ['digitalocean.com'],
+                'name': 'DigitalOcean'
+            },
+            'azure': {
+                'patterns': ['azure-dns.', 'microsoft.com'],
+                'name': 'Microsoft Azure DNS'
+            },
+            'dnsimple': {
+                'patterns': ['dnsimple.com'],
+                'name': 'DNSimple'
+            },
+            'he_net': {
+                'patterns': ['he.net'],
+                'name': 'Hurricane Electric'
+            },
+            'ns1': {
+                'patterns': ['nsone.net', 'ns1.'],
+                'name': 'NS1'
+            },
+            'ultradns': {
+                'patterns': ['ultradns.'],
+                'name': 'UltraDNS'
+            },
+            'verisign': {
+                'patterns': ['verisign'],
+                'name': 'Verisign'
+            },
+            'ovh': {
+                'patterns': ['ovh.net'],
+                'name': 'OVH'
+            },
+            'hostgator': {
+                'patterns': ['hostgator.com'],
+                'name': 'HostGator'
+            },
+            'bluehost': {
+                'patterns': ['bluehost.com'],
+                'name': 'Bluehost'
+            }
+        }
+
+        for provider_id, provider_info in providers.items():
+            for ns_name in ns_names:
+                if any(pattern in ns_name for pattern in provider_info['patterns']):
+                    result['detected_provider'] = provider_id
+                    result['provider_name'] = provider_info['name']
+                    result['confidence'] = 'high'
+                    return result
+
+        # If no specific provider detected, try to identify self-hosted
+        for ns_name in ns_names:
+            if domain in ns_name:
+                result['detected_provider'] = 'self_hosted'
+                result['provider_name'] = 'Self-hosted DNS'
+                result['confidence'] = 'medium'
+                return result
+
+        return result
+
+    def analyze_infrastructure(self, domain: str) -> Dict[str, Any]:
+        """Analyze DNS infrastructure (diversity, provider, TTLs)"""
+        return {
+            'ns_diversity': self.analyze_ns_diversity(domain),
+            'provider': self.analyze_dns_provider(domain)
+        }
+
     def analyze_basic_dns(self, domain: str) -> Dict[str, Any]:
         result = {
             'SOA': [],
@@ -576,7 +983,10 @@ class DNSSECAnalyzer:
                 'nsec': {},
                 'ds': {},
                 'summary': {}
-            }
+            },
+            'email_security': {},
+            'caa': {},
+            'infrastructure': {}
         }
 
         result['dns_basic'] = self.analyze_basic_dns(domain)
@@ -587,6 +997,15 @@ class DNSSECAnalyzer:
         result['dnssec']['ds'] = self.analyze_ds(domain)
 
         result['dnssec']['chain_of_trust'] = self.analyze_chain_of_trust(domain)
+
+        # Phase 2: Email Security (SPF, DKIM, DMARC)
+        result['email_security'] = self.analyze_email_security(domain)
+
+        # Phase 2: Certificate Authority Authorization
+        result['caa'] = self.analyze_caa(domain)
+
+        # Phase 3: DNS Infrastructure Analysis
+        result['infrastructure'] = self.analyze_infrastructure(domain)
 
         parts = domain.rstrip('.').split('.')
         result['dns_tree'] = {
