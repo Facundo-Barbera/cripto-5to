@@ -317,6 +317,30 @@ header h1 {
     75% { transform: translateX(10px); }
 }
 
+.sanitized-info {
+    text-align: center;
+    color: var(--accent-cyan);
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.sanitized-info.hidden {
+    display: none;
+}
+
+.sanitized-info strong {
+    color: var(--success-green);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+.sanitized-icon {
+    margin-right: 0.5rem;
+}
+
 .results {
     animation: fadeIn 0.5s ease-out;
 }
@@ -934,5 +958,598 @@ header h1 {
 
     .summary-card .number {
         font-size: 1.5rem;
+    }
+}
+
+/* ==================== BATCH MODE STYLES ==================== */
+
+.mode-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.mode-btn {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid var(--bg-tertiary);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mode-btn:hover {
+    border-color: var(--accent-cyan);
+    color: var(--text-primary);
+}
+
+.mode-btn.active {
+    background: linear-gradient(135deg, var(--accent-cyan), var(--success-green));
+    border-color: transparent;
+    color: var(--bg-primary);
+}
+
+.mode-content.hidden {
+    display: none;
+}
+
+.batch-input-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.batch-input-wrapper textarea {
+    width: 100%;
+    padding: 1rem;
+    font-size: 0.9rem;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    border: 2px solid var(--bg-tertiary);
+    border-radius: 12px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    resize: vertical;
+    min-height: 200px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.batch-input-wrapper textarea:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+.batch-input-wrapper textarea::placeholder {
+    color: var(--text-secondary);
+}
+
+.batch-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-secondary {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid var(--accent-cyan);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--accent-cyan);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 212, 255, 0.1);
+}
+
+.btn-primary {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--success-green));
+    color: var(--bg-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    min-width: 180px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+}
+
+.btn-primary.loading .btn-text {
+    opacity: 0;
+}
+
+.btn-primary.loading .btn-loader {
+    display: block;
+}
+
+.btn-primary .btn-loader {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--bg-primary);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* Batch Results */
+.batch-results {
+    margin-top: 2rem;
+}
+
+.batch-results.hidden {
+    display: none;
+}
+
+.batch-progress-section {
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.batch-progress-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 12px;
+    background: var(--bg-tertiary);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--success-green));
+    border-radius: 6px;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+.progress-text {
+    text-align: center;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.batch-summary {
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.batch-summary.hidden {
+    display: none;
+}
+
+.batch-summary h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.summary-cards {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.batch-table-section {
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+}
+
+.batch-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.batch-table-header h2 {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+}
+
+.export-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-export {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid var(--bg-tertiary);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-export:hover {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+}
+
+.batch-table-wrapper {
+    overflow-x: auto;
+}
+
+.batch-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.batch-table th,
+.batch-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--bg-tertiary);
+}
+
+.batch-table th {
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.batch-table tbody tr:hover {
+    background: rgba(0, 212, 255, 0.05);
+}
+
+.batch-table .domain-cell {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--accent-cyan);
+}
+
+.batch-table .status-yes {
+    color: var(--success-green);
+    font-weight: 600;
+}
+
+.batch-table .status-no {
+    color: var(--error-red);
+}
+
+.batch-table .status-success {
+    color: var(--success-green);
+}
+
+.batch-table .status-error {
+    color: var(--error-red);
+    font-size: 0.8rem;
+}
+
+.batch-table .row-error {
+    background: rgba(255, 107, 107, 0.05);
+}
+
+@media (max-width: 768px) {
+    .mode-toggle {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mode-btn {
+        width: 200px;
+    }
+
+    .batch-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-secondary,
+    .btn-primary {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .batch-table-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .batch-table {
+        font-size: 0.8rem;
+    }
+
+    .batch-table th,
+    .batch-table td {
+        padding: 0.5rem;
+    }
+}
+
+/* ==================== AI RECOMMENDATIONS STYLES ==================== */
+
+.recommendations-section {
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    margin-top: 2rem;
+    overflow: hidden;
+}
+
+.recommendations-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.recommendations-header:hover {
+    background: rgba(0, 212, 255, 0.05);
+}
+
+.recommendations-header h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.recommendations-header h2::before {
+    content: '✨';
+}
+
+.recommendations-toggle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    transition: transform 0.3s ease;
+}
+
+.recommendations-section.expanded .recommendations-toggle {
+    transform: rotate(180deg);
+}
+
+.recommendations-content {
+    padding: 0 2rem 2rem;
+}
+
+.recommendations-content.hidden {
+    display: none;
+}
+
+.recommendations-mode-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.rec-mode-btn {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid var(--bg-tertiary);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.rec-mode-btn:hover {
+    border-color: var(--accent-cyan);
+    color: var(--text-primary);
+}
+
+.rec-mode-btn.active {
+    background: linear-gradient(135deg, var(--accent-cyan), var(--success-green));
+    border-color: transparent;
+    color: var(--bg-primary);
+}
+
+.recommendations-body {
+    text-align: center;
+}
+
+.btn-generate {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 2px solid var(--accent-cyan);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--accent-cyan);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    min-width: 250px;
+}
+
+.btn-generate:hover {
+    background: rgba(0, 212, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.2);
+}
+
+.btn-generate.loading .btn-text {
+    opacity: 0;
+}
+
+.btn-generate.loading .btn-loader {
+    display: block;
+}
+
+.btn-generate .btn-loader {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--accent-cyan);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.recommendations-text {
+    text-align: left;
+    background: var(--bg-tertiary);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+.recommendations-text h2 {
+    color: var(--accent-cyan);
+    font-size: 1.3rem;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--bg-tertiary);
+}
+
+.recommendations-text h2:first-child {
+    margin-top: 0;
+}
+
+.recommendations-text h3 {
+    color: var(--success-green);
+    font-size: 1.1rem;
+    margin: 1.25rem 0 0.5rem;
+}
+
+.recommendations-text h4 {
+    color: var(--text-primary);
+    font-size: 1rem;
+    margin: 1rem 0 0.5rem;
+}
+
+.recommendations-text p {
+    margin: 0.75rem 0;
+    color: var(--text-secondary);
+}
+
+.recommendations-text strong {
+    color: var(--text-primary);
+}
+
+.recommendations-text ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.recommendations-text li {
+    margin: 0.25rem 0;
+    color: var(--text-secondary);
+}
+
+.recommendations-text code {
+    background: var(--bg-primary);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.85em;
+    color: var(--accent-cyan);
+}
+
+.recommendations-text pre {
+    background: var(--bg-primary);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.recommendations-text pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.85rem;
+}
+
+.btn-regenerate {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid var(--bg-tertiary);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-regenerate:hover {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+}
+
+.recommendations-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: rgba(255, 107, 107, 0.1);
+    border-radius: 8px;
+    color: var(--error-red);
+}
+
+.error-icon {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .recommendations-header {
+        padding: 1rem 1.5rem;
+    }
+
+    .recommendations-content {
+        padding: 0 1.5rem 1.5rem;
+    }
+
+    .recommendations-mode-toggle {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .rec-mode-btn {
+        width: 200px;
+    }
+
+    .recommendations-text {
+        padding: 1rem;
     }
 }

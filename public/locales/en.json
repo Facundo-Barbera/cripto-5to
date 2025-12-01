@@ -24,6 +24,18 @@
     "emptyDomain": "Please enter a domain name",
     "analysisFailed": "Analysis failed"
   },
+  "sanitized": {
+    "message": "Input cleaned: analyzing",
+    "from": "from"
+  },
+  "domainStatus": {
+    "NXDOMAIN": "Domain does not exist",
+    "SERVFAIL": "DNS server failure - unable to reach nameservers",
+    "TIMEOUT": "DNS query timed out - server not responding",
+    "NO_NS": "Domain has no nameserver records configured",
+    "NO_ADDRESS": "Domain has nameservers but no IP addresses",
+    "ERROR": "An error occurred while checking the domain"
+  },
   "results": {
     "chainOfTrust": "Chain of Trust",
     "rfcCompliance": "RFC Compliance",
@@ -56,5 +68,44 @@
       "RFC6840": "RFC 6840 - Clarifications",
       "RFC9364": "RFC 9364 - Operational Practices"
     }
+  },
+  "recommendations": {
+    "title": "AI Recommendations",
+    "executive": "Executive Summary",
+    "technical": "Technical Details",
+    "loading": "Generating recommendations...",
+    "error": "Failed to load recommendations",
+    "notAvailable": "AI recommendations not available",
+    "generate": "Get AI Recommendations",
+    "regenerate": "Regenerate"
+  },
+  "batch": {
+    "title": "Batch Analysis",
+    "singleMode": "Single Domain",
+    "batchMode": "Batch Mode",
+    "placeholder": "Enter domains (one per line)...",
+    "loadDefault": "Load 50 .mx Domains",
+    "startAnalysis": "Start Batch Analysis",
+    "analyzing": "Analyzing...",
+    "progress": "Progress",
+    "completed": "Completed",
+    "of": "of",
+    "domains": "domains",
+    "results": "Results",
+    "domain": "Domain",
+    "dnssecEnabled": "DNSSEC",
+    "chainComplete": "Chain",
+    "rfcScore": "RFC Score",
+    "status": "Status",
+    "yes": "Yes",
+    "no": "No",
+    "error": "Error",
+    "exportCSV": "Export CSV",
+    "exportJSON": "Export JSON",
+    "summary": "Summary",
+    "dnssecEnabledCount": "DNSSEC Enabled",
+    "chainCompleteCount": "Chain Complete",
+    "errorsCount": "Errors",
+    "avgScore": "Average Score"
   }
 }

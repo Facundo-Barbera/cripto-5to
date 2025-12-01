@@ -524,75 +524,79 @@ async function startBatchAnalysis() {
     document.getElementById('batch-results-body').innerHTML = '';
     batchResults = [];
 
-    try {
-        const response = await fetch('/api/analyze/batch', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ domains })
-        });
+    // Process domains sequentially (Vercel-compatible approach)
+    let completed = 0;
+    let dnssecEnabledCount = 0;
+    let chainCompleteCount = 0;
+    let errorsCount = 0;
+    let totalScore = 0;
 
-        const data = await response.json();
+    for (const domain of domains) {
+        try {
+            const response = await fetch('/api/batch', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ domain })
+            });
 
-        if (!response.ok) {
-            throw new Error(data.error || t('errors.analysisFailed'));
+            const data = await response.json();
+
+            const result = {
+                domain: data.domain,
+                dnssec_enabled: data.dnssec_enabled || false,
+                chain_complete: data.chain_complete || false,
+                rfc_score: parseInt((data.rfc_score || '0/0').split('/')[0]) || 0,
+                rfc_total: parseInt((data.rfc_score || '0/0').split('/')[1]) || 0,
+                rfc_percentage: data.rfc_percentage || 0,
+                status: data.status === 'OK' ? 'success' : 'error',
+                error: data.error || null,
+                full_result: data.full_result || null
+            };
+
+            batchResults.push(result);
+
+            // Update counters
+            if (result.dnssec_enabled) dnssecEnabledCount++;
+            if (result.chain_complete) chainCompleteCount++;
+            if (result.status === 'error') errorsCount++;
+            totalScore += result.rfc_percentage;
+
+        } catch (error) {
+            batchResults.push({
+                domain: domain,
+                dnssec_enabled: false,
+                chain_complete: false,
+                rfc_score: 0,
+                rfc_total: 0,
+                rfc_percentage: 0,
+                status: 'error',
+                error: error.message
+            });
+            errorsCount++;
         }
 
-        currentBatchJob = data.job_id;
+        completed++;
 
-        // Start polling for progress
-        batchPollInterval = setInterval(() => pollBatchProgress(), 2000);
+        // Update progress
+        const progress = (completed / domains.length) * 100;
+        document.getElementById('batch-progress-bar').style.width = `${progress}%`;
+        document.getElementById('batch-progress-text').textContent = `${completed} / ${domains.length}`;
 
-    } catch (error) {
-        showError(error.message);
-        btn.classList.remove('loading');
-        btn.disabled = false;
+        // Update table
+        updateBatchResultsTable(batchResults);
     }
-}
 
-async function pollBatchProgress() {
-    if (!currentBatchJob) return;
+    // Show summary
+    const avgScore = batchResults.length > 0 ? totalScore / batchResults.length : 0;
+    document.getElementById('summary-dnssec').textContent = dnssecEnabledCount;
+    document.getElementById('summary-chain').textContent = chainCompleteCount;
+    document.getElementById('summary-errors').textContent = errorsCount;
+    document.getElementById('summary-avg-score').textContent = `${avgScore.toFixed(1)}%`;
+    document.getElementById('batch-summary').classList.remove('hidden');
 
-    try {
-        const response = await fetch(`/api/analyze/batch/${currentBatchJob}`);
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.error);
-        }
-
-        // Update progress bar
-        const progressBar = document.getElementById('batch-progress-bar');
-        const progressText = document.getElementById('batch-progress-text');
-        progressBar.style.width = `${data.progress}%`;
-        progressText.textContent = `${data.completed} / ${data.total}`;
-
-        // Update results table with new results
-        updateBatchResultsTable(data.results);
-        batchResults = data.results;
-
-        // Check if completed
-        if (data.status === 'completed') {
-            clearInterval(batchPollInterval);
-            batchPollInterval = null;
-            currentBatchJob = null;
-
-            // Show summary
-            if (data.summary) {
-                document.getElementById('summary-dnssec').textContent = data.summary.dnssec_enabled_count;
-                document.getElementById('summary-chain').textContent = data.summary.chain_complete_count;
-                document.getElementById('summary-errors').textContent = data.summary.errors_count;
-                document.getElementById('summary-avg-score').textContent = `${data.summary.average_rfc_score.toFixed(1)}%`;
-                document.getElementById('batch-summary').classList.remove('hidden');
-            }
-
-            // Re-enable button
-            const btn = document.getElementById('batch-analyze-btn');
-            btn.classList.remove('loading');
-            btn.disabled = false;
-        }
-    } catch (error) {
-        console.error('Error polling batch progress:', error);
-    }
+    // Re-enable button
+    btn.classList.remove('loading');
+    btn.disabled = false;
 }
 
 function updateBatchResultsTable(results) {

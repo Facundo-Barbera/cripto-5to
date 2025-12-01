@@ -6,6 +6,18 @@
       "use": "@vercel/python"
     },
     {
+      "src": "api/recommendations.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "api/domains_default.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "api/batch.py",
+      "use": "@vercel/python"
+    },
+    {
       "src": "public/**",
       "use": "@vercel/static"
     }
@@ -15,6 +27,21 @@
       "src": "/api/analyze",
       "methods": ["POST", "OPTIONS"],
       "dest": "/api/analyze.py"
+    },
+    {
+      "src": "/api/recommendations",
+      "methods": ["POST", "OPTIONS"],
+      "dest": "/api/recommendations.py"
+    },
+    {
+      "src": "/api/domains/default",
+      "methods": ["GET", "OPTIONS"],
+      "dest": "/api/domains_default.py"
+    },
+    {
+      "src": "/api/batch",
+      "methods": ["POST", "OPTIONS"],
+      "dest": "/api/batch.py"
     },
     {
       "src": "/css/(.*)",

@@ -1,5 +1,10 @@
 let currentData = null;
 let isNavbarMode = false;
+let currentBatchJob = null;
+let batchPollInterval = null;
+let batchResults = [];
+let currentRecommendationMode = 'executive';
+let recommendationsCache = {};
 
 // Initialize app after i18n is loaded
 document.addEventListener('DOMContentLoaded', async function() {
@@ -98,10 +103,26 @@ async function analyzeDomain() {
         const data = await response.json();
 
         if (!response.ok) {
+            // Check if we have domain status info for better error messages
+            if (data.domain_status && data.domain_status.status) {
+                const statusKey = `domainStatus.${data.domain_status.status}`;
+                const translatedMessage = t(statusKey);
+                // Use translated message if available, otherwise fall back to server message
+                throw new Error(translatedMessage !== statusKey ? translatedMessage : (data.error || t('errors.analysisFailed')));
+            }
             throw new Error(data.error || t('errors.analysisFailed'));
         }
 
         currentData = data;
+
+        // Show sanitized domain info if the input was cleaned
+        const sanitizedInfoEl = document.getElementById('sanitized-info');
+        if (data.sanitized_from) {
+            sanitizedInfoEl.innerHTML = `<span class="sanitized-icon">ℹ️</span> ${t('sanitized.message')} <strong>${data.domain}</strong> ${t('sanitized.from')} "${data.sanitized_from}"`;
+            sanitizedInfoEl.classList.remove('hidden');
+        } else {
+            sanitizedInfoEl.classList.add('hidden');
+        }
 
         if (!isNavbarMode) {
             switchToNavbarMode();
@@ -115,7 +136,7 @@ async function analyzeDomain() {
         }
 
         document.getElementById('nav-domain-input').value = '';
-        document.getElementById('current-domain-display').textContent = domain;
+        document.getElementById('current-domain-display').textContent = data.domain;
 
     } catch (error) {
         showError(error.message);
@@ -433,4 +454,335 @@ function toggleRFCGroup(header) {
 
 function toggleNavMenu() {
     document.getElementById('navbar').classList.toggle('menu-open');
+}
+
+// ==================== BATCH MODE FUNCTIONS ====================
+
+function setAnalysisMode(mode) {
+    const singleMode = document.getElementById('single-mode');
+    const batchMode = document.getElementById('batch-mode');
+    const modeButtons = document.querySelectorAll('.mode-btn');
+
+    modeButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+    });
+
+    if (mode === 'single') {
+        singleMode.classList.remove('hidden');
+        batchMode.classList.add('hidden');
+    } else {
+        singleMode.classList.add('hidden');
+        batchMode.classList.remove('hidden');
+    }
+}
+
+async function loadDefaultDomains() {
+    try {
+        const response = await fetch('/api/domains/default');
+        const data = await response.json();
+
+        if (data.domains) {
+            document.getElementById('batch-domains-input').value = data.domains.join('\n');
+        }
+    } catch (error) {
+        showError('Failed to load default domains');
+    }
+}
+
+async function startBatchAnalysis() {
+    const textarea = document.getElementById('batch-domains-input');
+    const btn = document.getElementById('batch-analyze-btn');
+    const errorEl = document.getElementById('error-message');
+    const batchResultsEl = document.getElementById('batch-results');
+    const resultsEl = document.getElementById('results');
+
+    const domainsText = textarea.value.trim();
+    if (!domainsText) {
+        showError(t('errors.emptyDomain'));
+        return;
+    }
+
+    const domains = domainsText.split('\n')
+        .map(d => d.trim())
+        .filter(d => d && !d.startsWith('#'));
+
+    if (domains.length === 0) {
+        showError(t('errors.emptyDomain'));
+        return;
+    }
+
+    btn.classList.add('loading');
+    btn.disabled = true;
+    errorEl.classList.remove('visible');
+    resultsEl.classList.add('hidden');
+    batchResultsEl.classList.remove('hidden');
+
+    // Reset progress
+    document.getElementById('batch-progress-bar').style.width = '0%';
+    document.getElementById('batch-progress-text').textContent = `0 / ${domains.length}`;
+    document.getElementById('batch-summary').classList.add('hidden');
+    document.getElementById('batch-results-body').innerHTML = '';
+    batchResults = [];
+
+    // Process domains sequentially (Vercel-compatible approach)
+    let completed = 0;
+    let dnssecEnabledCount = 0;
+    let chainCompleteCount = 0;
+    let errorsCount = 0;
+    let totalScore = 0;
+
+    for (const domain of domains) {
+        try {
+            const response = await fetch('/api/batch', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ domain })
+            });
+
+            const data = await response.json();
+
+            const result = {
+                domain: data.domain,
+                dnssec_enabled: data.dnssec_enabled || false,
+                chain_complete: data.chain_complete || false,
+                rfc_score: parseInt((data.rfc_score || '0/0').split('/')[0]) || 0,
+                rfc_total: parseInt((data.rfc_score || '0/0').split('/')[1]) || 0,
+                rfc_percentage: data.rfc_percentage || 0,
+                status: data.status === 'OK' ? 'success' : 'error',
+                error: data.error || null,
+                full_result: data.full_result || null
+            };
+
+            batchResults.push(result);
+
+            // Update counters
+            if (result.dnssec_enabled) dnssecEnabledCount++;
+            if (result.chain_complete) chainCompleteCount++;
+            if (result.status === 'error') errorsCount++;
+            totalScore += result.rfc_percentage;
+
+        } catch (error) {
+            batchResults.push({
+                domain: domain,
+                dnssec_enabled: false,
+                chain_complete: false,
+                rfc_score: 0,
+                rfc_total: 0,
+                rfc_percentage: 0,
+                status: 'error',
+                error: error.message
+            });
+            errorsCount++;
+        }
+
+        completed++;
+
+        // Update progress
+        const progress = (completed / domains.length) * 100;
+        document.getElementById('batch-progress-bar').style.width = `${progress}%`;
+        document.getElementById('batch-progress-text').textContent = `${completed} / ${domains.length}`;
+
+        // Update table
+        updateBatchResultsTable(batchResults);
+    }
+
+    // Show summary
+    const avgScore = batchResults.length > 0 ? totalScore / batchResults.length : 0;
+    document.getElementById('summary-dnssec').textContent = dnssecEnabledCount;
+    document.getElementById('summary-chain').textContent = chainCompleteCount;
+    document.getElementById('summary-errors').textContent = errorsCount;
+    document.getElementById('summary-avg-score').textContent = `${avgScore.toFixed(1)}%`;
+    document.getElementById('batch-summary').classList.remove('hidden');
+
+    // Re-enable button
+    btn.classList.remove('loading');
+    btn.disabled = false;
+}
+
+function updateBatchResultsTable(results) {
+    const tbody = document.getElementById('batch-results-body');
+    tbody.innerHTML = '';
+
+    results.forEach(result => {
+        const row = document.createElement('tr');
+        row.className = result.status === 'error' ? 'row-error' : '';
+
+        const dnssecClass = result.dnssec_enabled ? 'status-yes' : 'status-no';
+        const chainClass = result.chain_complete ? 'status-yes' : 'status-no';
+        const statusClass = result.status === 'success' ? 'status-success' : 'status-error';
+
+        row.innerHTML = `
+            <td class="domain-cell">${result.domain}</td>
+            <td class="${dnssecClass}">${result.dnssec_enabled ? t('batch.yes') : t('batch.no')}</td>
+            <td class="${chainClass}">${result.chain_complete ? t('batch.yes') : t('batch.no')}</td>
+            <td>${result.rfc_percentage.toFixed(1)}%</td>
+            <td class="${statusClass}">${result.status === 'success' ? '✓' : (result.error || t('batch.error'))}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function exportBatchCSV() {
+    if (batchResults.length === 0) return;
+
+    const headers = ['Domain', 'DNSSEC Enabled', 'Chain Complete', 'RFC Score', 'RFC Percentage', 'Status', 'Error'];
+    const rows = batchResults.map(r => [
+        r.domain,
+        r.dnssec_enabled ? 'Yes' : 'No',
+        r.chain_complete ? 'Yes' : 'No',
+        `${r.rfc_score}/${r.rfc_total}`,
+        `${r.rfc_percentage.toFixed(1)}%`,
+        r.status,
+        r.error || ''
+    ]);
+
+    const csvContent = [headers, ...rows]
+        .map(row => row.map(cell => `"${cell}"`).join(','))
+        .join('\n');
+
+    downloadFile(csvContent, 'dnssec-batch-results.csv', 'text/csv');
+}
+
+function exportBatchJSON() {
+    if (batchResults.length === 0) return;
+
+    const jsonContent = JSON.stringify({
+        exported_at: new Date().toISOString(),
+        total: batchResults.length,
+        results: batchResults
+    }, null, 2);
+
+    downloadFile(jsonContent, 'dnssec-batch-results.json', 'application/json');
+}
+
+function downloadFile(content, filename, mimeType) {
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// ==================== AI RECOMMENDATIONS FUNCTIONS ====================
+
+function toggleRecommendations() {
+    const content = document.getElementById('recommendations-content');
+    const section = document.querySelector('.recommendations-section');
+    content.classList.toggle('hidden');
+    section.classList.toggle('expanded');
+}
+
+function setRecommendationMode(mode) {
+    currentRecommendationMode = mode;
+    const buttons = document.querySelectorAll('.rec-mode-btn');
+    buttons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+    });
+
+    // If we have cached recommendations for this mode and domain, show them
+    if (currentData) {
+        const cacheKey = `${currentData.domain}:${mode}`;
+        if (recommendationsCache[cacheKey]) {
+            renderRecommendations(recommendationsCache[cacheKey]);
+        } else {
+            // Reset to generate button if no cache
+            resetRecommendationsUI();
+        }
+    }
+}
+
+async function generateRecommendations() {
+    if (!currentData) return;
+
+    const btn = document.getElementById('generate-recommendations-btn');
+    const body = document.getElementById('recommendations-body');
+
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    try {
+        const response = await fetch('/api/recommendations', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                analysis: currentData,
+                mode: currentRecommendationMode
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || t('recommendations.error'));
+        }
+
+        // Cache the result
+        const cacheKey = `${currentData.domain}:${currentRecommendationMode}`;
+        recommendationsCache[cacheKey] = data.recommendations;
+
+        // Render recommendations
+        renderRecommendations(data.recommendations);
+
+    } catch (error) {
+        body.innerHTML = `
+            <div class="recommendations-error">
+                <span class="error-icon">⚠️</span>
+                <span>${error.message}</span>
+            </div>
+            <button id="generate-recommendations-btn" class="btn-generate" onclick="generateRecommendations()">
+                <span class="btn-text" data-i18n="recommendations.regenerate">${t('recommendations.regenerate')}</span>
+                <span class="btn-loader"></span>
+            </button>
+        `;
+    }
+}
+
+function renderRecommendations(markdown) {
+    const body = document.getElementById('recommendations-body');
+
+    // Simple markdown to HTML conversion
+    let html = markdown
+        // Headers
+        .replace(/^### (.*$)/gim, '<h4>$1</h4>')
+        .replace(/^## (.*$)/gim, '<h3>$1</h3>')
+        .replace(/^# (.*$)/gim, '<h2>$1</h2>')
+        // Bold
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        // Italic
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        // Code blocks
+        .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+        // Inline code
+        .replace(/`(.*?)`/g, '<code>$1</code>')
+        // Unordered lists
+        .replace(/^\- (.*$)/gim, '<li>$1</li>')
+        // Line breaks
+        .replace(/\n\n/g, '</p><p>')
+        .replace(/\n/g, '<br>');
+
+    // Wrap list items
+    html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+
+    body.innerHTML = `
+        <div class="recommendations-text">
+            <p>${html}</p>
+        </div>
+        <button class="btn-regenerate" onclick="generateRecommendations()">
+            <span data-i18n="recommendations.regenerate">${t('recommendations.regenerate')}</span>
+        </button>
+    `;
+}
+
+function resetRecommendationsUI() {
+    const body = document.getElementById('recommendations-body');
+    body.innerHTML = `
+        <button id="generate-recommendations-btn" class="btn-generate" onclick="generateRecommendations()">
+            <span class="btn-text" data-i18n="recommendations.generate">${t('recommendations.generate')}</span>
+            <span class="btn-loader"></span>
+        </button>
+    `;
 }

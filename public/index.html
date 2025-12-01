@@ -56,14 +56,34 @@
         </header>
 
         <div id="hero-search" class="search-section">
-            <div class="input-wrapper">
-                <input type="text" id="domain-input" data-i18n-placeholder="search.placeholder" placeholder="Enter domain (e.g., gob.mx)" autocomplete="off">
-                <button id="analyze-btn" onclick="analyzeDomain()">
-                    <span class="btn-text" data-i18n="search.button">Analyze</span>
-                    <span class="btn-loader"></span>
-                </button>
+            <div class="mode-toggle">
+                <button class="mode-btn active" data-mode="single" onclick="setAnalysisMode('single')" data-i18n="batch.singleMode">Single Domain</button>
+                <button class="mode-btn" data-mode="batch" onclick="setAnalysisMode('batch')" data-i18n="batch.batchMode">Batch Mode</button>
             </div>
-            <p class="hint" data-i18n="search.hint">Press Enter or click Analyze to start</p>
+
+            <div id="single-mode" class="mode-content">
+                <div class="input-wrapper">
+                    <input type="text" id="domain-input" data-i18n-placeholder="search.placeholder" placeholder="Enter domain (e.g., gob.mx)" autocomplete="off">
+                    <button id="analyze-btn" onclick="analyzeDomain()">
+                        <span class="btn-text" data-i18n="search.button">Analyze</span>
+                        <span class="btn-loader"></span>
+                    </button>
+                </div>
+                <p class="hint" data-i18n="search.hint">Press Enter or click Analyze to start</p>
+            </div>
+
+            <div id="batch-mode" class="mode-content hidden">
+                <div class="batch-input-wrapper">
+                    <textarea id="batch-domains-input" data-i18n-placeholder="batch.placeholder" placeholder="Enter domains (one per line)..." rows="8"></textarea>
+                    <div class="batch-actions">
+                        <button class="btn-secondary" onclick="loadDefaultDomains()" data-i18n="batch.loadDefault">Load 50 .mx Domains</button>
+                        <button id="batch-analyze-btn" class="btn-primary" onclick="startBatchAnalysis()">
+                            <span class="btn-text" data-i18n="batch.startAnalysis">Start Batch Analysis</span>
+                            <span class="btn-loader"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
             <div class="hero-lang-switcher">
                 <div class="language-switcher" id="hero-lang-switcher">
                     <button class="lang-toggle" aria-label="Select language">
@@ -85,6 +105,7 @@
         </div>
 
         <div id="error-message" class="error-message"></div>
+        <div id="sanitized-info" class="sanitized-info hidden"></div>
 
         <div id="results" class="results hidden">
             <div class="graph-section">
@@ -105,6 +126,81 @@
                 <h2 data-i18n="results.rfcCompliance">RFC Compliance</h2>
                 <div id="rfc-summary" class="rfc-summary"></div>
                 <div id="rfc-checks" class="rfc-checks"></div>
+            </div>
+
+            <div class="recommendations-section">
+                <div class="recommendations-header" onclick="toggleRecommendations()">
+                    <h2 data-i18n="recommendations.title">AI Recommendations</h2>
+                    <span class="recommendations-toggle">▼</span>
+                </div>
+                <div id="recommendations-content" class="recommendations-content hidden">
+                    <div class="recommendations-mode-toggle">
+                        <button class="rec-mode-btn active" data-mode="executive" onclick="setRecommendationMode('executive')" data-i18n="recommendations.executive">Executive Summary</button>
+                        <button class="rec-mode-btn" data-mode="technical" onclick="setRecommendationMode('technical')" data-i18n="recommendations.technical">Technical Details</button>
+                    </div>
+                    <div id="recommendations-body" class="recommendations-body">
+                        <button id="generate-recommendations-btn" class="btn-generate" onclick="generateRecommendations()">
+                            <span class="btn-text" data-i18n="recommendations.generate">Get AI Recommendations</span>
+                            <span class="btn-loader"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="batch-results" class="batch-results hidden">
+            <div class="batch-progress-section">
+                <h2 data-i18n="batch.progress">Progress</h2>
+                <div class="progress-bar-container">
+                    <div id="batch-progress-bar" class="progress-bar"></div>
+                </div>
+                <div id="batch-progress-text" class="progress-text">0 / 0</div>
+            </div>
+
+            <div id="batch-summary" class="batch-summary hidden">
+                <h2 data-i18n="batch.summary">Summary</h2>
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div id="summary-dnssec" class="number">0</div>
+                        <div class="label" data-i18n="batch.dnssecEnabledCount">DNSSEC Enabled</div>
+                    </div>
+                    <div class="summary-card">
+                        <div id="summary-chain" class="number">0</div>
+                        <div class="label" data-i18n="batch.chainCompleteCount">Chain Complete</div>
+                    </div>
+                    <div class="summary-card">
+                        <div id="summary-errors" class="number">0</div>
+                        <div class="label" data-i18n="batch.errorsCount">Errors</div>
+                    </div>
+                    <div class="summary-card">
+                        <div id="summary-avg-score" class="number">0%</div>
+                        <div class="label" data-i18n="batch.avgScore">Average Score</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="batch-table-section">
+                <div class="batch-table-header">
+                    <h2 data-i18n="batch.results">Results</h2>
+                    <div class="export-buttons">
+                        <button class="btn-export" onclick="exportBatchCSV()" data-i18n="batch.exportCSV">Export CSV</button>
+                        <button class="btn-export" onclick="exportBatchJSON()" data-i18n="batch.exportJSON">Export JSON</button>
+                    </div>
+                </div>
+                <div class="batch-table-wrapper">
+                    <table id="batch-results-table" class="batch-table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="batch.domain">Domain</th>
+                                <th data-i18n="batch.dnssecEnabled">DNSSEC</th>
+                                <th data-i18n="batch.chainComplete">Chain</th>
+                                <th data-i18n="batch.rfcScore">RFC Score</th>
+                                <th data-i18n="batch.status">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="batch-results-body"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
