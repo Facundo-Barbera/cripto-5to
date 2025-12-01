@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: ipn.mx
 
-**Analysis Date:** 2025-11-27T10:56:03.851630
+**Analysis Date:** 2025-11-29T14:48:41.638108
 
 ## Summary
 
@@ -16,7 +16,7 @@
 
 - **Primary Server:** dns3.ipn.mx
 - **Responsible Email:** tic.ipn.mx
-- **Serial:** 2025112572
+- **Serial:** 2025112804
 - **Refresh:** 10800s
 - **Retry:** 1800s
 - **Expire:** 1209600s
@@ -27,21 +27,21 @@
 
 Total: 3
 
-- dns3.ipn.mx (TTL: 1692s)
-- dns2.ipn.mx (TTL: 1692s)
-- dns1.ipn.mx (TTL: 1692s)
+- dns1.ipn.mx (TTL: 1800s)
+- dns2.ipn.mx (TTL: 1800s)
+- dns3.ipn.mx (TTL: 1800s)
 
 ## A Records
 
 Total: 1
 
-- 20.64.80.120 (TTL: 569s)
+- 20.64.80.120 (TTL: 2469s)
 
 ## MX Records
 
 Total: 1
 
-- ipn-mx.mail.protection.outlook.com (Priority: 0, TTL: 1730s)
+- ipn-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
 
 ---
 
@@ -50,7 +50,7 @@ Total: 1
 ## DNSKEY Records
 
 - **Total Keys:** 2
-- **TTL:** 21600s
+- **TTL:** 86400s
 
 ### Key 1
 
@@ -88,41 +88,20 @@ No DS records found in parent zone.
 
 ### NSEC3 Details
 
-- **Count:** 3
-- **TTL:** 10800s
-
-#### NSEC3 Record 1
-
-- **Hash Algorithm:** 1
-- **Flags:** 0
-- **Iterations:** 1
-- **Salt:** f3a7b355cfc90a2c
-
-#### NSEC3 Record 2
-
-- **Hash Algorithm:** 1
-- **Flags:** 0
-- **Iterations:** 1
-- **Salt:** f3a7b355cfc90a2c
-
-#### NSEC3 Record 3
-
-- **Hash Algorithm:** 1
-- **Flags:** 0
-- **Iterations:** 1
-- **Salt:** f3a7b355cfc90a2c
+- **Count:** 0
+- **TTL:** Nones
 
 ### NSEC3PARAM Details
 
 - **Count:** 1
-- **TTL:** 736s
+- **TTL:** 3600s
 
 #### NSEC3PARAM Record 1
 
 - **Hash Algorithm:** 1
 - **Flags:** 0
 - **Iterations:** 1
-- **Salt:** f3f14e0c838ae7de
+- **Salt:** adabc49b1f947ef5
 
 ---
 
@@ -136,9 +115,9 @@ No DS records found in parent zone.
 
 ```
 ipn.mx
-├── dns3.ipn.mx (TTL: 1692s)
-├── dns2.ipn.mx (TTL: 1692s)
-└── dns1.ipn.mx (TTL: 1692s)
+├── dns1.ipn.mx (TTL: 1800s)
+├── dns2.ipn.mx (TTL: 1800s)
+└── dns3.ipn.mx (TTL: 1800s)
 ```
 
 ### Cryptographic Chain of Trust

@@ -1,6 +1,6 @@
-# DNSSEC Analysis Report: tec.mx
+# DNSSEC Analysis Report: uady.mx
 
-**Analysis Date:** 2025-11-27T10:56:10.968065
+**Analysis Date:** 2025-11-29T14:49:20.823286
 
 ## Summary
 
@@ -14,34 +14,35 @@
 
 ## SOA Records
 
-- **Primary Server:** ns1e.itesm.mx
-- **Responsible Email:** please_set_email.absolutely.nowhere
-- **Serial:** 150
-- **Refresh:** 10800s
-- **Retry:** 3600s
-- **Expire:** 2419200s
-- **Minimum TTL:** 900s
-- **Record TTL:** 3492s
+- **Primary Server:** tunku.uady.mx
+- **Responsible Email:** soporte.tunku.uady.mx
+- **Serial:** 2025112701
+- **Refresh:** 3600s
+- **Retry:** 1200s
+- **Expire:** 1814400s
+- **Minimum TTL:** 7200s
+- **Record TTL:** 86400s
 
 ## NS Records
 
-Total: 2
+Total: 3
 
-- ns2e.itesm.mx (TTL: 1919s)
-- ns1e.itesm.mx (TTL: 1919s)
+- tunku.uady.mx (TTL: 86400s)
+- dziu.uady.mx (TTL: 86400s)
+- kuklincloud.uady.mx (TTL: 86400s)
 
 ## A Records
 
-Total: 2
+Total: 1
 
-- 45.60.115.212 (TTL: 3185s)
-- 45.60.86.212 (TTL: 3185s)
+- 20.169.251.95 (TTL: 20920s)
 
 ## MX Records
 
-Total: 1
+Total: 2
 
-- tec-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
+- mail.uady.mx (Priority: 0, TTL: 13914s)
+- mail2.uady.mx (Priority: 5, TTL: 13914s)
 
 ---
 
@@ -71,16 +72,17 @@ No DS records found in parent zone.
 
 ## DNS Tree Structure
 
-- **Domain:** tec.mx
+- **Domain:** uady.mx
 - **Parent Zone:** mx
 - **Level:** 2
 
 ### Nameserver Hierarchy
 
 ```
-tec.mx
-├── ns2e.itesm.mx (TTL: 1919s)
-└── ns1e.itesm.mx (TTL: 1919s)
+uady.mx
+├── tunku.uady.mx (TTL: 86400s)
+├── dziu.uady.mx (TTL: 86400s)
+└── kuklincloud.uady.mx (TTL: 86400s)
 ```
 
 ### Cryptographic Chain of Trust

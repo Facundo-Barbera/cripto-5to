@@ -1,6 +1,6 @@
-# DNSSEC Analysis Report: tec.mx
+# DNSSEC Analysis Report: uanl.mx
 
-**Analysis Date:** 2025-11-27T10:56:10.968065
+**Analysis Date:** 2025-11-29T14:48:45.265270
 
 ## Summary
 
@@ -14,34 +14,36 @@
 
 ## SOA Records
 
-- **Primary Server:** ns1e.itesm.mx
-- **Responsible Email:** please_set_email.absolutely.nowhere
-- **Serial:** 150
+- **Primary Server:** uanldns.dsi.uanl.mx
+- **Responsible Email:** hostmaster.uanl.mx
+- **Serial:** 2025052758
 - **Refresh:** 10800s
 - **Retry:** 3600s
-- **Expire:** 2419200s
-- **Minimum TTL:** 900s
-- **Record TTL:** 3492s
+- **Expire:** 1209600s
+- **Minimum TTL:** 86400s
+- **Record TTL:** 2400s
 
 ## NS Records
 
 Total: 2
 
-- ns2e.itesm.mx (TTL: 1919s)
-- ns1e.itesm.mx (TTL: 1919s)
+- dns2.uanl.mx (TTL: 2400s)
+- uanldns.dsi.uanl.mx (TTL: 2400s)
 
 ## A Records
 
-Total: 2
+Total: 1
 
-- 45.60.115.212 (TTL: 3185s)
-- 45.60.86.212 (TTL: 3185s)
+- 148.234.5.222 (TTL: 176s)
 
 ## MX Records
 
-Total: 1
+Total: 4
 
-- tec-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
+- mx04.hornetsecurity.com (Priority: 13, TTL: 2400s)
+- mx03.hornetsecurity.com (Priority: 12, TTL: 2400s)
+- mx02.hornetsecurity.com (Priority: 11, TTL: 2400s)
+- mx01.hornetsecurity.com (Priority: 10, TTL: 2400s)
 
 ---
 
@@ -71,16 +73,16 @@ No DS records found in parent zone.
 
 ## DNS Tree Structure
 
-- **Domain:** tec.mx
+- **Domain:** uanl.mx
 - **Parent Zone:** mx
 - **Level:** 2
 
 ### Nameserver Hierarchy
 
 ```
-tec.mx
-├── ns2e.itesm.mx (TTL: 1919s)
-└── ns1e.itesm.mx (TTL: 1919s)
+uanl.mx
+├── dns2.uanl.mx (TTL: 2400s)
+└── uanldns.dsi.uanl.mx (TTL: 2400s)
 ```
 
 ### Cryptographic Chain of Trust

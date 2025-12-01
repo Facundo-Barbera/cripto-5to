@@ -1,6 +1,6 @@
 # DNSSEC Analysis Report: sat.mx
 
-**Analysis Date:** 2025-11-23T15:36:59.920248
+**Analysis Date:** 2025-11-27T10:56:08.629675
 
 ## Summary
 
@@ -21,22 +21,22 @@
 - **Retry:** 3600s
 - **Expire:** 1728000s
 - **Minimum TTL:** 86400s
-- **Record TTL:** 172619s
+- **Record TTL:** 19920s
 
 ## NS Records
 
 Total: 4
 
-- tochtli.sat.gob.mx (TTL: 172619s)
-- xolotl.sat.gob.mx (TTL: 172619s)
-- huitzilopochtli.sat.gob.mx (TTL: 172619s)
-- quetzalcoatl.sat.gob.mx (TTL: 172619s)
+- quetzalcoatl.sat.gob.mx (TTL: 19541s)
+- huitzilopochtli.sat.gob.mx (TTL: 19541s)
+- xolotl.sat.gob.mx (TTL: 19541s)
+- tochtli.sat.gob.mx (TTL: 19541s)
 
 ## A Records
 
 Total: 1
 
-- 200.33.84.233 (TTL: 172619s)
+- 200.33.84.233 (TTL: 12645s)
 
 ---
 
@@ -74,10 +74,10 @@ No DS records found in parent zone.
 
 ```
 sat.mx
-├── tochtli.sat.gob.mx (TTL: 172619s)
-├── xolotl.sat.gob.mx (TTL: 172619s)
-├── huitzilopochtli.sat.gob.mx (TTL: 172619s)
-└── quetzalcoatl.sat.gob.mx (TTL: 172619s)
+├── quetzalcoatl.sat.gob.mx (TTL: 19541s)
+├── huitzilopochtli.sat.gob.mx (TTL: 19541s)
+├── xolotl.sat.gob.mx (TTL: 19541s)
+└── tochtli.sat.gob.mx (TTL: 19541s)
 ```
 
 ### Cryptographic Chain of Trust

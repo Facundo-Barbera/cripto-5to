@@ -1,6 +1,6 @@
-# DNSSEC Analysis Report: tec.mx
+# DNSSEC Analysis Report: buap.mx
 
-**Analysis Date:** 2025-11-27T10:56:10.968065
+**Analysis Date:** 2025-11-29T14:48:48.797634
 
 ## Summary
 
@@ -14,34 +14,35 @@
 
 ## SOA Records
 
-- **Primary Server:** ns1e.itesm.mx
+- **Primary Server:** dns1.buap.mx
 - **Responsible Email:** please_set_email.absolutely.nowhere
-- **Serial:** 150
+- **Serial:** 3793
 - **Refresh:** 10800s
 - **Retry:** 3600s
 - **Expire:** 2419200s
 - **Minimum TTL:** 900s
-- **Record TTL:** 3492s
+- **Record TTL:** 21600s
 
 ## NS Records
 
 Total: 2
 
-- ns2e.itesm.mx (TTL: 1919s)
-- ns1e.itesm.mx (TTL: 1919s)
+- eco.buap.mx (TTL: 21600s)
+- dns1.buap.mx (TTL: 21600s)
 
 ## A Records
 
 Total: 2
 
-- 45.60.115.212 (TTL: 3185s)
-- 45.60.86.212 (TTL: 3185s)
+- 45.60.113.125 (TTL: 3241s)
+- 45.60.86.125 (TTL: 3241s)
 
 ## MX Records
 
-Total: 1
+Total: 2
 
-- tec-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
+- buap-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
+- d35d9d16f40e054b9d3ebf71042431.mail.outlook.com (Priority: 5, TTL: 3600s)
 
 ---
 
@@ -71,16 +72,16 @@ No DS records found in parent zone.
 
 ## DNS Tree Structure
 
-- **Domain:** tec.mx
+- **Domain:** buap.mx
 - **Parent Zone:** mx
 - **Level:** 2
 
 ### Nameserver Hierarchy
 
 ```
-tec.mx
-├── ns2e.itesm.mx (TTL: 1919s)
-└── ns1e.itesm.mx (TTL: 1919s)
+buap.mx
+├── eco.buap.mx (TTL: 21600s)
+└── dns1.buap.mx (TTL: 21600s)
 ```
 
 ### Cryptographic Chain of Trust

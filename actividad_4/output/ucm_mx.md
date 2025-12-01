@@ -1,6 +1,6 @@
-# DNSSEC Analysis Report: tec.mx
+# DNSSEC Analysis Report: ucm.mx
 
-**Analysis Date:** 2025-11-27T10:56:10.968065
+**Analysis Date:** 2025-11-29T14:49:13.544072
 
 ## Summary
 
@@ -14,34 +14,32 @@
 
 ## SOA Records
 
-- **Primary Server:** ns1e.itesm.mx
-- **Responsible Email:** please_set_email.absolutely.nowhere
-- **Serial:** 150
-- **Refresh:** 10800s
+- **Primary Server:** freedns1.registrar-servers.com
+- **Responsible Email:** hostmaster.registrar-servers.com
+- **Serial:** 1746391940
+- **Refresh:** 43200s
 - **Retry:** 3600s
-- **Expire:** 2419200s
-- **Minimum TTL:** 900s
-- **Record TTL:** 3492s
+- **Expire:** 604800s
+- **Minimum TTL:** 3601s
+- **Record TTL:** 3601s
 
 ## NS Records
 
-Total: 2
+Total: 1
 
-- ns2e.itesm.mx (TTL: 1919s)
-- ns1e.itesm.mx (TTL: 1919s)
+- ns1.ucm.mx (TTL: 21600s)
 
 ## A Records
 
-Total: 2
+Total: 1
 
-- 45.60.115.212 (TTL: 3185s)
-- 45.60.86.212 (TTL: 3185s)
+- 187.188.28.51 (TTL: 86400s)
 
 ## MX Records
 
 Total: 1
 
-- tec-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
+- atenea.ucm.mx (Priority: 10, TTL: 86400s)
 
 ---
 
@@ -71,16 +69,15 @@ No DS records found in parent zone.
 
 ## DNS Tree Structure
 
-- **Domain:** tec.mx
+- **Domain:** ucm.mx
 - **Parent Zone:** mx
 - **Level:** 2
 
 ### Nameserver Hierarchy
 
 ```
-tec.mx
-├── ns2e.itesm.mx (TTL: 1919s)
-└── ns1e.itesm.mx (TTL: 1919s)
+ucm.mx
+└── ns1.ucm.mx (TTL: 21600s)
 ```
 
 ### Cryptographic Chain of Trust

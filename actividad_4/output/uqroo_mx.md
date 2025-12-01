@@ -1,6 +1,6 @@
-# DNSSEC Analysis Report: tec.mx
+# DNSSEC Analysis Report: uqroo.mx
 
-**Analysis Date:** 2025-11-27T10:56:10.968065
+**Analysis Date:** 2025-11-29T14:49:48.108778
 
 ## Summary
 
@@ -14,34 +14,26 @@
 
 ## SOA Records
 
-- **Primary Server:** ns1e.itesm.mx
-- **Responsible Email:** please_set_email.absolutely.nowhere
-- **Serial:** 150
+- **Primary Server:** nsuqroo.uqroo.mx
+- **Responsible Email:** Postmaster.uqroo.mx
+- **Serial:** 2025112701
 - **Refresh:** 10800s
 - **Retry:** 3600s
-- **Expire:** 2419200s
-- **Minimum TTL:** 900s
-- **Record TTL:** 3492s
+- **Expire:** 1209600s
+- **Minimum TTL:** 86400s
+- **Record TTL:** 3600s
 
 ## NS Records
 
-Total: 2
+Total: 1
 
-- ns2e.itesm.mx (TTL: 1919s)
-- ns1e.itesm.mx (TTL: 1919s)
-
-## A Records
-
-Total: 2
-
-- 45.60.115.212 (TTL: 3185s)
-- 45.60.86.212 (TTL: 3185s)
+- nsuqroo.uqroo.mx (TTL: 3600s)
 
 ## MX Records
 
 Total: 1
 
-- tec-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
+- uqroo-mx.mail.protection.outlook.com (Priority: 0, TTL: 2034s)
 
 ---
 
@@ -71,16 +63,15 @@ No DS records found in parent zone.
 
 ## DNS Tree Structure
 
-- **Domain:** tec.mx
+- **Domain:** uqroo.mx
 - **Parent Zone:** mx
 - **Level:** 2
 
 ### Nameserver Hierarchy
 
 ```
-tec.mx
-├── ns2e.itesm.mx (TTL: 1919s)
-└── ns1e.itesm.mx (TTL: 1919s)
+uqroo.mx
+└── nsuqroo.uqroo.mx (TTL: 3600s)
 ```
 
 ### Cryptographic Chain of Trust

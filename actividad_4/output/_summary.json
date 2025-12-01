@@ -1,0 +1,4172 @@
+{
+  "tec.mx": {
+    "domain": "tec.mx",
+    "timestamp": "2025-11-29T14:48:38.014764",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns1e.itesm.mx",
+          "rname": "please_set_email.absolutely.nowhere",
+          "serial": 154,
+          "refresh": 10800,
+          "retry": 3600,
+          "expire": 2419200,
+          "minimum": 900,
+          "ttl": 3600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns1e.itesm.mx",
+          "ttl": 3600
+        },
+        {
+          "nameserver": "ns2e.itesm.mx",
+          "ttl": 3600
+        }
+      ],
+      "A": [
+        {
+          "address": "45.60.86.212",
+          "ttl": 841
+        },
+        {
+          "address": "45.60.115.212",
+          "ttl": 841
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "tec-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 3458
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "unam.mx": {
+    "domain": "unam.mx",
+    "timestamp": "2025-11-29T14:48:39.868152",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns1.unam.mx",
+          "rname": "dns.unam.mx",
+          "serial": 2025118110,
+          "refresh": 3600,
+          "retry": 1200,
+          "expire": 1814400,
+          "minimum": 300,
+          "ttl": 7200
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns5.unam.mx",
+          "ttl": 3946
+        },
+        {
+          "nameserver": "ns1.unam.mx",
+          "ttl": 3946
+        },
+        {
+          "nameserver": "ns4.unam.mx",
+          "ttl": 3946
+        },
+        {
+          "nameserver": "ns3.unam.mx",
+          "ttl": 3946
+        },
+        {
+          "nameserver": "ns2.unam.mx",
+          "ttl": 3946
+        }
+      ],
+      "A": [
+        {
+          "address": "132.248.166.17",
+          "ttl": 1453
+        },
+        {
+          "address": "132.248.166.19",
+          "ttl": 1453
+        },
+        {
+          "address": "132.248.166.20",
+          "ttl": 1453
+        },
+        {
+          "address": "132.248.166.18",
+          "ttl": 1453
+        }
+      ],
+      "AAAA": [
+        {
+          "address": "2001:1218:3000:180::19",
+          "ttl": 4652
+        },
+        {
+          "address": "2001:1218:3000:180::20",
+          "ttl": 4652
+        },
+        {
+          "address": "2001:1218:3000:180::18",
+          "ttl": 4652
+        },
+        {
+          "address": "2001:1218:3000:180::17",
+          "ttl": 4652
+        }
+      ],
+      "MX": [
+        {
+          "exchange": "unam-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 7200
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": true,
+        "count": 2,
+        "keys": [
+          {
+            "flags": 257,
+            "protocol": 3,
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "key_size_bits": 256,
+            "is_sep": true,
+            "is_zone_key": true
+          },
+          {
+            "flags": 256,
+            "protocol": 3,
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "key_size_bits": 256,
+            "is_sep": false,
+            "is_zone_key": true
+          }
+        ],
+        "ttl": 7200
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "NSEC",
+        "nsec_present": true,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": "direct_query",
+        "rrsig_records": [],
+        "details": {
+          "nsec": {
+            "count": 1,
+            "ttl": 300,
+            "records": [],
+            "detection_method": "direct_query"
+          }
+        }
+      },
+      "ds": {
+        "present": true,
+        "count": 1,
+        "records": [
+          {
+            "key_tag": 54058,
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "digest_type": 2,
+            "digest_type_name": "SHA-256",
+            "digest": "ea3eb01183e5bc13acac4692831ea81da9b6d8f402ab3ab4fa1a5c1ef52869e0"
+          }
+        ],
+        "ttl": 21600
+      },
+      "summary": {
+        "dnssec_enabled": true,
+        "has_signatures": false,
+        "has_ds_record": true,
+        "nsec_type": "NSEC",
+        "validation_status": "enabled_incomplete"
+      }
+    }
+  },
+  "ipn.mx": {
+    "domain": "ipn.mx",
+    "timestamp": "2025-11-29T14:48:41.638108",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "dns3.ipn.mx",
+          "rname": "tic.ipn.mx",
+          "serial": 2025112804,
+          "refresh": 10800,
+          "retry": 1800,
+          "expire": 1209600,
+          "minimum": 10800,
+          "ttl": 3600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "dns1.ipn.mx",
+          "ttl": 1800
+        },
+        {
+          "nameserver": "dns2.ipn.mx",
+          "ttl": 1800
+        },
+        {
+          "nameserver": "dns3.ipn.mx",
+          "ttl": 1800
+        }
+      ],
+      "A": [
+        {
+          "address": "20.64.80.120",
+          "ttl": 2469
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "ipn-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 3600
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": true,
+        "count": 2,
+        "keys": [
+          {
+            "flags": 256,
+            "protocol": 3,
+            "algorithm": 10,
+            "algorithm_name": "RSA/SHA-512",
+            "key_size_bits": 2080,
+            "is_sep": false,
+            "is_zone_key": true
+          },
+          {
+            "flags": 257,
+            "protocol": 3,
+            "algorithm": 10,
+            "algorithm_name": "RSA/SHA-512",
+            "key_size_bits": 2080,
+            "is_sep": true,
+            "is_zone_key": true
+          }
+        ],
+        "ttl": 86400
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "NSEC3",
+        "nsec_present": false,
+        "nsec3_present": true,
+        "nsec3param_present": true,
+        "opt_out": false,
+        "detection_source": "nsec3param_inference",
+        "rrsig_records": [],
+        "details": {
+          "nsec3param": {
+            "count": 1,
+            "ttl": 3600,
+            "records": [
+              {
+                "hash_algorithm": 1,
+                "flags": 0,
+                "iterations": 1,
+                "salt": "adabc49b1f947ef5"
+              }
+            ]
+          },
+          "nsec3": {
+            "count": 0,
+            "ttl": null,
+            "records": [],
+            "detection_method": "nsec3param_inference"
+          }
+        }
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": true,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "NSEC3",
+        "validation_status": "enabled_incomplete"
+      }
+    }
+  },
+  "udg.mx": {
+    "domain": "udg.mx",
+    "timestamp": "2025-11-29T14:48:43.412847",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "e.ns.udg.mx",
+          "rname": "jaime.noc.udg.mx",
+          "serial": 320192,
+          "refresh": 10800,
+          "retry": 1080,
+          "expire": 2419200,
+          "minimum": 900,
+          "ttl": 21600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "u.ns.udg.mx",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "d.ns.udg.mx",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "g.ns.udg.mx",
+          "ttl": 21600
+        }
+      ],
+      "A": [
+        {
+          "address": "148.202.105.56",
+          "ttl": 191
+        }
+      ],
+      "AAAA": [
+        {
+          "address": "2001:1210:105:34:0:403:a8:1",
+          "ttl": 14124
+        }
+      ],
+      "MX": [
+        {
+          "exchange": "alt4.aspmx.l.google.com",
+          "preference": 10,
+          "ttl": 900
+        },
+        {
+          "exchange": "alt3.aspmx.l.google.com",
+          "preference": 10,
+          "ttl": 900
+        },
+        {
+          "exchange": "alt2.aspmx.l.google.com",
+          "preference": 5,
+          "ttl": 900
+        },
+        {
+          "exchange": "alt1.aspmx.l.google.com",
+          "preference": 5,
+          "ttl": 900
+        },
+        {
+          "exchange": "aspmx.l.google.com",
+          "preference": 1,
+          "ttl": 900
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": true,
+        "count": 4,
+        "keys": [
+          {
+            "flags": 256,
+            "protocol": 3,
+            "algorithm": 7,
+            "algorithm_name": "RSASHA1-NSEC3-SHA1",
+            "key_size_bits": 1056,
+            "is_sep": false,
+            "is_zone_key": true
+          },
+          {
+            "flags": 256,
+            "protocol": 3,
+            "algorithm": 7,
+            "algorithm_name": "RSASHA1-NSEC3-SHA1",
+            "key_size_bits": 1056,
+            "is_sep": false,
+            "is_zone_key": true
+          },
+          {
+            "flags": 256,
+            "protocol": 3,
+            "algorithm": 7,
+            "algorithm_name": "RSASHA1-NSEC3-SHA1",
+            "key_size_bits": 1056,
+            "is_sep": false,
+            "is_zone_key": true
+          },
+          {
+            "flags": 257,
+            "protocol": 3,
+            "algorithm": 7,
+            "algorithm_name": "RSASHA1-NSEC3-SHA1",
+            "key_size_bits": 2080,
+            "is_sep": true,
+            "is_zone_key": true
+          }
+        ],
+        "ttl": 172800
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "NSEC3",
+        "nsec_present": false,
+        "nsec3_present": true,
+        "nsec3param_present": true,
+        "opt_out": false,
+        "detection_source": "nsec3param_inference",
+        "rrsig_records": [],
+        "details": {
+          "nsec3param": {
+            "count": 1,
+            "ttl": 900,
+            "records": [
+              {
+                "hash_algorithm": 1,
+                "flags": 0,
+                "iterations": 10,
+                "salt": "7af134e5155759e8ccef85"
+              }
+            ]
+          },
+          "nsec3": {
+            "count": 0,
+            "ttl": null,
+            "records": [],
+            "detection_method": "nsec3param_inference"
+          }
+        }
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": true,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "NSEC3",
+        "validation_status": "enabled_incomplete"
+      }
+    }
+  },
+  "uanl.mx": {
+    "domain": "uanl.mx",
+    "timestamp": "2025-11-29T14:48:45.265270",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "uanldns.dsi.uanl.mx",
+          "rname": "hostmaster.uanl.mx",
+          "serial": 2025052758,
+          "refresh": 10800,
+          "retry": 3600,
+          "expire": 1209600,
+          "minimum": 86400,
+          "ttl": 2400
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "dns2.uanl.mx",
+          "ttl": 2400
+        },
+        {
+          "nameserver": "uanldns.dsi.uanl.mx",
+          "ttl": 2400
+        }
+      ],
+      "A": [
+        {
+          "address": "148.234.5.222",
+          "ttl": 176
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "mx04.hornetsecurity.com",
+          "preference": 13,
+          "ttl": 2400
+        },
+        {
+          "exchange": "mx03.hornetsecurity.com",
+          "preference": 12,
+          "ttl": 2400
+        },
+        {
+          "exchange": "mx02.hornetsecurity.com",
+          "preference": 11,
+          "ttl": 2400
+        },
+        {
+          "exchange": "mx01.hornetsecurity.com",
+          "preference": 10,
+          "ttl": 2400
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "itesm.mx": {
+    "domain": "itesm.mx",
+    "timestamp": "2025-11-29T14:48:46.939812",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns1e.itesm.mx",
+          "rname": "please_set_email.absolutely.nowhere",
+          "serial": 132,
+          "refresh": 10800,
+          "retry": 3600,
+          "expire": 2419200,
+          "minimum": 900,
+          "ttl": 1850
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns2e.itesm.mx",
+          "ttl": 1865
+        },
+        {
+          "nameserver": "ns1e.itesm.mx",
+          "ttl": 1865
+        }
+      ],
+      "A": [],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "itesm-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 3600
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "buap.mx": {
+    "domain": "buap.mx",
+    "timestamp": "2025-11-29T14:48:48.797634",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "dns1.buap.mx",
+          "rname": "please_set_email.absolutely.nowhere",
+          "serial": 3793,
+          "refresh": 10800,
+          "retry": 3600,
+          "expire": 2419200,
+          "minimum": 900,
+          "ttl": 21600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "eco.buap.mx",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "dns1.buap.mx",
+          "ttl": 21600
+        }
+      ],
+      "A": [
+        {
+          "address": "45.60.113.125",
+          "ttl": 3241
+        },
+        {
+          "address": "45.60.86.125",
+          "ttl": 3241
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "buap-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 3600
+        },
+        {
+          "exchange": "d35d9d16f40e054b9d3ebf71042431.mail.outlook.com",
+          "preference": 5,
+          "ttl": 3600
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uabc.mx": {
+    "domain": "uabc.mx",
+    "timestamp": "2025-11-29T14:48:51.267855",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "dns.uabc.mx",
+          "rname": "root.dns.uabc.mx",
+          "serial": 2025112501,
+          "refresh": 300,
+          "retry": 120,
+          "expire": 604800,
+          "minimum": 300,
+          "ttl": 3600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "dns.uabc.mx",
+          "ttl": 3600
+        },
+        {
+          "nameserver": "dns3.uabc.mx",
+          "ttl": 3600
+        },
+        {
+          "nameserver": "dns2.uabc.mx",
+          "ttl": 3600
+        }
+      ],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "unison.mx": {
+    "domain": "unison.mx",
+    "timestamp": "2025-11-29T14:48:53.388380",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "dns1.uson.mx",
+          "rname": "redes.unison.mx",
+          "serial": 2017653319,
+          "refresh": 10200,
+          "retry": 3600,
+          "expire": 1814400,
+          "minimum": 900,
+          "ttl": 3600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "sancarlos.noc.uson.mx",
+          "ttl": 3600
+        },
+        {
+          "nameserver": "dc1.unison.mx",
+          "ttl": 3600
+        },
+        {
+          "nameserver": "dns1.uson.mx",
+          "ttl": 3600
+        }
+      ],
+      "A": [
+        {
+          "address": "148.225.105.32",
+          "ttl": 335
+        },
+        {
+          "address": "148.225.105.195",
+          "ttl": 335
+        },
+        {
+          "address": "148.225.105.194",
+          "ttl": 335
+        },
+        {
+          "address": "148.225.105.2",
+          "ttl": 335
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "unison-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 2487
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uv.mx": {
+    "domain": "uv.mx",
+    "timestamp": "2025-11-29T14:48:55.417367",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns2.uv.mx",
+          "rname": "root.ns2.uv.mx",
+          "serial": 2025112601,
+          "refresh": 7200,
+          "retry": 3600,
+          "expire": 1209600,
+          "minimum": 43200,
+          "ttl": 3600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns3.uv.mx",
+          "ttl": 3600
+        },
+        {
+          "nameserver": "ns1.uv.mx",
+          "ttl": 3600
+        },
+        {
+          "nameserver": "ns2.uv.mx",
+          "ttl": 3600
+        }
+      ],
+      "A": [
+        {
+          "address": "20.88.208.126",
+          "ttl": 2892
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "uv-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 2525
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "ugto.mx": {
+    "domain": "ugto.mx",
+    "timestamp": "2025-11-29T14:48:57.232963",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns3.ugto.mx",
+          "rname": "soporte.ugto.mx",
+          "serial": 2025102210,
+          "refresh": 3600,
+          "retry": 600,
+          "expire": 604800,
+          "minimum": 3600,
+          "ttl": 3600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "nic2.ugto.mx",
+          "ttl": 3600
+        },
+        {
+          "nameserver": "ns3.ugto.mx",
+          "ttl": 3600
+        }
+      ],
+      "A": [
+        {
+          "address": "148.214.50.10",
+          "ttl": 2183
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "ugto-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 1556
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uatlaxcala.edu.mx": {
+    "domain": "uatlaxcala.edu.mx",
+    "timestamp": "2025-11-29T14:48:59.031562",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uaq.mx": {
+    "domain": "uaq.mx",
+    "timestamp": "2025-11-29T14:49:00.781447",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns1.uaq.mx",
+          "rname": "dns.uaq.mx",
+          "serial": 2025060514,
+          "refresh": 3600,
+          "retry": 60,
+          "expire": 604800,
+          "minimum": 1800,
+          "ttl": 21600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns1.uaq.mx",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "ns2.uaq.mx",
+          "ttl": 21600
+        }
+      ],
+      "A": [],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "uaq-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 3509
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "udlap.mx": {
+    "domain": "udlap.mx",
+    "timestamp": "2025-11-29T14:49:02.520139",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "srvudlans02.udlap.mx",
+          "rname": "operacion.udlap.mx",
+          "serial": 2006046351,
+          "refresh": 3600,
+          "retry": 7200,
+          "expire": 1296000,
+          "minimum": 21600,
+          "ttl": 16188
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "srvudlans02.udlap.mx",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "srvudlans03.udlap.mx",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "ns1-35.azure-dns.com",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "ns4-35.azure-dns.info",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "ns2-35.azure-dns.net",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "ns3-35.azure-dns.org",
+          "ttl": 21600
+        }
+      ],
+      "A": [
+        {
+          "address": "45.60.11.114",
+          "ttl": 17805
+        },
+        {
+          "address": "45.60.17.114",
+          "ttl": 17805
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "udlap-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 3600
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uaslp.mx": {
+    "domain": "uaslp.mx",
+    "timestamp": "2025-11-29T14:49:04.425659",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "dns1.uaslp.mx",
+          "rname": "vpereda.uaslp.mx",
+          "serial": 2025112703,
+          "refresh": 3600,
+          "retry": 3600,
+          "expire": 1209600,
+          "minimum": 86400,
+          "ttl": 3600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "dns206.ifisica.uaslp.mx",
+          "ttl": 3600
+        },
+        {
+          "nameserver": "dns2.uaslp.mx",
+          "ttl": 3600
+        },
+        {
+          "nameserver": "dns1.uaslp.mx",
+          "ttl": 3600
+        },
+        {
+          "nameserver": "dns3.uaslp.mx",
+          "ttl": 3600
+        }
+      ],
+      "A": [
+        {
+          "address": "148.224.245.239",
+          "ttl": 3600
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "uaslp-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 3600
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uas.edu.mx": {
+    "domain": "uas.edu.mx",
+    "timestamp": "2025-11-29T14:49:06.213146",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "dns.uas.edu.mx",
+          "rname": "please_set_email.absolutely.nowhere",
+          "serial": 444,
+          "refresh": 10800,
+          "retry": 3600,
+          "expire": 2419200,
+          "minimum": 900,
+          "ttl": 28800
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "dns.fca.uas.edu.mx",
+          "ttl": 21600
+        }
+      ],
+      "A": [
+        {
+          "address": "148.227.1.12",
+          "ttl": 20037
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "aspmx.l.google.com",
+          "preference": 10,
+          "ttl": 21600
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "umm.edu.mx": {
+    "domain": "umm.edu.mx",
+    "timestamp": "2025-11-29T14:49:08.141359",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "lee.ns.cloudflare.com",
+          "rname": "dns.cloudflare.com",
+          "serial": 2388099016,
+          "refresh": 10000,
+          "retry": 2400,
+          "expire": 604800,
+          "minimum": 1800,
+          "ttl": 1800
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "tess.ns.cloudflare.com",
+          "ttl": 86400
+        },
+        {
+          "nameserver": "lee.ns.cloudflare.com",
+          "ttl": 86400
+        }
+      ],
+      "A": [
+        {
+          "address": "172.66.154.95",
+          "ttl": 300
+        },
+        {
+          "address": "104.20.40.233",
+          "ttl": 300
+        }
+      ],
+      "AAAA": [
+        {
+          "address": "2606:4700:10::6814:28e9",
+          "ttl": 300
+        },
+        {
+          "address": "2606:4700:10::ac42:9a5f",
+          "ttl": 300
+        }
+      ],
+      "MX": [
+        {
+          "exchange": "umm-edu-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 300
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "upp.edu.mx": {
+    "domain": "upp.edu.mx",
+    "timestamp": "2025-11-29T14:49:09.885540",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns1.upp.edu.mx",
+          "rname": "admin.upp.edu.mx",
+          "serial": 2025112601,
+          "refresh": 604800,
+          "retry": 86400,
+          "expire": 2419200,
+          "minimum": 604800,
+          "ttl": 21600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns1.upp.edu.mx",
+          "ttl": 21600
+        }
+      ],
+      "A": [
+        {
+          "address": "200.79.182.193",
+          "ttl": 8455
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "ALT1.ASPMX.L.GOOGLE.COM",
+          "preference": 20,
+          "ttl": 8349
+        },
+        {
+          "exchange": "ALT2.ASPMX.L.GOOGLE.COM",
+          "preference": 20,
+          "ttl": 8349
+        },
+        {
+          "exchange": "ASPMX2.GOOGLEMAIL.COM",
+          "preference": 30,
+          "ttl": 8349
+        },
+        {
+          "exchange": "ASPMX3.GOOGLEMAIL.COM",
+          "preference": 30,
+          "ttl": 8349
+        },
+        {
+          "exchange": "ASPMX.L.GOOGLE.COM",
+          "preference": 10,
+          "ttl": 8349
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "ucol.mx": {
+    "domain": "ucol.mx",
+    "timestamp": "2025-11-29T14:49:11.684749",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "volcan.ucol.mx",
+          "rname": "postmaster.ucol.mx",
+          "serial": 2025112801,
+          "refresh": 604800,
+          "retry": 86400,
+          "expire": 2419200,
+          "minimum": 604800,
+          "ttl": 86400
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "volcan.ucol.mx",
+          "ttl": 86400
+        },
+        {
+          "nameserver": "orion.ucol.mx",
+          "ttl": 86400
+        }
+      ],
+      "A": [],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "ALT1.ASPMX.L.GOOGLE.COM",
+          "preference": 20,
+          "ttl": 16515
+        },
+        {
+          "exchange": "ASPMX.L.GOOGLE.COM",
+          "preference": 10,
+          "ttl": 16515
+        },
+        {
+          "exchange": "ASPMX3.GOOGLEMAIL.COM",
+          "preference": 30,
+          "ttl": 16515
+        },
+        {
+          "exchange": "ALT2.ASPMX.L.GOOGLE.COM",
+          "preference": 20,
+          "ttl": 16515
+        },
+        {
+          "exchange": "ASPMX2.GOOGLEMAIL.COM",
+          "preference": 30,
+          "ttl": 16515
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "ucm.mx": {
+    "domain": "ucm.mx",
+    "timestamp": "2025-11-29T14:49:13.544072",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "freedns1.registrar-servers.com",
+          "rname": "hostmaster.registrar-servers.com",
+          "serial": 1746391940,
+          "refresh": 43200,
+          "retry": 3600,
+          "expire": 604800,
+          "minimum": 3601,
+          "ttl": 3601
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns1.ucm.mx",
+          "ttl": 21600
+        }
+      ],
+      "A": [
+        {
+          "address": "187.188.28.51",
+          "ttl": 86400
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "atenea.ucm.mx",
+          "preference": 10,
+          "ttl": 86400
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uic.mx": {
+    "domain": "uic.mx",
+    "timestamp": "2025-11-29T14:49:15.579579",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "uicsistmg.uic.edu.mx",
+          "rname": "hostmaster.uic.edu.mx",
+          "serial": 412,
+          "refresh": 900,
+          "retry": 600,
+          "expire": 86400,
+          "minimum": 3600,
+          "ttl": 3600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "uicsistmg.uic.edu.mx",
+          "ttl": 3600
+        },
+        {
+          "nameserver": "mail.uic.mx",
+          "ttl": 3600
+        }
+      ],
+      "A": [
+        {
+          "address": "23.92.208.70",
+          "ttl": 3600
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "correo.uic.mx",
+          "preference": 10,
+          "ttl": 3600
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uvm.mx": {
+    "domain": "uvm.mx",
+    "timestamp": "2025-11-29T14:49:17.440266",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "margot.ns.cloudflare.com",
+          "rname": "dns.cloudflare.com",
+          "serial": 2389784702,
+          "refresh": 10000,
+          "retry": 2400,
+          "expire": 604800,
+          "minimum": 1800,
+          "ttl": 1800
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "margot.ns.cloudflare.com",
+          "ttl": 86400
+        },
+        {
+          "nameserver": "thaddeus.ns.cloudflare.com",
+          "ttl": 86400
+        }
+      ],
+      "A": [
+        {
+          "address": "104.18.35.78",
+          "ttl": 161
+        },
+        {
+          "address": "172.64.152.178",
+          "ttl": 161
+        }
+      ],
+      "AAAA": [
+        {
+          "address": "2606:4700:4402::ac40:98b2",
+          "ttl": 300
+        },
+        {
+          "address": "2606:4700:4401::6812:234e",
+          "ttl": 300
+        }
+      ],
+      "MX": [
+        {
+          "exchange": "aspmx.l.google.com",
+          "preference": 1,
+          "ttl": 300
+        },
+        {
+          "exchange": "aspmx2.googlemail.com",
+          "preference": 10,
+          "ttl": 300
+        },
+        {
+          "exchange": "aspmx3.googlemail.com",
+          "preference": 10,
+          "ttl": 300
+        },
+        {
+          "exchange": "alt1.aspmx.l.google.com",
+          "preference": 5,
+          "ttl": 300
+        },
+        {
+          "exchange": "alt2.aspmx.l.google.com",
+          "preference": 5,
+          "ttl": 300
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": true,
+        "count": 2,
+        "keys": [
+          {
+            "flags": 257,
+            "protocol": 3,
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "key_size_bits": 256,
+            "is_sep": true,
+            "is_zone_key": true
+          },
+          {
+            "flags": 256,
+            "protocol": 3,
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "key_size_bits": 256,
+            "is_sep": false,
+            "is_zone_key": true
+          }
+        ],
+        "ttl": 3600
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": true,
+        "count": 1,
+        "records": [
+          {
+            "key_tag": 2371,
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "digest_type": 2,
+            "digest_type_name": "SHA-256",
+            "digest": "de795a37e8d3fe5e50cbe2864de1ea2d5056490ec3e26d4923b720142138fb39"
+          }
+        ],
+        "ttl": 17584
+      },
+      "summary": {
+        "dnssec_enabled": true,
+        "has_signatures": false,
+        "has_ds_record": true,
+        "nsec_type": "none",
+        "validation_status": "enabled_incomplete"
+      }
+    }
+  },
+  "udls.edu.mx": {
+    "domain": "udls.edu.mx",
+    "timestamp": "2025-11-29T14:49:19.140088",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uady.mx": {
+    "domain": "uady.mx",
+    "timestamp": "2025-11-29T14:49:20.823286",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "tunku.uady.mx",
+          "rname": "soporte.tunku.uady.mx",
+          "serial": 2025112701,
+          "refresh": 3600,
+          "retry": 1200,
+          "expire": 1814400,
+          "minimum": 7200,
+          "ttl": 86400
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "tunku.uady.mx",
+          "ttl": 86400
+        },
+        {
+          "nameserver": "dziu.uady.mx",
+          "ttl": 86400
+        },
+        {
+          "nameserver": "kuklincloud.uady.mx",
+          "ttl": 86400
+        }
+      ],
+      "A": [
+        {
+          "address": "20.169.251.95",
+          "ttl": 20920
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "mail.uady.mx",
+          "preference": 0,
+          "ttl": 13914
+        },
+        {
+          "exchange": "mail2.uady.mx",
+          "preference": 5,
+          "ttl": 13914
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "udc.edu.mx": {
+    "domain": "udc.edu.mx",
+    "timestamp": "2025-11-29T14:49:22.852463",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns47.domaincontrol.com",
+          "rname": "dns.jomax.net",
+          "serial": 2024082100,
+          "refresh": 28800,
+          "retry": 7200,
+          "expire": 604800,
+          "minimum": 600,
+          "ttl": 600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns47.domaincontrol.com",
+          "ttl": 3600
+        },
+        {
+          "nameserver": "ns48.domaincontrol.com",
+          "ttl": 3600
+        }
+      ],
+      "A": [
+        {
+          "address": "200.77.221.3",
+          "ttl": 3600
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "alt4.aspmx.l.google.com",
+          "preference": 10,
+          "ttl": 3600
+        },
+        {
+          "exchange": "alt3.aspmx.l.google.com",
+          "preference": 10,
+          "ttl": 3600
+        },
+        {
+          "exchange": "aspmx.l.google.com",
+          "preference": 1,
+          "ttl": 3600
+        },
+        {
+          "exchange": "alt1.aspmx.l.google.com",
+          "preference": 5,
+          "ttl": 3600
+        },
+        {
+          "exchange": "alt2.aspmx.l.google.com",
+          "preference": 5,
+          "ttl": 3600
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "ufrontera.edu.mx": {
+    "domain": "ufrontera.edu.mx",
+    "timestamp": "2025-11-29T14:49:24.933652",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uis.edu.mx": {
+    "domain": "uis.edu.mx",
+    "timestamp": "2025-11-29T14:49:26.654753",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "upchiapas.edu.mx": {
+    "domain": "upchiapas.edu.mx",
+    "timestamp": "2025-11-29T14:49:28.450910",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns1.akkyservicios.mx",
+          "rname": "hostmaster.akkyservicios.mx.upchiapas.edu.mx",
+          "serial": 1764360295,
+          "refresh": 3600,
+          "retry": 900,
+          "expire": 604800,
+          "minimum": 1800,
+          "ttl": 21600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns1.akkyservicios.mx",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "ns2.akkyservicios.mx",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "ns3.akkyservicios.mx",
+          "ttl": 21600
+        }
+      ],
+      "A": [
+        {
+          "address": "20.237.247.210",
+          "ttl": 3600
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "aspmx3.googlemail.com",
+          "preference": 10,
+          "ttl": 3600
+        },
+        {
+          "exchange": "alt2.aspmx.l.google.com",
+          "preference": 5,
+          "ttl": 3600
+        },
+        {
+          "exchange": "aspmx2.googlemail.com",
+          "preference": 10,
+          "ttl": 3600
+        },
+        {
+          "exchange": "alt4.aspmx.l.google.com",
+          "preference": 10,
+          "ttl": 3600
+        },
+        {
+          "exchange": "aspmx.l.google.com",
+          "preference": 1,
+          "ttl": 3600
+        },
+        {
+          "exchange": "alt1.aspmx.l.google.com",
+          "preference": 5,
+          "ttl": 3600
+        },
+        {
+          "exchange": "alt3.aspmx.l.google.com",
+          "preference": 10,
+          "ttl": 3600
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": true,
+        "count": 2,
+        "keys": [
+          {
+            "flags": 257,
+            "protocol": 3,
+            "algorithm": 7,
+            "algorithm_name": "RSASHA1-NSEC3-SHA1",
+            "key_size_bits": 2080,
+            "is_sep": true,
+            "is_zone_key": true
+          },
+          {
+            "flags": 256,
+            "protocol": 3,
+            "algorithm": 7,
+            "algorithm_name": "RSASHA1-NSEC3-SHA1",
+            "key_size_bits": 1056,
+            "is_sep": false,
+            "is_zone_key": true
+          }
+        ],
+        "ttl": 3600
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "NSEC3",
+        "nsec_present": false,
+        "nsec3_present": true,
+        "nsec3param_present": true,
+        "opt_out": false,
+        "detection_source": "nsec3param_inference",
+        "rrsig_records": [],
+        "details": {
+          "nsec3param": {
+            "count": 1,
+            "ttl": 0,
+            "records": [
+              {
+                "hash_algorithm": 1,
+                "flags": 0,
+                "iterations": 10,
+                "salt": "d872f0ed7d897bce"
+              }
+            ]
+          },
+          "nsec3": {
+            "count": 0,
+            "ttl": null,
+            "records": [],
+            "detection_method": "nsec3param_inference"
+          }
+        }
+      },
+      "ds": {
+        "present": true,
+        "count": 1,
+        "records": [
+          {
+            "key_tag": 41013,
+            "algorithm": 7,
+            "algorithm_name": "RSASHA1-NSEC3-SHA1",
+            "digest_type": 2,
+            "digest_type_name": "SHA-256",
+            "digest": "9df5f2a04c3ccbc5fb4419fb40b794fc27e51ce0dbef5c02bb11aff76b8987e7"
+          }
+        ],
+        "ttl": 86400
+      },
+      "summary": {
+        "dnssec_enabled": true,
+        "has_signatures": false,
+        "has_ds_record": true,
+        "nsec_type": "NSEC3",
+        "validation_status": "enabled_incomplete"
+      }
+    }
+  },
+  "uad.edu.mx": {
+    "domain": "uad.edu.mx",
+    "timestamp": "2025-11-29T14:49:30.412893",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [
+        {
+          "address": "189.197.190.212",
+          "ttl": 3600
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "aspmx2.googlemail.com\\032",
+          "preference": 10,
+          "ttl": 3600
+        },
+        {
+          "exchange": "alt2.aspmx.l.google.com",
+          "preference": 10,
+          "ttl": 3600
+        },
+        {
+          "exchange": "alt1.aspmx.l.google.com\\032",
+          "preference": 10,
+          "ttl": 3600
+        },
+        {
+          "exchange": "aspmx.l.google.com",
+          "preference": 1,
+          "ttl": 3600
+        },
+        {
+          "exchange": "aspmx3.googlemail.com\\032\\032",
+          "preference": 10,
+          "ttl": 3600
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uta.edu.mx": {
+    "domain": "uta.edu.mx",
+    "timestamp": "2025-11-29T14:49:32.505674",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uat.edu.mx": {
+    "domain": "uat.edu.mx",
+    "timestamp": "2025-11-29T14:49:34.216968",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns1-06.azure-dns.com",
+          "rname": "administrator.uat.edu.mx",
+          "serial": 2004136045,
+          "refresh": 900,
+          "retry": 600,
+          "expire": 86400,
+          "minimum": 3600,
+          "ttl": 3600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns4-06.azure-dns.info",
+          "ttl": 9694
+        },
+        {
+          "nameserver": "ns3-06.azure-dns.org",
+          "ttl": 9694
+        },
+        {
+          "nameserver": "ns1-06.azure-dns.com",
+          "ttl": 9694
+        },
+        {
+          "nameserver": "ns2-06.azure-dns.net",
+          "ttl": 9694
+        }
+      ],
+      "A": [],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "uat-edu-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 1118
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uim.edu.mx": {
+    "domain": "uim.edu.mx",
+    "timestamp": "2025-11-29T14:49:36.007892",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "upav.edu.mx": {
+    "domain": "upav.edu.mx",
+    "timestamp": "2025-11-29T14:49:38.989124",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns1.akkyservicios.mx",
+          "rname": "hostmaster.akkyservicios.mx.upav.edu.mx",
+          "serial": 1763841721,
+          "refresh": 3600,
+          "retry": 900,
+          "expire": 604800,
+          "minimum": 1800,
+          "ttl": 21600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns3.akkyservicios.mx",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "ns2.akkyservicios.mx",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "ns1.akkyservicios.mx",
+          "ttl": 21600
+        }
+      ],
+      "A": [
+        {
+          "address": "50.21.179.29",
+          "ttl": 3148
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "smtp-relay.gmail.com",
+          "preference": 15,
+          "ttl": 3600
+        },
+        {
+          "exchange": "aspmx.l.google.com",
+          "preference": 1,
+          "ttl": 3600
+        },
+        {
+          "exchange": "alt2.aspmx.l.google.com",
+          "preference": 5,
+          "ttl": 3600
+        },
+        {
+          "exchange": "alt4.aspmx.l.google.com",
+          "preference": 10,
+          "ttl": 3600
+        },
+        {
+          "exchange": "alt3.aspmx.l.google.com",
+          "preference": 10,
+          "ttl": 3600
+        },
+        {
+          "exchange": "alt1.aspmx.l.google.com",
+          "preference": 5,
+          "ttl": 3600
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": true,
+        "count": 3,
+        "keys": [
+          {
+            "flags": 256,
+            "protocol": 3,
+            "algorithm": 7,
+            "algorithm_name": "RSASHA1-NSEC3-SHA1",
+            "key_size_bits": 1056,
+            "is_sep": false,
+            "is_zone_key": true
+          },
+          {
+            "flags": 257,
+            "protocol": 3,
+            "algorithm": 7,
+            "algorithm_name": "RSASHA1-NSEC3-SHA1",
+            "key_size_bits": 2080,
+            "is_sep": true,
+            "is_zone_key": true
+          },
+          {
+            "flags": 256,
+            "protocol": 3,
+            "algorithm": 7,
+            "algorithm_name": "RSASHA1-NSEC3-SHA1",
+            "key_size_bits": 1056,
+            "is_sep": false,
+            "is_zone_key": true
+          }
+        ],
+        "ttl": 3600
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "NSEC3",
+        "nsec_present": false,
+        "nsec3_present": true,
+        "nsec3param_present": true,
+        "opt_out": false,
+        "detection_source": "nsec3param_inference",
+        "rrsig_records": [],
+        "details": {
+          "nsec3param": {
+            "count": 1,
+            "ttl": 0,
+            "records": [
+              {
+                "hash_algorithm": 1,
+                "flags": 0,
+                "iterations": 10,
+                "salt": "aab2eef8b719fd26"
+              }
+            ]
+          },
+          "nsec3": {
+            "count": 0,
+            "ttl": null,
+            "records": [],
+            "detection_method": "nsec3param_inference"
+          }
+        }
+      },
+      "ds": {
+        "present": true,
+        "count": 1,
+        "records": [
+          {
+            "key_tag": 10848,
+            "algorithm": 7,
+            "algorithm_name": "RSASHA1-NSEC3-SHA1",
+            "digest_type": 2,
+            "digest_type_name": "SHA-256",
+            "digest": "a199322c018925f9507d2fbacab2f6dbba9bd97aa26b53b6895c3ab5a2e93b1d"
+          }
+        ],
+        "ttl": 21600
+      },
+      "summary": {
+        "dnssec_enabled": true,
+        "has_signatures": false,
+        "has_ds_record": true,
+        "nsec_type": "NSEC3",
+        "validation_status": "enabled_incomplete"
+      }
+    }
+  },
+  "uaemex.mx": {
+    "domain": "uaemex.mx",
+    "timestamp": "2025-11-29T14:49:40.833764",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns1-06.azure-dns.com",
+          "rname": "azuredns-hostmaster.microsoft.com",
+          "serial": 1,
+          "refresh": 3600,
+          "retry": 300,
+          "expire": 2419200,
+          "minimum": 300,
+          "ttl": 3600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns4-06.azure-dns.info",
+          "ttl": 172800
+        },
+        {
+          "nameserver": "ns1-06.azure-dns.com",
+          "ttl": 172800
+        },
+        {
+          "nameserver": "ns2-06.azure-dns.net",
+          "ttl": 172800
+        },
+        {
+          "nameserver": "ns3-06.azure-dns.org",
+          "ttl": 172800
+        }
+      ],
+      "A": [
+        {
+          "address": "148.215.154.13",
+          "ttl": 230
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "uaemex-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 87
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "unach.mx": {
+    "domain": "unach.mx",
+    "timestamp": "2025-11-29T14:49:42.640351",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "dns.unach.mx",
+          "rname": "root.dns.unach.mx",
+          "serial": 2025101001,
+          "refresh": 3600,
+          "retry": 3600,
+          "expire": 604800,
+          "minimum": 3600,
+          "ttl": 3600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "dns2.unach.mx",
+          "ttl": 3600
+        },
+        {
+          "nameserver": "dns.unach.mx",
+          "ttl": 3600
+        }
+      ],
+      "A": [
+        {
+          "address": "35.209.142.91",
+          "ttl": 133
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "ALT4.ASPMX.L.GOOGLE.COM",
+          "preference": 10,
+          "ttl": 3600
+        },
+        {
+          "exchange": "ASPMX.L.GOOGLE.COM",
+          "preference": 1,
+          "ttl": 3600
+        },
+        {
+          "exchange": "ALT3.ASPMX.L.GOOGLE.COM",
+          "preference": 10,
+          "ttl": 3600
+        },
+        {
+          "exchange": "ALT2.ASPMX.L.GOOGLE.COM",
+          "preference": 5,
+          "ttl": 3600
+        },
+        {
+          "exchange": "ALT1.ASPMX.L.GOOGLE.COM",
+          "preference": 5,
+          "ttl": 3600
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uaz.edu.mx": {
+    "domain": "uaz.edu.mx",
+    "timestamp": "2025-11-29T14:49:44.501750",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "win-bas6e8tuskt",
+          "rname": "hostmaster",
+          "serial": 2111,
+          "refresh": 900,
+          "retry": 600,
+          "expire": 86400,
+          "minimum": 3600,
+          "ttl": 748
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "win-bas6e8tuskt",
+          "ttl": 3600
+        }
+      ],
+      "A": [
+        {
+          "address": "148.217.18.6",
+          "ttl": 2020
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "alt1.aspmx.l.google.com",
+          "preference": 5,
+          "ttl": 1256
+        },
+        {
+          "exchange": "aspmx.l.google.com",
+          "preference": 1,
+          "ttl": 1256
+        },
+        {
+          "exchange": "al2.aspmx.l.google.com",
+          "preference": 5,
+          "ttl": 1256
+        },
+        {
+          "exchange": "alt3.aspmx.l.google.com",
+          "preference": 10,
+          "ttl": 1256
+        },
+        {
+          "exchange": "alt4.aspmx.l.google.com",
+          "preference": 10,
+          "ttl": 1256
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "ufn.edu.mx": {
+    "domain": "ufn.edu.mx",
+    "timestamp": "2025-11-29T14:49:46.379177",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uqroo.mx": {
+    "domain": "uqroo.mx",
+    "timestamp": "2025-11-29T14:49:48.108778",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "nsuqroo.uqroo.mx",
+          "rname": "Postmaster.uqroo.mx",
+          "serial": 2025112701,
+          "refresh": 10800,
+          "retry": 3600,
+          "expire": 1209600,
+          "minimum": 86400,
+          "ttl": 3600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "nsuqroo.uqroo.mx",
+          "ttl": 3600
+        }
+      ],
+      "A": [],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "uqroo-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 2034
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "utsl.edu.mx": {
+    "domain": "utsl.edu.mx",
+    "timestamp": "2025-11-29T14:49:50.169401",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "ute.edu.mx": {
+    "domain": "ute.edu.mx",
+    "timestamp": "2025-11-29T14:49:51.880939",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "udr.edu.mx": {
+    "domain": "udr.edu.mx",
+    "timestamp": "2025-11-29T14:50:05.848367",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uc.edu.mx": {
+    "domain": "uc.edu.mx",
+    "timestamp": "2025-11-29T14:50:07.591583",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns1.hostpapa.com",
+          "rname": "admin.hostpapa.ca",
+          "serial": 2025112802,
+          "refresh": 3600,
+          "retry": 3600,
+          "expire": 1209600,
+          "minimum": 10800,
+          "ttl": 21600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns1.hostpapa.com",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "ns2.hostpapa.com",
+          "ttl": 21600
+        }
+      ],
+      "A": [
+        {
+          "address": "172.96.180.55",
+          "ttl": 6751
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "SMTP.GOOGLE.COM",
+          "preference": 0,
+          "ttl": 14400
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "upmich.edu.mx": {
+    "domain": "upmich.edu.mx",
+    "timestamp": "2025-11-29T14:50:09.822684",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "utm.edu.mx": {
+    "domain": "utm.edu.mx",
+    "timestamp": "2025-11-29T14:50:11.490530",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns1e.itesm.mx",
+          "rname": "please_set_email.absolutely.nowhere",
+          "serial": 35,
+          "refresh": 10800,
+          "retry": 3600,
+          "expire": 2419200,
+          "minimum": 900,
+          "ttl": 3600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns1e.itesm.mx",
+          "ttl": 3600
+        },
+        {
+          "nameserver": "ns2e.itesm.mx",
+          "ttl": 3600
+        }
+      ],
+      "A": [],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "1340699817.mail.exchangelabs.com",
+          "preference": 0,
+          "ttl": 3600
+        },
+        {
+          "exchange": "utm-edu-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 3600
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "udlc.edu.mx": {
+    "domain": "udlc.edu.mx",
+    "timestamp": "2025-11-29T14:50:13.551376",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "rs13a.registrar-servers.com",
+          "rname": "cpanel.tech.namecheap.com",
+          "serial": 2025062500,
+          "refresh": 86400,
+          "retry": 7200,
+          "expire": 3600000,
+          "minimum": 86400,
+          "ttl": 21600
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "rs13b.registrar-servers.com",
+          "ttl": 604800
+        },
+        {
+          "nameserver": "rs13a.registrar-servers.com",
+          "ttl": 604800
+        }
+      ],
+      "A": [
+        {
+          "address": "198.54.126.51",
+          "ttl": 1200
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "mx2-hosting.jellyfish.systems",
+          "preference": 20,
+          "ttl": 1200
+        },
+        {
+          "exchange": "mx1-hosting.jellyfish.systems",
+          "preference": 10,
+          "ttl": 1200
+        },
+        {
+          "exchange": "mx3-hosting.jellyfish.systems",
+          "preference": 30,
+          "ttl": 1200
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "upal.edu.mx": {
+    "domain": "upal.edu.mx",
+    "timestamp": "2025-11-29T14:50:15.660177",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uce.edu.mx": {
+    "domain": "uce.edu.mx",
+    "timestamp": "2025-11-29T14:50:17.333529",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uem.mx": {
+    "domain": "uem.mx",
+    "timestamp": "2025-11-29T14:50:19.087768",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "ulsab.edu.mx": {
+    "domain": "ulsab.edu.mx",
+    "timestamp": "2025-11-29T14:50:20.868216",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "dns1.akkyhosting26.mx",
+          "rname": "cops.nic.mx",
+          "serial": 2025110302,
+          "refresh": 3600,
+          "retry": 1800,
+          "expire": 1209600,
+          "minimum": 86400,
+          "ttl": 86400
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "dns2.akkyhosting26.mx",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "dns1.akkyhosting26.mx",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "dns4.akkyhosting26.mx",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "dns3.akkyhosting26.mx",
+          "ttl": 21600
+        }
+      ],
+      "A": [
+        {
+          "address": "170.10.162.192",
+          "ttl": 14400
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "ALT3.ASPMX.L.GOOGLE.COM",
+          "preference": 10,
+          "ttl": 14400
+        },
+        {
+          "exchange": "ALT2.ASPMX.L.GOOGLE.COM",
+          "preference": 5,
+          "ttl": 14400
+        },
+        {
+          "exchange": "ALT4.ASPMX.L.GOOGLE.COM",
+          "preference": 10,
+          "ttl": 14400
+        },
+        {
+          "exchange": "ALT1.ASPMX.L.GOOGLE.COM",
+          "preference": 5,
+          "ttl": 14400
+        },
+        {
+          "exchange": "smtp.GOOGLE.COM",
+          "preference": 1,
+          "ttl": 14400
+        },
+        {
+          "exchange": "ASPMX.L.GOOGLE.COM",
+          "preference": 1,
+          "ttl": 14400
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uace.edu.mx": {
+    "domain": "uace.edu.mx",
+    "timestamp": "2025-11-29T14:50:23.192229",
+    "dns_basic": {
+      "SOA": [],
+      "NS": [],
+      "A": [],
+      "AAAA": [],
+      "MX": []
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  }
+}

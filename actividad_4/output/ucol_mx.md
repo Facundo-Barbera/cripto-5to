@@ -1,6 +1,6 @@
-# DNSSEC Analysis Report: tec.mx
+# DNSSEC Analysis Report: ucol.mx
 
-**Analysis Date:** 2025-11-27T10:56:10.968065
+**Analysis Date:** 2025-11-29T14:49:11.684749
 
 ## Summary
 
@@ -14,34 +14,31 @@
 
 ## SOA Records
 
-- **Primary Server:** ns1e.itesm.mx
-- **Responsible Email:** please_set_email.absolutely.nowhere
-- **Serial:** 150
-- **Refresh:** 10800s
-- **Retry:** 3600s
+- **Primary Server:** volcan.ucol.mx
+- **Responsible Email:** postmaster.ucol.mx
+- **Serial:** 2025112801
+- **Refresh:** 604800s
+- **Retry:** 86400s
 - **Expire:** 2419200s
-- **Minimum TTL:** 900s
-- **Record TTL:** 3492s
+- **Minimum TTL:** 604800s
+- **Record TTL:** 86400s
 
 ## NS Records
 
 Total: 2
 
-- ns2e.itesm.mx (TTL: 1919s)
-- ns1e.itesm.mx (TTL: 1919s)
-
-## A Records
-
-Total: 2
-
-- 45.60.115.212 (TTL: 3185s)
-- 45.60.86.212 (TTL: 3185s)
+- volcan.ucol.mx (TTL: 86400s)
+- orion.ucol.mx (TTL: 86400s)
 
 ## MX Records
 
-Total: 1
+Total: 5
 
-- tec-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
+- ALT1.ASPMX.L.GOOGLE.COM (Priority: 20, TTL: 16515s)
+- ASPMX.L.GOOGLE.COM (Priority: 10, TTL: 16515s)
+- ASPMX3.GOOGLEMAIL.COM (Priority: 30, TTL: 16515s)
+- ALT2.ASPMX.L.GOOGLE.COM (Priority: 20, TTL: 16515s)
+- ASPMX2.GOOGLEMAIL.COM (Priority: 30, TTL: 16515s)
 
 ---
 
@@ -71,16 +68,16 @@ No DS records found in parent zone.
 
 ## DNS Tree Structure
 
-- **Domain:** tec.mx
+- **Domain:** ucol.mx
 - **Parent Zone:** mx
 - **Level:** 2
 
 ### Nameserver Hierarchy
 
 ```
-tec.mx
-├── ns2e.itesm.mx (TTL: 1919s)
-└── ns1e.itesm.mx (TTL: 1919s)
+ucol.mx
+├── volcan.ucol.mx (TTL: 86400s)
+└── orion.ucol.mx (TTL: 86400s)
 ```
 
 ### Cryptographic Chain of Trust

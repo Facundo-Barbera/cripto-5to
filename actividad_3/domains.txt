@@ -1,5 +1,7 @@
+com.
 unam.mx
 ipn.mx
 gob.mx
 sat.mx
 tec.mx
+uanl.mx

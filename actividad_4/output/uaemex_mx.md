@@ -1,6 +1,6 @@
-# DNSSEC Analysis Report: tec.mx
+# DNSSEC Analysis Report: uaemex.mx
 
-**Analysis Date:** 2025-11-27T10:56:10.968065
+**Analysis Date:** 2025-11-29T14:49:40.833764
 
 ## Summary
 
@@ -14,34 +14,35 @@
 
 ## SOA Records
 
-- **Primary Server:** ns1e.itesm.mx
-- **Responsible Email:** please_set_email.absolutely.nowhere
-- **Serial:** 150
-- **Refresh:** 10800s
-- **Retry:** 3600s
+- **Primary Server:** ns1-06.azure-dns.com
+- **Responsible Email:** azuredns-hostmaster.microsoft.com
+- **Serial:** 1
+- **Refresh:** 3600s
+- **Retry:** 300s
 - **Expire:** 2419200s
-- **Minimum TTL:** 900s
-- **Record TTL:** 3492s
+- **Minimum TTL:** 300s
+- **Record TTL:** 3600s
 
 ## NS Records
 
-Total: 2
+Total: 4
 
-- ns2e.itesm.mx (TTL: 1919s)
-- ns1e.itesm.mx (TTL: 1919s)
+- ns4-06.azure-dns.info (TTL: 172800s)
+- ns1-06.azure-dns.com (TTL: 172800s)
+- ns2-06.azure-dns.net (TTL: 172800s)
+- ns3-06.azure-dns.org (TTL: 172800s)
 
 ## A Records
 
-Total: 2
+Total: 1
 
-- 45.60.115.212 (TTL: 3185s)
-- 45.60.86.212 (TTL: 3185s)
+- 148.215.154.13 (TTL: 230s)
 
 ## MX Records
 
 Total: 1
 
-- tec-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
+- uaemex-mx.mail.protection.outlook.com (Priority: 0, TTL: 87s)
 
 ---
 
@@ -71,16 +72,18 @@ No DS records found in parent zone.
 
 ## DNS Tree Structure
 
-- **Domain:** tec.mx
+- **Domain:** uaemex.mx
 - **Parent Zone:** mx
 - **Level:** 2
 
 ### Nameserver Hierarchy
 
 ```
-tec.mx
-├── ns2e.itesm.mx (TTL: 1919s)
-└── ns1e.itesm.mx (TTL: 1919s)
+uaemex.mx
+├── ns4-06.azure-dns.info (TTL: 172800s)
+├── ns1-06.azure-dns.com (TTL: 172800s)
+├── ns2-06.azure-dns.net (TTL: 172800s)
+└── ns3-06.azure-dns.org (TTL: 172800s)
 ```
 
 ### Cryptographic Chain of Trust

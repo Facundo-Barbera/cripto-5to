@@ -1,85 +1,77 @@
 {
-  "unam.mx": {
-    "domain": "unam.mx",
-    "timestamp": "2025-11-23T15:36:55.144212",
+  "com.": {
+    "domain": "com.",
+    "timestamp": "2025-11-27T10:55:59.333916",
     "dns_basic": {
       "SOA": [
         {
-          "mname": "ns1.unam.mx",
-          "rname": "dns.unam.mx",
-          "serial": 2025118104,
-          "refresh": 3600,
-          "retry": 1200,
-          "expire": 1814400,
-          "minimum": 300,
-          "ttl": 6275
+          "mname": "a.gtld-servers.net",
+          "rname": "nstld.verisign-grs.com",
+          "serial": 1764261670,
+          "refresh": 1800,
+          "retry": 900,
+          "expire": 604800,
+          "minimum": 900,
+          "ttl": 30
         }
       ],
       "NS": [
         {
-          "nameserver": "ns5.unam.mx",
-          "ttl": 6275
+          "nameserver": "a.gtld-servers.net",
+          "ttl": 21600
         },
         {
-          "nameserver": "ns1.unam.mx",
-          "ttl": 6275
+          "nameserver": "i.gtld-servers.net",
+          "ttl": 21600
         },
         {
-          "nameserver": "ns3.unam.mx",
-          "ttl": 6275
+          "nameserver": "m.gtld-servers.net",
+          "ttl": 21600
         },
         {
-          "nameserver": "ns2.unam.mx",
-          "ttl": 6275
+          "nameserver": "g.gtld-servers.net",
+          "ttl": 21600
         },
         {
-          "nameserver": "ns4.unam.mx",
-          "ttl": 6275
+          "nameserver": "d.gtld-servers.net",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "h.gtld-servers.net",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "e.gtld-servers.net",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "b.gtld-servers.net",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "c.gtld-servers.net",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "l.gtld-servers.net",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "k.gtld-servers.net",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "j.gtld-servers.net",
+          "ttl": 21600
+        },
+        {
+          "nameserver": "f.gtld-servers.net",
+          "ttl": 21600
         }
       ],
-      "A": [
-        {
-          "address": "132.248.166.20",
-          "ttl": 6275
-        },
-        {
-          "address": "132.248.166.18",
-          "ttl": 6275
-        },
-        {
-          "address": "132.248.166.17",
-          "ttl": 6275
-        },
-        {
-          "address": "132.248.166.19",
-          "ttl": 6275
-        }
-      ],
-      "AAAA": [
-        {
-          "address": "2001:1218:3000:180::20",
-          "ttl": 6275
-        },
-        {
-          "address": "2001:1218:3000:180::17",
-          "ttl": 6275
-        },
-        {
-          "address": "2001:1218:3000:180::18",
-          "ttl": 6275
-        },
-        {
-          "address": "2001:1218:3000:180::19",
-          "ttl": 6275
-        }
-      ],
-      "MX": [
-        {
-          "exchange": "unam-mx.mail.protection.outlook.com",
-          "preference": 0,
-          "ttl": 6275
-        }
-      ]
+      "A": [],
+      "AAAA": [],
+      "MX": []
     },
     "dnssec": {
       "dnskey": {
@@ -105,13 +97,576 @@
             "is_zone_key": true
           }
         ],
-        "ttl": 6275
+        "ttl": 996
       },
       "rrsig": {
-        "present": false,
-        "count": 0,
-        "signatures": [],
-        "ttl": null
+        "present": true,
+        "count": 4,
+        "signatures": [
+          {
+            "type_covered": "SOA",
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "labels": 1,
+            "original_ttl": 900,
+            "expiration": "2025-12-04T10:55:50",
+            "inception": "2025-11-27T09:45:50",
+            "key_tag": 46539,
+            "signer": "com",
+            "is_expired": false,
+            "days_until_expiration": 6
+          },
+          {
+            "type_covered": "DNSKEY",
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "labels": 1,
+            "original_ttl": 86400,
+            "expiration": "2025-12-03T09:02:35",
+            "inception": "2025-11-18T08:57:35",
+            "key_tag": 19718,
+            "signer": "com",
+            "is_expired": false,
+            "days_until_expiration": 5
+          },
+          {
+            "type_covered": "NSEC3PARAM",
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "labels": 1,
+            "original_ttl": 86400,
+            "expiration": "2025-12-01T18:26:55",
+            "inception": "2025-11-24T17:16:55",
+            "key_tag": 46539,
+            "signer": "com",
+            "is_expired": false,
+            "days_until_expiration": 4
+          },
+          {
+            "type_covered": "NS",
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "labels": 1,
+            "original_ttl": 172800,
+            "expiration": "2025-12-01T18:26:55",
+            "inception": "2025-11-24T17:16:55",
+            "key_tag": 46539,
+            "signer": "com",
+            "is_expired": false,
+            "days_until_expiration": 4
+          }
+        ],
+        "signatures_by_type": {
+          "SOA": [
+            {
+              "type_covered": "SOA",
+              "algorithm": 13,
+              "algorithm_name": "ECDSA-P256/SHA-256",
+              "labels": 1,
+              "original_ttl": 900,
+              "expiration": "2025-12-04T10:55:50",
+              "inception": "2025-11-27T09:45:50",
+              "key_tag": 46539,
+              "signer": "com",
+              "is_expired": false,
+              "days_until_expiration": 6
+            }
+          ],
+          "DNSKEY": [
+            {
+              "type_covered": "DNSKEY",
+              "algorithm": 13,
+              "algorithm_name": "ECDSA-P256/SHA-256",
+              "labels": 1,
+              "original_ttl": 86400,
+              "expiration": "2025-12-03T09:02:35",
+              "inception": "2025-11-18T08:57:35",
+              "key_tag": 19718,
+              "signer": "com",
+              "is_expired": false,
+              "days_until_expiration": 5
+            }
+          ],
+          "NSEC3PARAM": [
+            {
+              "type_covered": "NSEC3PARAM",
+              "algorithm": 13,
+              "algorithm_name": "ECDSA-P256/SHA-256",
+              "labels": 1,
+              "original_ttl": 86400,
+              "expiration": "2025-12-01T18:26:55",
+              "inception": "2025-11-24T17:16:55",
+              "key_tag": 46539,
+              "signer": "com",
+              "is_expired": false,
+              "days_until_expiration": 4
+            }
+          ],
+          "NS": [
+            {
+              "type_covered": "NS",
+              "algorithm": 13,
+              "algorithm_name": "ECDSA-P256/SHA-256",
+              "labels": 1,
+              "original_ttl": 172800,
+              "expiration": "2025-12-01T18:26:55",
+              "inception": "2025-11-24T17:16:55",
+              "key_tag": 46539,
+              "signer": "com",
+              "is_expired": false,
+              "days_until_expiration": 4
+            }
+          ]
+        },
+        "ttl": 900
+      },
+      "nsec": {
+        "nsec_type": "NSEC3",
+        "nsec_present": false,
+        "nsec3_present": true,
+        "nsec3param_present": true,
+        "opt_out": true,
+        "detection_source": "recursive_resolver",
+        "rrsig_records": [],
+        "details": {
+          "nsec3param": {
+            "count": 1,
+            "ttl": 6696,
+            "records": [
+              {
+                "hash_algorithm": 1,
+                "flags": 0,
+                "iterations": 0,
+                "salt": "none"
+              }
+            ]
+          },
+          "nsec3": {
+            "count": 3,
+            "ttl": 900,
+            "records": [
+              {
+                "owner": "CK0POJMG874LJREF7EFN8430QVIT8BSM.com.",
+                "hash_algorithm": 1,
+                "flags": 1,
+                "iterations": 0,
+                "salt": "none",
+                "opt_out": true,
+                "ttl": 900
+              },
+              {
+                "owner": "FBPJNR6HO5MUM40C3VM5QP7EME6AB9SP.com.",
+                "hash_algorithm": 1,
+                "flags": 1,
+                "iterations": 0,
+                "salt": "none",
+                "opt_out": true,
+                "ttl": 900
+              },
+              {
+                "owner": "3RL2Q58205687C8I9KC9MV46DGHCNS45.com.",
+                "hash_algorithm": 1,
+                "flags": 1,
+                "iterations": 0,
+                "salt": "none",
+                "opt_out": true,
+                "ttl": 900
+              }
+            ],
+            "detection_method": "authority_section"
+          }
+        }
+      },
+      "ds": {
+        "present": true,
+        "count": 1,
+        "records": [
+          {
+            "key_tag": 19718,
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "digest_type": 2,
+            "digest_type_name": "SHA-256",
+            "digest": "8acbb0cd28f41250a80a491389424d341522d946b0da0c0291f2d3d771d7805a"
+          }
+        ],
+        "ttl": 10446
+      },
+      "summary": {
+        "dnssec_enabled": true,
+        "has_signatures": true,
+        "has_ds_record": true,
+        "nsec_type": "NSEC3",
+        "validation_status": "valid"
+      }
+    }
+  },
+  "unam.mx": {
+    "domain": "unam.mx",
+    "timestamp": "2025-11-27T10:56:01.745765",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "ns1.unam.mx",
+          "rname": "dns.unam.mx",
+          "serial": 2025118108,
+          "refresh": 3600,
+          "retry": 1200,
+          "expire": 1814400,
+          "minimum": 300,
+          "ttl": 7200
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "ns5.unam.mx",
+          "ttl": 89
+        },
+        {
+          "nameserver": "ns1.unam.mx",
+          "ttl": 89
+        },
+        {
+          "nameserver": "ns2.unam.mx",
+          "ttl": 89
+        },
+        {
+          "nameserver": "ns3.unam.mx",
+          "ttl": 89
+        },
+        {
+          "nameserver": "ns4.unam.mx",
+          "ttl": 89
+        }
+      ],
+      "A": [
+        {
+          "address": "132.248.166.19",
+          "ttl": 5666
+        },
+        {
+          "address": "132.248.166.18",
+          "ttl": 5666
+        },
+        {
+          "address": "132.248.166.17",
+          "ttl": 5666
+        },
+        {
+          "address": "132.248.166.20",
+          "ttl": 5666
+        }
+      ],
+      "AAAA": [
+        {
+          "address": "2001:1218:3000:180::19",
+          "ttl": 3167
+        },
+        {
+          "address": "2001:1218:3000:180::20",
+          "ttl": 3167
+        },
+        {
+          "address": "2001:1218:3000:180::17",
+          "ttl": 3167
+        },
+        {
+          "address": "2001:1218:3000:180::18",
+          "ttl": 3167
+        }
+      ],
+      "MX": [
+        {
+          "exchange": "unam-mx.mail.protection.outlook.com",
+          "preference": 0,
+          "ttl": 2172
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": true,
+        "count": 2,
+        "keys": [
+          {
+            "flags": 257,
+            "protocol": 3,
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "key_size_bits": 256,
+            "is_sep": true,
+            "is_zone_key": true
+          },
+          {
+            "flags": 256,
+            "protocol": 3,
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "key_size_bits": 256,
+            "is_sep": false,
+            "is_zone_key": true
+          }
+        ],
+        "ttl": 5519
+      },
+      "rrsig": {
+        "present": true,
+        "count": 9,
+        "signatures": [
+          {
+            "type_covered": "SOA",
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "labels": 2,
+            "original_ttl": 7200,
+            "expiration": "2026-02-25T06:00:00",
+            "inception": "2025-11-25T16:14:07",
+            "key_tag": 42326,
+            "signer": "unam.mx",
+            "is_expired": false,
+            "days_until_expiration": 89
+          },
+          {
+            "type_covered": "NS",
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "labels": 2,
+            "original_ttl": 7200,
+            "expiration": "2026-02-25T06:00:00",
+            "inception": "2025-11-25T16:14:07",
+            "key_tag": 42326,
+            "signer": "unam.mx",
+            "is_expired": false,
+            "days_until_expiration": 89
+          },
+          {
+            "type_covered": "DNSKEY",
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "labels": 2,
+            "original_ttl": 7200,
+            "expiration": "2026-02-25T06:00:00",
+            "inception": "2025-11-25T16:14:07",
+            "key_tag": 54058,
+            "signer": "unam.mx",
+            "is_expired": false,
+            "days_until_expiration": 89
+          },
+          {
+            "type_covered": "DNSKEY",
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "labels": 2,
+            "original_ttl": 7200,
+            "expiration": "2026-02-25T06:00:00",
+            "inception": "2025-11-25T16:14:07",
+            "key_tag": 42326,
+            "signer": "unam.mx",
+            "is_expired": false,
+            "days_until_expiration": 89
+          },
+          {
+            "type_covered": "A",
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "labels": 2,
+            "original_ttl": 7200,
+            "expiration": "2026-02-25T06:00:00",
+            "inception": "2025-11-25T16:14:07",
+            "key_tag": 42326,
+            "signer": "unam.mx",
+            "is_expired": false,
+            "days_until_expiration": 89
+          },
+          {
+            "type_covered": "NSEC",
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "labels": 2,
+            "original_ttl": 300,
+            "expiration": "2026-02-25T06:00:00",
+            "inception": "2025-11-25T16:14:07",
+            "key_tag": 42326,
+            "signer": "unam.mx",
+            "is_expired": false,
+            "days_until_expiration": 89
+          },
+          {
+            "type_covered": "TXT",
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "labels": 2,
+            "original_ttl": 7200,
+            "expiration": "2026-02-25T06:00:00",
+            "inception": "2025-11-25T16:14:07",
+            "key_tag": 42326,
+            "signer": "unam.mx",
+            "is_expired": false,
+            "days_until_expiration": 89
+          },
+          {
+            "type_covered": "AAAA",
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "labels": 2,
+            "original_ttl": 7200,
+            "expiration": "2026-02-25T06:00:00",
+            "inception": "2025-11-25T16:14:07",
+            "key_tag": 42326,
+            "signer": "unam.mx",
+            "is_expired": false,
+            "days_until_expiration": 89
+          },
+          {
+            "type_covered": "MX",
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "labels": 2,
+            "original_ttl": 7200,
+            "expiration": "2026-02-25T06:00:00",
+            "inception": "2025-11-25T16:14:07",
+            "key_tag": 42326,
+            "signer": "unam.mx",
+            "is_expired": false,
+            "days_until_expiration": 89
+          }
+        ],
+        "signatures_by_type": {
+          "SOA": [
+            {
+              "type_covered": "SOA",
+              "algorithm": 13,
+              "algorithm_name": "ECDSA-P256/SHA-256",
+              "labels": 2,
+              "original_ttl": 7200,
+              "expiration": "2026-02-25T06:00:00",
+              "inception": "2025-11-25T16:14:07",
+              "key_tag": 42326,
+              "signer": "unam.mx",
+              "is_expired": false,
+              "days_until_expiration": 89
+            }
+          ],
+          "NS": [
+            {
+              "type_covered": "NS",
+              "algorithm": 13,
+              "algorithm_name": "ECDSA-P256/SHA-256",
+              "labels": 2,
+              "original_ttl": 7200,
+              "expiration": "2026-02-25T06:00:00",
+              "inception": "2025-11-25T16:14:07",
+              "key_tag": 42326,
+              "signer": "unam.mx",
+              "is_expired": false,
+              "days_until_expiration": 89
+            }
+          ],
+          "DNSKEY": [
+            {
+              "type_covered": "DNSKEY",
+              "algorithm": 13,
+              "algorithm_name": "ECDSA-P256/SHA-256",
+              "labels": 2,
+              "original_ttl": 7200,
+              "expiration": "2026-02-25T06:00:00",
+              "inception": "2025-11-25T16:14:07",
+              "key_tag": 54058,
+              "signer": "unam.mx",
+              "is_expired": false,
+              "days_until_expiration": 89
+            },
+            {
+              "type_covered": "DNSKEY",
+              "algorithm": 13,
+              "algorithm_name": "ECDSA-P256/SHA-256",
+              "labels": 2,
+              "original_ttl": 7200,
+              "expiration": "2026-02-25T06:00:00",
+              "inception": "2025-11-25T16:14:07",
+              "key_tag": 42326,
+              "signer": "unam.mx",
+              "is_expired": false,
+              "days_until_expiration": 89
+            }
+          ],
+          "A": [
+            {
+              "type_covered": "A",
+              "algorithm": 13,
+              "algorithm_name": "ECDSA-P256/SHA-256",
+              "labels": 2,
+              "original_ttl": 7200,
+              "expiration": "2026-02-25T06:00:00",
+              "inception": "2025-11-25T16:14:07",
+              "key_tag": 42326,
+              "signer": "unam.mx",
+              "is_expired": false,
+              "days_until_expiration": 89
+            }
+          ],
+          "NSEC": [
+            {
+              "type_covered": "NSEC",
+              "algorithm": 13,
+              "algorithm_name": "ECDSA-P256/SHA-256",
+              "labels": 2,
+              "original_ttl": 300,
+              "expiration": "2026-02-25T06:00:00",
+              "inception": "2025-11-25T16:14:07",
+              "key_tag": 42326,
+              "signer": "unam.mx",
+              "is_expired": false,
+              "days_until_expiration": 89
+            }
+          ],
+          "TXT": [
+            {
+              "type_covered": "TXT",
+              "algorithm": 13,
+              "algorithm_name": "ECDSA-P256/SHA-256",
+              "labels": 2,
+              "original_ttl": 7200,
+              "expiration": "2026-02-25T06:00:00",
+              "inception": "2025-11-25T16:14:07",
+              "key_tag": 42326,
+              "signer": "unam.mx",
+              "is_expired": false,
+              "days_until_expiration": 89
+            }
+          ],
+          "AAAA": [
+            {
+              "type_covered": "AAAA",
+              "algorithm": 13,
+              "algorithm_name": "ECDSA-P256/SHA-256",
+              "labels": 2,
+              "original_ttl": 7200,
+              "expiration": "2026-02-25T06:00:00",
+              "inception": "2025-11-25T16:14:07",
+              "key_tag": 42326,
+              "signer": "unam.mx",
+              "is_expired": false,
+              "days_until_expiration": 89
+            }
+          ],
+          "MX": [
+            {
+              "type_covered": "MX",
+              "algorithm": 13,
+              "algorithm_name": "ECDSA-P256/SHA-256",
+              "labels": 2,
+              "original_ttl": 7200,
+              "expiration": "2026-02-25T06:00:00",
+              "inception": "2025-11-25T16:14:07",
+              "key_tag": 42326,
+              "signer": "unam.mx",
+              "is_expired": false,
+              "days_until_expiration": 89
+            }
+          ]
+        },
+        "ttl": 7200
       },
       "nsec": {
         "nsec_type": "NSEC",
@@ -119,10 +674,39 @@
         "nsec3_present": false,
         "nsec3param_present": false,
         "opt_out": false,
+        "detection_source": "recursive_resolver",
+        "rrsig_records": [
+          {
+            "type_covered": "NSEC",
+            "algorithm": 13,
+            "algorithm_name": "ECDSA-P256/SHA-256",
+            "labels": 2,
+            "original_ttl": 300,
+            "expiration": "2026-02-25T06:00:00",
+            "inception": "2025-11-25T16:14:07",
+            "key_tag": 42326,
+            "signer": "unam.mx",
+            "is_expired": false,
+            "days_until_expiration": 89
+          }
+        ],
         "details": {
           "nsec": {
-            "count": 1,
-            "ttl": 118
+            "count": 2,
+            "ttl": 300,
+            "records": [
+              {
+                "owner": "unam.mx.",
+                "next_domain": ",priv-anon.unam.mx.",
+                "ttl": 300
+              },
+              {
+                "owner": "_dmarc.unam.mx.",
+                "next_domain": "correodcb._domainkey.unam.mx.",
+                "ttl": 300
+              }
+            ],
+            "detection_method": "authority_section"
           }
         }
       },
@@ -139,51 +723,51 @@
             "digest": "ea3eb01183e5bc13acac4692831ea81da9b6d8f402ab3ab4fa1a5c1ef52869e0"
           }
         ],
-        "ttl": 85475
+        "ttl": 18736
       },
       "summary": {
         "dnssec_enabled": true,
-        "has_signatures": false,
+        "has_signatures": true,
         "has_ds_record": true,
         "nsec_type": "NSEC",
-        "validation_status": "enabled_incomplete"
+        "validation_status": "valid"
       }
     }
   },
   "ipn.mx": {
     "domain": "ipn.mx",
-    "timestamp": "2025-11-23T15:36:56.718931",
+    "timestamp": "2025-11-27T10:56:03.851630",
     "dns_basic": {
       "SOA": [
         {
           "mname": "dns3.ipn.mx",
           "rname": "tic.ipn.mx",
-          "serial": 2025112120,
+          "serial": 2025112572,
           "refresh": 10800,
           "retry": 1800,
           "expire": 1209600,
           "minimum": 10800,
-          "ttl": 3418
+          "ttl": 3600
         }
       ],
       "NS": [
         {
+          "nameserver": "dns3.ipn.mx",
+          "ttl": 1692
+        },
+        {
           "nameserver": "dns2.ipn.mx",
-          "ttl": 1619
+          "ttl": 1692
         },
         {
           "nameserver": "dns1.ipn.mx",
-          "ttl": 1619
-        },
-        {
-          "nameserver": "dns3.ipn.mx",
-          "ttl": 1619
+          "ttl": 1692
         }
       ],
       "A": [
         {
           "address": "20.64.80.120",
-          "ttl": 963
+          "ttl": 569
         }
       ],
       "AAAA": [],
@@ -191,7 +775,7 @@
         {
           "exchange": "ipn-mx.mail.protection.outlook.com",
           "preference": 0,
-          "ttl": 3419
+          "ttl": 1730
         }
       ]
     },
@@ -219,32 +803,69 @@
             "is_zone_key": true
           }
         ],
-        "ttl": 86219
+        "ttl": 21600
       },
       "rrsig": {
         "present": false,
         "count": 0,
         "signatures": [],
+        "signatures_by_type": {},
         "ttl": null
       },
       "nsec": {
-        "nsec_type": "none",
+        "nsec_type": "NSEC3",
         "nsec_present": false,
-        "nsec3_present": false,
+        "nsec3_present": true,
         "nsec3param_present": true,
         "opt_out": false,
+        "detection_source": "recursive_resolver",
+        "rrsig_records": [],
         "details": {
           "nsec3param": {
             "count": 1,
-            "ttl": 3419,
+            "ttl": 736,
             "records": [
               {
                 "hash_algorithm": 1,
                 "flags": 0,
                 "iterations": 1,
-                "salt": "bd7619cce6c97e8f"
+                "salt": "f3f14e0c838ae7de"
               }
             ]
+          },
+          "nsec3": {
+            "count": 3,
+            "ttl": 10800,
+            "records": [
+              {
+                "owner": "bjqnsq93qln9um9q57fsh1k1bf30ruga.ipn.mx.",
+                "hash_algorithm": 1,
+                "flags": 0,
+                "iterations": 1,
+                "salt": "f3a7b355cfc90a2c",
+                "opt_out": false,
+                "ttl": 10800
+              },
+              {
+                "owner": "cijdst6oirjnrk8ju5ucq5egapgbcdc8.ipn.mx.",
+                "hash_algorithm": 1,
+                "flags": 0,
+                "iterations": 1,
+                "salt": "f3a7b355cfc90a2c",
+                "opt_out": false,
+                "ttl": 10800
+              },
+              {
+                "owner": "thui3s986r5epe7e14c8npe9rp1ob0ug.ipn.mx.",
+                "hash_algorithm": 1,
+                "flags": 0,
+                "iterations": 1,
+                "salt": "f3a7b355cfc90a2c",
+                "opt_out": false,
+                "ttl": 10800
+              }
+            ],
+            "detection_method": "authority_section"
           }
         }
       },
@@ -258,57 +879,57 @@
         "dnssec_enabled": true,
         "has_signatures": false,
         "has_ds_record": false,
-        "nsec_type": "none",
+        "nsec_type": "NSEC3",
         "validation_status": "enabled_incomplete"
       }
     }
   },
   "gob.mx": {
     "domain": "gob.mx",
-    "timestamp": "2025-11-23T15:36:58.350229",
+    "timestamp": "2025-11-27T10:56:06.489025",
     "dns_basic": {
       "SOA": [
         {
           "mname": "m.mx-ns.mx",
           "rname": "hostmaster.nic.mx",
-          "serial": 1763924645,
+          "serial": 1764261065,
           "refresh": 900,
           "retry": 900,
           "expire": 604800,
           "minimum": 1800,
-          "ttl": 86218
+          "ttl": 20765
         }
       ],
       "NS": [
         {
-          "nameserver": "c.mx-ns.mx",
-          "ttl": 86218
-        },
-        {
           "nameserver": "e.mx-ns.mx",
-          "ttl": 86218
+          "ttl": 5580
         },
         {
           "nameserver": "i.mx-ns.mx",
-          "ttl": 86218
+          "ttl": 5580
         },
         {
           "nameserver": "m.mx-ns.mx",
-          "ttl": 86218
+          "ttl": 5580
         },
         {
           "nameserver": "o.mx-ns.mx",
-          "ttl": 86218
+          "ttl": 5580
         },
         {
           "nameserver": "x.mx-ns.mx",
-          "ttl": 86218
+          "ttl": 5580
+        },
+        {
+          "nameserver": "c.mx-ns.mx",
+          "ttl": 5580
         }
       ],
       "A": [
         {
           "address": "207.249.118.158",
-          "ttl": 1610
+          "ttl": 739
         }
       ],
       "AAAA": [],
@@ -320,15 +941,6 @@
         "count": 2,
         "keys": [
           {
-            "flags": 256,
-            "protocol": 3,
-            "algorithm": 8,
-            "algorithm_name": "RSA/SHA-256",
-            "key_size_bits": 1056,
-            "is_sep": false,
-            "is_zone_key": true
-          },
-          {
             "flags": 257,
             "protocol": 3,
             "algorithm": 8,
@@ -336,34 +948,276 @@
             "key_size_bits": 2080,
             "is_sep": true,
             "is_zone_key": true
+          },
+          {
+            "flags": 256,
+            "protocol": 3,
+            "algorithm": 8,
+            "algorithm_name": "RSA/SHA-256",
+            "key_size_bits": 1056,
+            "is_sep": false,
+            "is_zone_key": true
           }
         ],
-        "ttl": 86218
+        "ttl": 2013
       },
       "rrsig": {
-        "present": false,
-        "count": 0,
-        "signatures": [],
-        "ttl": null
+        "present": true,
+        "count": 7,
+        "signatures": [
+          {
+            "type_covered": "DNSKEY",
+            "algorithm": 8,
+            "algorithm_name": "RSA/SHA-256",
+            "labels": 2,
+            "original_ttl": 86400,
+            "expiration": "2026-01-01T09:00:00",
+            "inception": "2025-11-02T09:00:00",
+            "key_tag": 12884,
+            "signer": "gob.mx",
+            "is_expired": false,
+            "days_until_expiration": 34
+          },
+          {
+            "type_covered": "DNSKEY",
+            "algorithm": 8,
+            "algorithm_name": "RSA/SHA-256",
+            "labels": 2,
+            "original_ttl": 86400,
+            "expiration": "2025-12-25T18:00:00",
+            "inception": "2025-11-25T18:00:00",
+            "key_tag": 13071,
+            "signer": "gob.mx",
+            "is_expired": false,
+            "days_until_expiration": 28
+          },
+          {
+            "type_covered": "NS",
+            "algorithm": 8,
+            "algorithm_name": "RSA/SHA-256",
+            "labels": 2,
+            "original_ttl": 86400,
+            "expiration": "2025-12-25T18:00:00",
+            "inception": "2025-11-25T18:00:00",
+            "key_tag": 13071,
+            "signer": "gob.mx",
+            "is_expired": false,
+            "days_until_expiration": 28
+          },
+          {
+            "type_covered": "SOA",
+            "algorithm": 8,
+            "algorithm_name": "RSA/SHA-256",
+            "labels": 2,
+            "original_ttl": 86400,
+            "expiration": "2025-12-26T18:00:00",
+            "inception": "2025-11-26T18:00:00",
+            "key_tag": 13071,
+            "signer": "gob.mx",
+            "is_expired": false,
+            "days_until_expiration": 29
+          },
+          {
+            "type_covered": "A",
+            "algorithm": 8,
+            "algorithm_name": "RSA/SHA-256",
+            "labels": 2,
+            "original_ttl": 3600,
+            "expiration": "2025-12-25T18:00:00",
+            "inception": "2025-11-25T18:00:00",
+            "key_tag": 13071,
+            "signer": "gob.mx",
+            "is_expired": false,
+            "days_until_expiration": 28
+          },
+          {
+            "type_covered": "NSEC3PARAM",
+            "algorithm": 8,
+            "algorithm_name": "RSA/SHA-256",
+            "labels": 2,
+            "original_ttl": 86400,
+            "expiration": "2025-12-25T18:00:00",
+            "inception": "2025-11-25T18:00:00",
+            "key_tag": 13071,
+            "signer": "gob.mx",
+            "is_expired": false,
+            "days_until_expiration": 28
+          },
+          {
+            "type_covered": "TXT",
+            "algorithm": 8,
+            "algorithm_name": "RSA/SHA-256",
+            "labels": 2,
+            "original_ttl": 86400,
+            "expiration": "2025-12-25T18:00:00",
+            "inception": "2025-11-25T18:00:00",
+            "key_tag": 13071,
+            "signer": "gob.mx",
+            "is_expired": false,
+            "days_until_expiration": 28
+          }
+        ],
+        "signatures_by_type": {
+          "DNSKEY": [
+            {
+              "type_covered": "DNSKEY",
+              "algorithm": 8,
+              "algorithm_name": "RSA/SHA-256",
+              "labels": 2,
+              "original_ttl": 86400,
+              "expiration": "2026-01-01T09:00:00",
+              "inception": "2025-11-02T09:00:00",
+              "key_tag": 12884,
+              "signer": "gob.mx",
+              "is_expired": false,
+              "days_until_expiration": 34
+            },
+            {
+              "type_covered": "DNSKEY",
+              "algorithm": 8,
+              "algorithm_name": "RSA/SHA-256",
+              "labels": 2,
+              "original_ttl": 86400,
+              "expiration": "2025-12-25T18:00:00",
+              "inception": "2025-11-25T18:00:00",
+              "key_tag": 13071,
+              "signer": "gob.mx",
+              "is_expired": false,
+              "days_until_expiration": 28
+            }
+          ],
+          "NS": [
+            {
+              "type_covered": "NS",
+              "algorithm": 8,
+              "algorithm_name": "RSA/SHA-256",
+              "labels": 2,
+              "original_ttl": 86400,
+              "expiration": "2025-12-25T18:00:00",
+              "inception": "2025-11-25T18:00:00",
+              "key_tag": 13071,
+              "signer": "gob.mx",
+              "is_expired": false,
+              "days_until_expiration": 28
+            }
+          ],
+          "SOA": [
+            {
+              "type_covered": "SOA",
+              "algorithm": 8,
+              "algorithm_name": "RSA/SHA-256",
+              "labels": 2,
+              "original_ttl": 86400,
+              "expiration": "2025-12-26T18:00:00",
+              "inception": "2025-11-26T18:00:00",
+              "key_tag": 13071,
+              "signer": "gob.mx",
+              "is_expired": false,
+              "days_until_expiration": 29
+            }
+          ],
+          "A": [
+            {
+              "type_covered": "A",
+              "algorithm": 8,
+              "algorithm_name": "RSA/SHA-256",
+              "labels": 2,
+              "original_ttl": 3600,
+              "expiration": "2025-12-25T18:00:00",
+              "inception": "2025-11-25T18:00:00",
+              "key_tag": 13071,
+              "signer": "gob.mx",
+              "is_expired": false,
+              "days_until_expiration": 28
+            }
+          ],
+          "NSEC3PARAM": [
+            {
+              "type_covered": "NSEC3PARAM",
+              "algorithm": 8,
+              "algorithm_name": "RSA/SHA-256",
+              "labels": 2,
+              "original_ttl": 86400,
+              "expiration": "2025-12-25T18:00:00",
+              "inception": "2025-11-25T18:00:00",
+              "key_tag": 13071,
+              "signer": "gob.mx",
+              "is_expired": false,
+              "days_until_expiration": 28
+            }
+          ],
+          "TXT": [
+            {
+              "type_covered": "TXT",
+              "algorithm": 8,
+              "algorithm_name": "RSA/SHA-256",
+              "labels": 2,
+              "original_ttl": 86400,
+              "expiration": "2025-12-25T18:00:00",
+              "inception": "2025-11-25T18:00:00",
+              "key_tag": 13071,
+              "signer": "gob.mx",
+              "is_expired": false,
+              "days_until_expiration": 28
+            }
+          ]
+        },
+        "ttl": 21600
       },
       "nsec": {
-        "nsec_type": "none",
+        "nsec_type": "NSEC3",
         "nsec_present": false,
-        "nsec3_present": false,
+        "nsec3_present": true,
         "nsec3param_present": true,
-        "opt_out": false,
+        "opt_out": true,
+        "detection_source": "recursive_resolver",
+        "rrsig_records": [],
         "details": {
           "nsec3param": {
             "count": 1,
-            "ttl": 86219,
+            "ttl": 16896,
             "records": [
               {
                 "hash_algorithm": 1,
                 "flags": 0,
                 "iterations": 0,
-                "salt": "c53e9a024dea76c4"
+                "salt": "9fd6a0677e37ad1b"
               }
             ]
+          },
+          "nsec3": {
+            "count": 3,
+            "ttl": 1800,
+            "records": [
+              {
+                "owner": "5co279s0bbf26udrjdfuruhlnk38h95j.gob.mx.",
+                "hash_algorithm": 1,
+                "flags": 1,
+                "iterations": 0,
+                "salt": "9fd6a0677e37ad1b",
+                "opt_out": true,
+                "ttl": 1800
+              },
+              {
+                "owner": "35c2g4imj33ettghve2qsfdur6nbr45i.gob.mx.",
+                "hash_algorithm": 1,
+                "flags": 1,
+                "iterations": 0,
+                "salt": "9fd6a0677e37ad1b",
+                "opt_out": true,
+                "ttl": 1800
+              },
+              {
+                "owner": "3shkknp3r39ig3asf076i25g83k0h4rd.gob.mx.",
+                "hash_algorithm": 1,
+                "flags": 1,
+                "iterations": 0,
+                "salt": "9fd6a0677e37ad1b",
+                "opt_out": true,
+                "ttl": 1800
+              }
+            ],
+            "detection_method": "authority_section"
           }
         }
       },
@@ -380,20 +1234,20 @@
             "digest": "9b78b7939aeced1ee9a65cede1d20bc21f43f908e66ae2636ae0e191554eea47"
           }
         ],
-        "ttl": 86218
+        "ttl": 15743
       },
       "summary": {
         "dnssec_enabled": true,
-        "has_signatures": false,
+        "has_signatures": true,
         "has_ds_record": true,
-        "nsec_type": "none",
-        "validation_status": "enabled_incomplete"
+        "nsec_type": "NSEC3",
+        "validation_status": "valid"
       }
     }
   },
   "sat.mx": {
     "domain": "sat.mx",
-    "timestamp": "2025-11-23T15:36:59.920248",
+    "timestamp": "2025-11-27T10:56:08.629675",
     "dns_basic": {
       "SOA": [
         {
@@ -404,31 +1258,31 @@
           "retry": 3600,
           "expire": 1728000,
           "minimum": 86400,
-          "ttl": 172619
+          "ttl": 19920
         }
       ],
       "NS": [
         {
-          "nameserver": "tochtli.sat.gob.mx",
-          "ttl": 172619
-        },
-        {
-          "nameserver": "xolotl.sat.gob.mx",
-          "ttl": 172619
+          "nameserver": "quetzalcoatl.sat.gob.mx",
+          "ttl": 19541
         },
         {
           "nameserver": "huitzilopochtli.sat.gob.mx",
-          "ttl": 172619
+          "ttl": 19541
         },
         {
-          "nameserver": "quetzalcoatl.sat.gob.mx",
-          "ttl": 172619
+          "nameserver": "xolotl.sat.gob.mx",
+          "ttl": 19541
+        },
+        {
+          "nameserver": "tochtli.sat.gob.mx",
+          "ttl": 19541
         }
       ],
       "A": [
         {
           "address": "200.33.84.233",
-          "ttl": 172619
+          "ttl": 12645
         }
       ],
       "AAAA": [],
@@ -445,6 +1299,7 @@
         "present": false,
         "count": 0,
         "signatures": [],
+        "signatures_by_type": {},
         "ttl": null
       },
       "nsec": {
@@ -453,6 +1308,8 @@
         "nsec3_present": false,
         "nsec3param_present": false,
         "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
         "details": {}
       },
       "ds": {
@@ -472,38 +1329,38 @@
   },
   "tec.mx": {
     "domain": "tec.mx",
-    "timestamp": "2025-11-23T15:37:01.500139",
+    "timestamp": "2025-11-27T10:56:10.968065",
     "dns_basic": {
       "SOA": [
         {
           "mname": "ns1e.itesm.mx",
           "rname": "please_set_email.absolutely.nowhere",
-          "serial": 115,
+          "serial": 150,
           "refresh": 10800,
           "retry": 3600,
           "expire": 2419200,
           "minimum": 900,
-          "ttl": 3419
+          "ttl": 3492
         }
       ],
       "NS": [
         {
           "nameserver": "ns2e.itesm.mx",
-          "ttl": 3419
+          "ttl": 1919
         },
         {
           "nameserver": "ns1e.itesm.mx",
-          "ttl": 3419
+          "ttl": 1919
         }
       ],
       "A": [
         {
-          "address": "45.60.86.212",
-          "ttl": 334
+          "address": "45.60.115.212",
+          "ttl": 3185
         },
         {
-          "address": "45.60.115.212",
-          "ttl": 334
+          "address": "45.60.86.212",
+          "ttl": 3185
         }
       ],
       "AAAA": [],
@@ -511,7 +1368,7 @@
         {
           "exchange": "tec-mx.mail.protection.outlook.com",
           "preference": 0,
-          "ttl": 3419
+          "ttl": 3600
         }
       ]
     },
@@ -526,6 +1383,7 @@
         "present": false,
         "count": 0,
         "signatures": [],
+        "signatures_by_type": {},
         "ttl": null
       },
       "nsec": {
@@ -534,6 +1392,103 @@
         "nsec3_present": false,
         "nsec3param_present": false,
         "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
+        "details": {}
+      },
+      "ds": {
+        "present": false,
+        "count": 0,
+        "records": [],
+        "ttl": null
+      },
+      "summary": {
+        "dnssec_enabled": false,
+        "has_signatures": false,
+        "has_ds_record": false,
+        "nsec_type": "none",
+        "validation_status": "disabled"
+      }
+    }
+  },
+  "uanl.mx": {
+    "domain": "uanl.mx",
+    "timestamp": "2025-11-27T10:56:13.229982",
+    "dns_basic": {
+      "SOA": [
+        {
+          "mname": "uanldns.dsi.uanl.mx",
+          "rname": "hostmaster.uanl.mx",
+          "serial": 2025052758,
+          "refresh": 10800,
+          "retry": 3600,
+          "expire": 1209600,
+          "minimum": 86400,
+          "ttl": 1285
+        }
+      ],
+      "NS": [
+        {
+          "nameserver": "dns2.uanl.mx",
+          "ttl": 2400
+        },
+        {
+          "nameserver": "uanldns.dsi.uanl.mx",
+          "ttl": 2400
+        }
+      ],
+      "A": [
+        {
+          "address": "148.234.5.222",
+          "ttl": 2080
+        }
+      ],
+      "AAAA": [],
+      "MX": [
+        {
+          "exchange": "mx03.hornetsecurity.com",
+          "preference": 12,
+          "ttl": 1856
+        },
+        {
+          "exchange": "mx04.hornetsecurity.com",
+          "preference": 13,
+          "ttl": 1856
+        },
+        {
+          "exchange": "mx02.hornetsecurity.com",
+          "preference": 11,
+          "ttl": 1856
+        },
+        {
+          "exchange": "mx01.hornetsecurity.com",
+          "preference": 10,
+          "ttl": 1856
+        }
+      ]
+    },
+    "dnssec": {
+      "dnskey": {
+        "present": false,
+        "count": 0,
+        "keys": [],
+        "ttl": null
+      },
+      "rrsig": {
+        "present": false,
+        "count": 0,
+        "signatures": [],
+        "signatures_by_type": {},
+        "ttl": null
+      },
+      "nsec": {
+        "nsec_type": "none",
+        "nsec_present": false,
+        "nsec3_present": false,
+        "nsec3param_present": false,
+        "opt_out": false,
+        "detection_source": null,
+        "rrsig_records": [],
         "details": {}
       },
       "ds": {

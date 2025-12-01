@@ -1,6 +1,6 @@
-# DNSSEC Analysis Report: tec.mx
+# DNSSEC Analysis Report: unach.mx
 
-**Analysis Date:** 2025-11-27T10:56:10.968065
+**Analysis Date:** 2025-11-29T14:49:42.640351
 
 ## Summary
 
@@ -14,34 +14,37 @@
 
 ## SOA Records
 
-- **Primary Server:** ns1e.itesm.mx
-- **Responsible Email:** please_set_email.absolutely.nowhere
-- **Serial:** 150
-- **Refresh:** 10800s
+- **Primary Server:** dns.unach.mx
+- **Responsible Email:** root.dns.unach.mx
+- **Serial:** 2025101001
+- **Refresh:** 3600s
 - **Retry:** 3600s
-- **Expire:** 2419200s
-- **Minimum TTL:** 900s
-- **Record TTL:** 3492s
+- **Expire:** 604800s
+- **Minimum TTL:** 3600s
+- **Record TTL:** 3600s
 
 ## NS Records
 
 Total: 2
 
-- ns2e.itesm.mx (TTL: 1919s)
-- ns1e.itesm.mx (TTL: 1919s)
+- dns2.unach.mx (TTL: 3600s)
+- dns.unach.mx (TTL: 3600s)
 
 ## A Records
 
-Total: 2
+Total: 1
 
-- 45.60.115.212 (TTL: 3185s)
-- 45.60.86.212 (TTL: 3185s)
+- 35.209.142.91 (TTL: 133s)
 
 ## MX Records
 
-Total: 1
+Total: 5
 
-- tec-mx.mail.protection.outlook.com (Priority: 0, TTL: 3600s)
+- ALT4.ASPMX.L.GOOGLE.COM (Priority: 10, TTL: 3600s)
+- ASPMX.L.GOOGLE.COM (Priority: 1, TTL: 3600s)
+- ALT3.ASPMX.L.GOOGLE.COM (Priority: 10, TTL: 3600s)
+- ALT2.ASPMX.L.GOOGLE.COM (Priority: 5, TTL: 3600s)
+- ALT1.ASPMX.L.GOOGLE.COM (Priority: 5, TTL: 3600s)
 
 ---
 
@@ -71,16 +74,16 @@ No DS records found in parent zone.
 
 ## DNS Tree Structure
 
-- **Domain:** tec.mx
+- **Domain:** unach.mx
 - **Parent Zone:** mx
 - **Level:** 2
 
 ### Nameserver Hierarchy
 
 ```
-tec.mx
-├── ns2e.itesm.mx (TTL: 1919s)
-└── ns1e.itesm.mx (TTL: 1919s)
+unach.mx
+├── dns2.unach.mx (TTL: 3600s)
+└── dns.unach.mx (TTL: 3600s)
 ```
 
 ### Cryptographic Chain of Trust
