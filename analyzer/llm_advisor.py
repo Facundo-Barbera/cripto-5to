@@ -12,7 +12,7 @@ from typing import Dict, Any, Optional
 class LLMAdvisor:
     """Generates AI-powered recommendations based on DNSSEC analysis results."""
 
-    GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+    GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent"
 
     def __init__(self, api_key: Optional[str] = None):
         """
