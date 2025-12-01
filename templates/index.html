@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNSSEC Chain of Trust Visualizer</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <nav id="navbar" class="navbar hidden">
+        <div class="nav-title" onclick="resetToHome()">
+            <h1>DNSSEC Chain of Trust</h1>
+        </div>
+        <div class="nav-current-domain">
+            <span class="current-label">Analyzing</span>
+            <span id="current-domain-display" class="current-domain"></span>
+        </div>
+        <div class="nav-search">
+            <input type="text" id="nav-domain-input" placeholder="Analyze another domain..." autocomplete="off">
+            <button id="nav-analyze-btn" onclick="analyzeDomain()">
+                <span class="btn-text">Analyze</span>
+                <span class="btn-loader"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div id="main-container" class="container">
+        <header id="hero-header">
+            <h1>DNSSEC Chain of Trust</h1>
+            <p class="subtitle">Visualize DNSSEC validation and RFC compliance</p>
+        </header>
+
+        <div id="hero-search" class="search-section">
+            <div class="input-wrapper">
+                <input type="text" id="domain-input" placeholder="Enter domain (e.g., gob.mx)" autocomplete="off">
+                <button id="analyze-btn" onclick="analyzeDomain()">
+                    <span class="btn-text">Analyze</span>
+                    <span class="btn-loader"></span>
+                </button>
+            </div>
+            <p class="hint">Press Enter or click Analyze to start</p>
+        </div>
+
+        <div id="error-message" class="error-message"></div>
+
+        <div id="results" class="results hidden">
+            <div class="graph-section">
+                <h2>Chain of Trust</h2>
+                <div id="chain-graph"></div>
+                <div id="chain-status" class="chain-status"></div>
+            </div>
+
+            <div id="detail-panel" class="detail-panel hidden">
+                <div class="detail-header">
+                    <h3 id="detail-zone"></h3>
+                    <button class="close-btn" onclick="closeDetailPanel()">&times;</button>
+                </div>
+                <div id="detail-content"></div>
+            </div>
+
+            <div class="rfc-section">
+                <h2>RFC Compliance</h2>
+                <div id="rfc-summary" class="rfc-summary"></div>
+                <div id="rfc-checks" class="rfc-checks"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
