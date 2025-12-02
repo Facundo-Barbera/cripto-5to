@@ -1725,7 +1725,26 @@ header h1 {
 }
 
 .details-group.expanded .details-group-content {
-    max-height: 3000px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.details-group-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.details-group-content::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 3px;
+}
+
+.details-group-content::-webkit-scrollbar-thumb {
+    background: var(--accent-cyan);
+    border-radius: 3px;
+}
+
+.details-group-content::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-purple);
 }
 
 /* Details Subsections */
