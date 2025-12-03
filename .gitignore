@@ -5,3 +5,10 @@ __pycache__/
 *.pyc
 .vercel
 .env*.local
+.aux
+.fbd_latexmk
+.fls
+.log
+.out
+.synctex.gz
+.toc
