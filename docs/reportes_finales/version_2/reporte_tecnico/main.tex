@@ -1,0 +1,301 @@
+\documentclass[12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage[table]{xcolor}
+\geometry{margin=1in}
+\setlength{\parskip}{0.6em}
+\setlength{\parindent}{0pt}
+\setlist[itemize]{leftmargin=1.2cm}
+\setlist[enumerate]{leftmargin=1.2cm}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \textbf{INSTITUTO TECNOLÓGICO Y DE ESTUDIOS SUPERIORES DE}\\
+        MONTERREY\\[1em]
+        Aplicación de criptografía y seguridad (Gpo 302)\\
+        Profesores: Alberto F. Martínez\\
+        Alejandro Parra Briones\\
+        Dr. Mohd Anas Wajid\\[2em]
+        {\Large Reporte Técnico: Evaluación de la Adopción\\
+        y Salud Criptográfica de DNSSEC en\\
+        Dominios .mx}\\[1em]
+        Reporte Técnico.\\[2em]
+        Integrantes:\\
+        Alberto Boughton Reyes A01178500\\
+        Valeria García Hernández A01742811\\
+        Facundo Bautista Barbera A01066843\\
+        Emiliano Ruiz López A01659693\\
+        Daniel Garnelo Martínez A00573086\\[2em]
+        Monterrey N.L. 2 de diciembre de 2025
+    \end{center}
+\end{titlepage}
+
+%\section*{Índice}
+%\addcontentsline{toc}{section}{Indice}
+\tableofcontents
+\newpage
+
+\begin{abstract}
+Este documento presenta una evaluación técnica sobre la adopción y la salud criptográfica de Domain Name System Security Extensions (DNSSEC) en dominios bajo el código de país .mx. El análisis se llevó a cabo con un sistema automatizado de validación que emite consultas Domain Name System (DNS), reconstruye la cadena de confianza desde la raíz y contrasta la operación contra los Request for Comments (RFC) 4033, 4034 y 4035. Se revisaron la presencia de registros Domain Name System Key (DNSKEY) y Delegation Signer (DS), la firma criptográfica de la zona mediante Resource Record Signature (RRSIG), los algoritmos empleados, los mecanismos de negación autenticada Next Secure (NSEC/NSEC3) y la consistencia operativa de cada dominio. La muestra revela una adopción limitada con casos funcionales en instituciones gubernamentales y académicas, mientras que los sectores financiero y comercial prácticamente no exponen DNSSEC activo. Con base en la evidencia recopilada se plantean conclusiones sobre el estado actual de DNSSEC en México y recomendaciones técnicas para fortalecer su despliegue.
+\end{abstract}
+
+\section{Introducción}
+El Sistema de Nombres de Dominio (DNS) es una infraestructura distribuida cuya función es traducir nombres de dominio a direcciones Internet Protocol (IP) a través de capas jerárquicas que incluyen servidores raíz, dominios de nivel superior (TLD) y servidores autoritativos. Su diseño original, descrito en los Request for Comments (RFC) 1034 y 1035, priorizó la eficiencia y la simplicidad, dejando en segundo plano los mecanismos de seguridad. El uso predominante de User Datagram Protocol (UDP) y el tamaño reducido de los mensajes facilitaron ataques de suplantación y envenenamiento de caché, visibles desde finales de los noventa y confirmados masivamente con el ataque de Kaminsky en 2008.
+
+Para mitigar estas vulnerabilidades la Internet Engineering Task Force (IETF) desarrolló DNSSEC, un conjunto de extensiones basadas en criptografía de clave pública que permiten verificar la autenticidad e integridad de las respuestas DNS mediante firmas digitales y relaciones de confianza jerárquica. La operación se formalizó en los RFC 4033, 4034 y 4035, con extensiones posteriores como Next Secure 3 (NSEC3) descritas en el RFC 5155. El dominio .mx, administrado por Network Information Center México (NIC México), se encuentra firmado y permite validación completa desde la raíz; no obstante, la activación final depende de que cada titular publique los registros correspondientes dentro de su zona. Este documento evalúa la adopción real, la validez criptográfica y el cumplimiento operativo de DNSSEC en una muestra representativa de dominios .mx.
+
+\section{Fundamentos Técnicos}
+El DNS funciona como una base de datos distribuida en la que los servidores raíz hospedan la referencia de los TLD administrados por la Internet Corporation for Assigned Names and Numbers (ICANN), estos a su vez delegan la resolución hacia los servidores autoritativos responsables de cada zona, y finalmente los servidores recursivos ejecutan la cadena completa de consultas para los usuarios finales. Cuando un usuario solicita un dominio, el resolver recursivo consulta primero la raíz, recibe la referencia al TLD (.mx en este caso), continúa hacia el servidor autoritativo del dominio y concluye en el subdominio requerido hasta recuperar la dirección IP que habilita el servicio. Cada eslabón suministra la información necesaria para el siguiente paso, lo que permite mantener la estructura jerárquica y distribuir la carga.
+
+El diseño original de 1987 favoreció la eficiencia de los mensajes sobre UDP y no consideró autenticación de respuestas, lo que permitió ataques de suplantación y envenenamiento de caché documentados en 1997 y popularizados por el ataque de Kaminsky. DNSSEC surgió como respuesta mediante la incorporación de registros DNSKEY que contienen las claves públicas de la zona, firmas RRSIG que protegen los conjuntos de registros, enlaces DS que conectan criptográficamente a la zona padre con la hija y mecanismos de negación autenticada como NSEC y NSEC3. Con estos elementos se forma una cadena de confianza que parte de la raíz y permite validar cada respuesta. Para dominios bajo .mx, NIC México mantiene el TLD firmado, de modo que cualquier dominio hijo puede ser validado siempre que su titular publique el registro DS asociado a su Key Signing Key (KSK).
+
+\section{Metodología}
+\subsection{Enfoque general}
+El análisis se basa en consultas públicas realizadas desde un servidor recursivo que actúa como fuente de inteligencia abierta. Para este estudio se utilizó el servidor DNS público de Google (8.8.8.8) como resolutor recursivo. El flujo comienza preparando el entorno con Python 3 y las dependencias incluidas en el repositorio DNSSEC Analyzer disponible en GitHub (ver \autoref{repositorio}). Tras clonar el repositorio se instalan las bibliotecas descritas, entre ellas \texttt{dnspython}, y se verifican utilidades del sistema como \texttt{dig} y \texttt{delv}. La muestra de dominios se coloca en un archivo de texto plano, por ejemplo \texttt{domains.txt}, que sirve como insumo para el módulo principal.
+
+La ejecución se realiza mediante \texttt{python3 analyzer/generator.py domains.txt}, comando que lanza el proceso completo de recolección y validación. El script genera para cada dominio las consultas DNSSEC pertinentes, traduce los resultados a reportes en Markdown y consolida los indicadores en archivos JavaScript Object Notation (JSON). Con esta información se determinan los estados DNSSEC. El script \texttt{rfc\_validator.py} se usa para realizar validaciones adicionales y asignar las puntuaciones RFC correspondientes. Para garantizar la reproducibilidad, cada paso del pipeline se documenta y se conserva en la estructura de carpetas del proyecto.
+
+Además de la automatización, se emplean consultas manuales para confirmar hallazgos y comprender el origen de los fallos. La verificación más general se ejecuta con \texttt{dig +dnssec dominio.mx} para observar el estado de las firmas. La extracción de claves se realiza con \texttt{dig dominio.mx DNSKEY +dnssec}, mientras que la presencia del registro DS en la zona padre se comprueba usando \texttt{dig dominio.mx DS +dnssec}. Para determinar el mecanismo de negación autenticada se emplean \texttt{dig dominio.mx NSEC +dnssec} y \texttt{dig dominio.mx NSEC3PARAM +dnssec}, y para revisar la validación completa desde la raíz se ejecuta \texttt{delv dominio.mx}. Los resultados manuales se comparan con los emitidos por el analizador para confirmar que la lógica automatizada refleja el estado real de los dominios.
+
+\subsection{Herramientas}
+El trabajo combina las capacidades de Python 3 y la librería \texttt{dnspython}, encargada de emitir las consultas programáticas para cada registro. La utilería \texttt{dig} con la opción \texttt{+dnssec} permite revisar firmas y claves directamente desde el sistema operativo y sirve como referencia independiente. Las consultas específicas de NSEC y NSEC3PARAM ayudan a diferenciar el mecanismo de negación autenticada implementado en cada dominio. La herramienta \texttt{delv}, incluida en Berkeley Internet Name Domain (BIND), ejecuta la validación completa y detalla cualquier ruptura de la cadena de confianza. Para enriquecer el diagnóstico se contrastan los hallazgos con validadores externos como DNSViz, el DNSSEC Debugger de Verisign y los laboratorios de Stichting Internet Domeinregistratie Nederland (SIDN), los cuales ofrecen visualizaciones y advertencias adicionales.
+
+\section{Criterios de Validación y Lógica del Analizador}
+\subsection{Componentes del analizador}
+El repositorio integra tres módulos principales dentro de la carpeta \texttt{analyzer}. \texttt{generator.py} coordina las consultas DNS, reúne los registros, llama a los módulos de evaluación los cuales identifican configuraciones débiles o incompletas y construye los reportes finales. \texttt{llm\_advisor.py} no realiza validaciones técnicas, su función es generar recomendaciones automáticas a partir de los resultados producidos por el generador, elaborando prompts estructurados y consultando un modelo de lenguaje para producir resúmenes o sugerencias operativas. Finalmente, \texttt{rfc\_validator.py} compara la configuración del dominio contra criterios derivados de los RFC relevantes y calcula la puntuación que aparece en la tabla de resultados, la cual es una puntuación de cumplimiento. El trabajo en conjunto de estos componentes permite determinar si un dominio tiene DNSSEC activo, si la cadena de confianza es verificable, qué debilidades presenta su configuración y qué tan apegada a los estándares es su configuración.
+
+\subsection{Parámetros y verificaciones que se evalúan}
+\renewcommand{\arraystretch}{1.25}
+\begin{longtable}{p{4.5cm}p{10.7cm}}
+\rowcolor{gray!15}
+\textbf{Verificación} & \textbf{Propósito / Qué se revisa} \\
+\midrule
+\endfirsthead
+
+\rowcolor{gray!15}
+\textbf{Verificación} & \textbf{Propósito / Qué se revisa} \\
+\midrule
+\endhead
+
+\textbf{Presencia de DNSKEY} & Comprobar que la zona defina claves públicas necesarias para la firma DNSSEC. \\
+
+\textbf{Presencia de RRSIG para RRsets} & Verificar que los conjuntos de registros estén firmados (solo presencia del RRSIG). \\
+
+\textbf{Existencia de DS en la zona padre} & Confirmar delegación segura desde .mx (u otro TLD) hacia el dominio hijo. \\
+
+\textbf{Negación de existencia autenticada (NSEC o NSEC3)} & Confirmar que la zona usa un mecanismo DNSSEC válido para respuestas sin existencia. \\
+
+\textbf{Cadena de confianza completa (root $\rightarrow$ TLD $\rightarrow$ dominio)} & Asegurar que la cadena pueda validarse desde la raíz hasta la zona sin eslabones faltantes. \\
+
+\textbf{Algoritmo y tamaño de clave (buenas prácticas)} & Revisar si las claves usan parámetros adecuados según lo obtenido por \texttt{generator.py}. \\
+
+\textbf{Cumplimiento de criterios RFC definidos} & Mediante \texttt{rfc\_validator.py}, se comprueba conformidad con las reglas definidas para puntuación RFC (formato de registros, existencia de campos obligatorios, tiempos de vida, etc.). \\
+
+\textbf{Estado general} & Resultado agregado que resume si el dominio tiene DNSSEC activo, si la cadena es confiable y su puntuación RFC. \\
+
+\bottomrule
+\end{longtable}
+\renewcommand{\arraystretch}{1.0}
+
+
+
+\subsection{Definiciones usadas por el analizador para estados}
+Se considera que un dominio tiene \textit{DNSSEC Enabled} cuando publica al menos un conjunto valido de DNSKEY, mantiene al menos una firma RRSIG válida y cuenta con delegación DS en la zona padre. El estado \textit{Chain Complete} aparece cuando la validación puede ejecutarse desde la raíz hasta la zona sin interrupciones, lo que implica DS en .mx, DNSKEY disponible y firmas vigentes. El estado \textit{Chain Incomplete} o \textit{Disabled} refleja fallas en alguno de esos eslabones. La puntuación \textit{RFC Score} es una métrica interna calculada por \texttt{rfc\_validator.py} que evalúa qué tanto cumple el dominio con los criterios en los RFC relevantes (formato, obligatoriedad de campos, tiempos de vida, etc). El archivo \texttt{llm\_advisor.py} no influye en la puntuación técnica, solo genera recomendaciones a partir del JSON obtenido, sin evaluar claves ni firmas.
+
+\section{Interpretación de Resultados a la Luz de los Criterios}
+Una configuración robusta se caracteriza por mostrar \textit{DNSSEC Enabled}, \textit{Chain Complete} y una puntuación RFC alta; en ese escenario la delegación está asegurada, las firmas son válidas y no existen prácticas criptográficas cuestionables. Cuando un dominio aparece como \textit{Enabled} pero con \textit{Chain Incomplete}, suele existir DNSKEY y firmas, pero falta el registro DS en .mx o la delegación presenta errores, lo que impide construir la cadena de confianza. Por último, los dominios sin DNSSEC activo mantienen RFC Score mínimos y son vulnerables a ataques de suplantación y manipulación de caché porque no proporcionan garantías de autenticidad.
+
+Las advertencias adicionales indican aspectos a corregir aun cuando el estado general parezca satisfactorio. Claves con tamaños reducidos, algoritmos obsoletos o firmas próximas a expirar disminuyen la ventana de seguridad y pueden provocar rupturas inesperadas. Estos indicadores facilitan la priorización de tareas correctivas sin necesidad de revisar manualmente cada registro.
+
+\section{Tabla Comparativa Completa de Dominios Analizados}
+El repositorio \texttt{generator.py} produce un resumen cuyo formato se replica en la tabla 2. Cada fila corresponde a un dominio y describe si DNSSEC está habilitado, si la cadena se completa, la puntuación RFC alcanzada y cualquier error reportado. Las columnas RFC Score y RFC\% muestran la relación entre criterios cumplidos y máximos disponibles, mientras que la columna \textit{Status} refleja el resultado general y \textit{Error} detalla fallas específicas durante la consulta.
+
+\renewcommand{\arraystretch}{1.2}
+\begin{longtable}{p{4cm}C{1.7cm}C{1.9cm}C{1.6cm}C{1.6cm}C{1.6cm}p{3.2cm}}
+\toprule
+Dominio & DNSSEC Enabled & Chain Complete & RFC Score & RFC \% & Status & Error \\
+\midrule
+\endfirsthead
+\toprule
+Dominio & DNSSEC Enabled & Chain Complete & RFC Score & RFC \% & Status & Error \\
+\midrule
+\endhead
+nic.mx & No & No & 0/1 & 0.0\% & success & -- \\
+gob.mx & Yes & Yes & 19/21 & 90.5\% & success & -- \\
+sat.gob.mx & No & No & 0/1 & 0.0\% & success & -- \\
+imss.gob.mx & No & No & 0/1 & 0.0\% & success & -- \\
+sep.gob.mx & Yes & No & 13/18 & 72.2\% & success & -- \\
+segob.gob.mx & No & No & 0/1 & 0.0\% & success & -- \\
+sre.gob.mx & No & No & 0/1 & 0.0\% & success & -- \\
+banxico.gob.mx & No & No & 0/1 & 0.0\% & success & -- \\
+inegi.gob.mx & No & No & 0/1 & 0.0\% & success & -- \\
+conacyt.gob.mx & No & No & 0/1 & 0.0\% & success & -- \\
+shcp.gob.mx & No & No & 0/1 & 0.0\% & success & -- \\
+salud.gob.mx & No & No & 0/1 & 0.0\% & success & -- \\
+economia.gob.mx & No & No & 0/1 & 0.0\% & success & -- \\
+cfe.gob.mx & No & No & 0/1 & 0.0\% & success & -- \\
+pemex.gob.mx & Yes & Yes & 21/21 & 100.0\% & success & -- \\
+unam.mx & Yes & Yes & 19/19 & 100.0\% & success & -- \\
+ipn.mx & Yes & No & 9/13 & 69.2\% & success & -- \\
+itesm.mx & No & No & 0/1 & 0.0\% & success & -- \\
+uag.mx & No & No & 0/1 & 0.0\% & success & -- \\
+uanl.mx & No & No & 0/1 & 0.0\% & success & -- \\
+udg.mx & Yes & No & 13/18 & 72.2\% & success & -- \\
+buap.mx & No & No & 0/1 & 0.0\% & success & -- \\
+uaemex.mx & No & No & 0/1 & 0.0\% & success & -- \\
+uabc.mx & No & No & 0/1 & 0.0\% & success & -- \\
+uach.mx & No & No & 0/1 & 0.0\% & success & -- \\
+bbva.mx & No & No & 0/1 & 0.0\% & success & -- \\
+banorte.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+santander.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+hsbc.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+citibanamex.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+scotiabank.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+telmex.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+telcel.com & No & No & 0/1 & 0.0\% & success & -- \\
+televisa.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+tv-azteca.com.mx & No & No & 0/0 & 0.0\% & error & -- \\
+liverpool.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+cemex.com.mx & No & No & 0/1 & 0.0\% & success & Domain does not exist \\
+bimbo.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+femsa.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+elektra.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+walmart.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+coppel.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+oxxo.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+eluniversal.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+reforma.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+milenio.com & No & No & 0/1 & 0.0\% & success & -- \\
+mercadolibre.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+amazon.com.mx & No & No & 0/1 & 0.0\% & success & -- \\
+\bottomrule
+\end{longtable}
+\renewcommand{\arraystretch}{1.0}
+
+\section{Análisis General de Resultados}
+
+\subsection{Panorama de Adopción de DNSSEC}
+El conjunto total de dominios analizados muestra una adopción heterogénea y, en general, limitada dentro del ecosistema \texttt{.mx}. Los datos evidencian que la presencia de DNSSEC es más frecuente en organismos gubernamentales e instituciones académicas, mientras que sectores financieros, comerciales y de medios mantienen configuraciones tradicionales sin firma.
+
+En la muestra analizada, únicamente seis dominios presentan DNSSEC habilitado: \texttt{gob.mx}, \texttt{pemex.gob.mx}, \texttt{unam.mx}, \texttt{ipn.mx}, \texttt{sep.gob.mx} y \texttt{udg.mx}. Todos ellos publican DNSKEY y firmas RRSIG válidas; sin embargo, el resto de los dominios exhiben puntuaciones mínimas en el RFC Score debido a la ausencia de DNSKEY, DS y RRSIG.
+
+\subsection{Cadena de Confianza y Cumplimiento RFC}
+La validación completa de la cadena de confianza solo se observó en \texttt{gob.mx}, \texttt{pemex.gob.mx} y \texttt{unam.mx}, los cuales publican un registro DS correcto en \texttt{.mx} y mantienen firmas vigentes. En contraste, los tres dominios restantes con DNSSEC activo presentan configuración parcial: la zona está firmada pero el DS no está publicado o es inconsistente, lo que deriva en estado \textit{Chain Incomplete}. Este escenario es común cuando el proveedor de hosting o registrador no concluye el proceso de delegación segura.
+
+En cuanto al cumplimiento de las RFC evaluadas, \texttt{pemex.gob.mx} obtuvo 21/21 y \texttt{unam.mx} alcanzó 19/19, lo que evidencia una implementación robusta. \texttt{gob.mx} también registró un puntaje alto (19/21). Por el contrario, \texttt{ipn.mx}, \texttt{udg.mx} y \texttt{sep.gob.mx} presentan configuraciones intermedias debido a la ausencia de DS. Finalmente, la mayoría de los dominios analizados carecen de cualquier configuración DNSSEC, reflejando una brecha significativa en los sectores comercial, bancario y mediático.
+
+
+\section{Análisis Sectorial}
+
+\noindent\textbf{Sector Gubernamental (.gob.mx).}
+El sector gubernamental exhibe contrastes. \texttt{gob.mx} y \texttt{pemex.gob.mx} mantienen DNSSEC habilitado con cadena completa, y \texttt{sep.gob.mx} firmó su zona aunque aún carece de DS. En contraste, dependencias como \texttt{sat.gob.mx}, \texttt{imss.gob.mx}, \texttt{banxico.gob.mx}, \texttt{segob.gob.mx}, \texttt{sre.gob.mx}, \texttt{inegi.gob.mx}, \texttt{conacyt.gob.mx} y \texttt{shcp.gob.mx} siguen sin implementar DNSSEC, lo que resulta preocupante dada la criticidad de sus servicios.
+
+\vspace{0.8em}
+\noindent\textbf{Sector Educativo (.mx).}
+Tres instituciones destacan con DNSSEC habilitado. \texttt{unam.mx} opera con cadena completa; \texttt{ipn.mx} y \texttt{udg.mx} mantienen claves y firmas pero no han publicado su DS. El resto de las universidades analizadas: \texttt{itesm.mx}, \texttt{uag.mx}, \texttt{uanl.mx}, \texttt{buap.mx}, \texttt{uaemex.mx}, \texttt{uabc.mx}, \texttt{uach.mx}, continúan sin firmar sus zonas.
+
+\vspace{0.8em}
+\noindent\textbf{Sector Financiero.}
+Los dominios \texttt{bbva.mx}, \texttt{banorte.com.mx}, \texttt{hsbc.com.mx}, \texttt{santander.com.mx}, \texttt{citibanamex.com.mx} y \texttt{scotiabank.com.mx} aparecen con DNSSEC deshabilitado. Dado el alto perfil de riesgo, la ausencia de firmas DNSSEC es notable, pues expone a los usuarios a ataques de suplantación y potencial robo de credenciales.
+
+\vspace{0.8em}
+\noindent\textbf{Sector Comercial.}
+Sitios de gran tráfico como \texttt{walmart.com.mx}, \texttt{femsa.com.mx}, \texttt{bimbo.com.mx}, \texttt{oxxo.com.mx}, \texttt{liverpool.com.mx}, \texttt{amazon.com.mx} y \texttt{mercadolibre.com.mx} mantienen configuraciones sin firma. El mismo patrón aparece en telecomunicaciones y medios: \texttt{telmex.com.mx}, \texttt{telcel.com}, \texttt{televisa.com.mx}, \texttt{tv-azteca.com.mx}, \texttt{eluniversal.com.mx}, \texttt{reforma.com.mx}, \texttt{milenio.com}, confirmando que DNSSEC aún no es parte de los controles comunes en estos sectores.
+
+
+\section{Conclusiones Generales}
+La muestra analizada demuestra que DNSSEC todavía es una excepción entre los dominios .mx. Las implementaciones exitosas confirman que la tecnología es viable y puede operar de manera estable dentro del ecosistema nacional, pero los esfuerzos se concentran en unos cuantos organismos. El principal problema técnico detectado en los dominios que sí firmaron su zona es la ausencia del registro DS, lo que rompe la cadena de confianza justo antes de alcanzar al usuario final. Sectores críticos como finanzas y comercio electrónico aún no aprovechan DNSSEC, por lo que continúan expuestos a ataques de spoofing que podrían mitigarse mediante la validación criptográfica. La existencia de configuraciones completas en PEMEX, UNAM y el portal de gobierno evidencia que existen capacidades locales para adoptar y operar DNSSEC, pero también pone de manifiesto la falta de adopción homogénea.
+
+
+\section{Recomendaciones Específicas}
+Las siguientes recomendaciones se derivan de la evidencia obtenida y se alinean con las guías de la IETF, NIC México y operadores con experiencia en despliegues DNSSEC. Su aplicación ordenada permite cerrar brechas desde la preparación del entorno, la instalación y configuración de las firmas, hasta la operación continua y las auditorías.
+\subsection{Publicación del registro DS en .mx}
+Los dominios que ya cuentan con DNSKEY y RRSIG deben completar la cadena publicando el registro DS correspondiente a su KSK en la zona .mx. El procedimiento consiste en extraer el DS desde el administrador DNS, cargarlo en el panel del registrador o proveedor autorizado y confirmar la propagación con una consulta como \texttt{dig +dnssec dominio DS}. Este paso, aunque sencillo, restablece la relación de confianza entre la raíz, el TLD y la zona hija.
+
+\subsection{Rotación y gestión de claves (KSK y ZSK)}
+La rotación periódica de claves evita el desgaste criptográfico. Es recomendable renovar la ZSK cada 30 a 90 días y la KSK cada 6 a 12 meses, manteniendo algoritmos seguros como RSA de 2048 bits o superiores, ECDSA P-256/P-384 o ED25519. Claves de 1024 bits o algoritmos obsoletos deben retirarse progresivamente. La documentación automatizada del proceso facilita ejecutar firmados programados sin interrumpir la zona.
+
+\subsection{Verificación de vigencia de firmas RRSIG}
+Muchas interrupciones se originan cuando las firmas expiran o se construyen con Time To Live (TTL) inadecuados. Es conveniente monitorear el campo de expiración de cada RRSIG, automatizar la regeneración y establecer alertas cuando falten entre tres y cinco días para la caducidad. Con ello se evitan fallos repentinos que provoquen respuestas \textit{Server Failure (SERVFAIL)} en los resolvers validadores.
+
+\subsection{Uso adecuado de NSEC o NSEC3}
+La selección del mecanismo de negación depende de la sensibilidad de la zona. NSEC3 con iteraciones bajas y saltos aleatorios reduce la posibilidad de enumeración en dominios de alta visibilidad, mientras que NSEC es suficiente en zonas públicas sin nombres sensibles. Lo crítico es asegurar que el mecanismo exista y esté firmado; Non-Existent Domain (NXDOMAIN) sin protección deja abierta la puerta a ataques de enumeración y suplantación.
+
+\subsection{Implementación de validación DNSSEC en resolvers internos}
+Firmar una zona solo protege a los usuarios que consultan desde resolvers validadores. Instituciones que administran dominios críticos deben habilitar la validación DNSSEC en resolvers como Unbound, Knot Resolver o BIND, desactivando \texttt{val-permissive-mode} para forzar el rechazo de respuestas no autenticadas. Distribuir estos resolvers entre los usuarios internos reduce dramáticamente la probabilidad de envenenamiento de caché.
+
+\subsection{Auditoría periódica con herramientas automáticas}
+La revisión continua evita incidentes producidos por expiraciones o configuraciones inconsistentes. Ejecutar validadores como DNSViz, Verisign DNSSEC Debugger y las herramientas de SIDN Labs de manera trimestral permite detectar TTL irregulares, inconsistencias entre servidores Name Server (NS) o firmas desalineadas. Integrar estos pasos en un calendario operativo facilita responder antes de que ocurra una interrupción.
+
+\subsection{Recomendaciones específicas por sector}
+En el gobierno federal conviene establecer una política que obligue a cada dependencia a publicar su DS y a monitorear activamente la vigencia de las firmas, especialmente en dependencias financieras o sociales. En el sector educativo bastaría con que instituciones que ya firmaron, como IPN y UDG, publiquen su DS para cerrar el ciclo y sirvan como referencia para el resto. Las instituciones financieras deberían priorizar DNSSEC al mismo nivel que Hypertext Transfer Protocol Secure (HTTPS) o HTTP Strict Transport Security (HSTS) para proteger portales de autenticación y transferencias, mientras que el comercio electrónico puede integrar DNSSEC como complemento a sus controles existentes para reducir intentos de redireccionamiento malicioso.
+\newpage 
+
+\section{Anexos}
+hacer un anexo de manera mas formal 
+Los anexos consolidan la información necesaria para replicar el análisis completo, comprender los elementos de DNSSEC utilizados y revisar ejemplos concretos de salidas correctas e incorrectas.
+
+\subsection{Comandos utilizados para la validación manual}
+La consulta \texttt{dig +dnssec dominio.mx} muestra los registros relevantes de la zona, incluidos los RRSIG cuando existen, las claves DNSKEY solicitadas por implicación y el indicador \texttt{ad} cuando el resolver valida correctamente. Para revisar exclusivamente las claves se emplea \texttt{dig dominio.mx DNSKEY +dnssec}, que permite identificar qué registros corresponden a la KSK o a la ZSK y verificar el algoritmo. La delegación segura se inspecciona mediante \texttt{dig dominio.mx DS +dnssec}; si la respuesta es nula se confirma que la cadena permanece incompleta. Los mecanismos de negación se distinguen emitiendo \texttt{dig dominio.mx NSEC +dnssec} y \texttt{dig dominio.mx NSEC3PARAM +dnssec}, lo que facilita determinar si la zona expone listados directos o hashes. Finalmente, \texttt{delv dominio.mx} ejecuta la validación completa desde la raíz y explica cualquier ruptura de la cadena.
+
+\subsection{Elementos de DNSSEC utilizados en el análisis}
+Los registros DNSKEY contienen las claves públicas que permiten validar las firmas; la KSK firma el conjunto DNSKEY y la ZSK protege el resto de los registros. Las firmas RRSIG garantizan integridad y autenticidad de cada conjunto consultado. Los registros DS, ubicados en la zona padre, forman el vínculo criptográfico entre el dominio y su TLD; sin ellos la cadena se interrumpe. Para negar la existencia de nombres se utilizan NSEC y NSEC3: el primero enumera dominios vecinos mientras que el segundo oculta la estructura mediante hashes, ambos firmados para impedir manipulación. La cadena de confianza completa recorre la raíz, el TLD .mx, el dominio y, en su caso, los subdominios, de modo que cualquier ruptura deja al usuario sin garantía de autenticidad.
+
+\subsection{Ejemplo de salida de DNSSEC correcta}
+Un dominio con DNSSEC completo muestra una salida similar a la siguiente:
+\begin{verbatim}
+;; flags: qr rd ad ; AD = authenticated data
+...
+dominio.mx. 3600 IN DNSKEY ...
+dominio.mx. 3600 IN RRSIG DNSKEY ...
+mx.         3600 IN DS <hash>
+dominio.mx. 3600 IN RRSIG A ...
+dominio.mx. 3600 IN NSEC3 ...
+\end{verbatim}
+En esta respuesta el indicador \texttt{ad} confirma que la información fue autenticada, el registro DS conecta al dominio con .mx, las firmas RRSIG se encuentran vigentes y el mecanismo NSEC3 documenta la negación de existencia.
+
+\subsection{Ejemplo de cadena incompleta}
+Cuando la zona está firmada pero falta el DS en .mx, \texttt{dig} reporta las claves y firmas locales pero indica ``NO DS record found''. El analizador clasifica este escenario como \textit{Enabled / Chain Incomplete}, lo que explica por qué los resolvers validadores no pueden confiar en la respuesta a pesar de que exista DNSKEY.
+
+\subsection{Ejemplo de dominio sin DNSSEC}
+Si la zona no implementa DNSSEC, la respuesta contiene únicamente los registros tradicionales (A, AAAA, MX) y carece de DNSKEY y RRSIG. En ese caso el analizador indica \textit{DNSSEC Disabled} y el RFC Score se reduce al mínimo (0/1).
+
+\subsection{Archivos generados por el analizador}
+Cada ejecución de \texttt{generator.py} produce reportes por dominio en formato Markdown que incluyen las claves DNSKEY, las firmas RRSIG, el registro DS disponible, el tipo de NSEC o NSEC3, los algoritmos empleados, el RFC Score y el estado final. Paralelamente se genera un archivo \texttt{\_summary.json} con campos como \texttt{dnssec\_enabled}, \texttt{chain\_complete}, \texttt{rfc\_score}, \texttt{rfc\_score\_max}, \texttt{status}, \texttt{nsec\_type} y \texttt{key\_algorithms}, que sirve como base para las tablas incluidas en este reporte.
+
+\subsection{Flujos de validación utilizados por el analizador}
+El módulo \texttt{lim\_advisor.py} evalúa cada clave para identificar el algoritmo (RSA, ECDSA, Ed25519), la longitud de la KSK y la ZSK, la correcta separación de roles y señales de uso de claves obsoletas. De forma paralela, \texttt{rfc\_validator.py} confirma la presencia de RRSIG, revisa las ventanas de vigencia, enlaza los registros DS con las DNSKEY correspondientes, valida los formatos y campos obligatorios y comprueba que exista un mecanismo autenticado de negación de existencia.
+
+\subsection{Reproducción completa del análisis}
+Para duplicar el estudio se prepara un archivo con los dominios objetivo (por ejemplo \texttt{domains.txt}), se ejecuta \texttt{python3 analyzer/generator.py domains.txt} y se revisan los resultados en la carpeta de salida, donde cada dominio tiene su reporte y el archivo \texttt{\_summary.json} ofrece la consolidación. Comparar estos datos con los descritos en este documento permite verificar que la metodología produce resultados consistentes.
+
+\section{Bibliografía}
+La bibliografía reúne los documentos técnicos, estándares y fuentes formales utilizados para contextualizar DNSSEC, definir los criterios de evaluación y referenciar el código empleado durante el análisis.
+
+\subsection{RFCs (Request for Comments)}
+La base del DNS se describe en los RFC 1034 y 1035 publicados por Paul Mockapetris en 1987, mientras que la especificación de DNSSEC se formaliza en los RFC 4033, 4034 y 4035 de 2005 redactados por Roy Arends y colaboradores. Como complemento se utilizan el RFC 5155 sobre NSEC3, el RFC 5702 que habilita Secure Hash Algorithm 2 (SHA-2) en DNSKEY y las notas publicadas por el grupo DNS Operations (DNSOP) de la IETF que documentan las prácticas operativas recomendadas.
+
+\subsection{Documentación de ICANN y NIC México}
+ICANN mantiene documentación sobre el despliegue de DNSSEC en la zona raíz y los procedimientos de ceremonias de firma, mientras que NIC México describe los lineamientos específicos para el country code top-level domain (ccTLD) .mx y la administración de sus claves. Las referencias a Root Zone Management detallan los procesos formales asociados a la gestión de claves y respaldan la validez de la cadena de confianza utilizada en este estudio.
+
+\subsection{Herramientas y validadores utilizados}
+DNSViz, el DNSSEC Debugger de Verisign y las herramientas de SIDN Labs se emplean como validadores externos para visualizar cadenas de confianza y detectar inconsistencias. La herramienta \texttt{delv}, incluida en BIND 9, se utiliza para validar manualmente dominios, mientras que \texttt{dnspython} habilita las consultas programáticas integradas al analizador.
+
+\subsection{Repositorios y código utilizado}\label{repositorio}
+El análisis se apoya en el repositorio DNSSEC Analyzer disponible en la rama Reportes de \url{https://github.com/Facundo-Barbera/DNSSEC-Analyzer/tree/Reportes}. La estructura incluye los módulos \texttt{analyzer/generator.py}, \texttt{analyzer/lim\_advisor.py} y \texttt{analyzer/rfc\_validator.py}, además de los reportes en Markdown y el archivo \texttt{\_summary.json} que alimenta las tablas.
+
+\subsection{Literatura y fuentes técnicas adicionales}
+El trabajo de Dan Kaminsky sobre \textit{cache poisoning} en 2008 se toma como antecedente clave para comprender la urgencia de desplegar DNSSEC. Se consultaron también publicaciones de Dave Crocker y documentos educativos publicados por la IETF y el grupo DNSOP que abordan vulnerabilidades históricas y los lineamientos para despliegues modernos.
+
+\end{document}

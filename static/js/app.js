@@ -6,6 +6,8 @@ let batchResults = [];
 let currentRecommendationMode = 'executive';
 let recommendationsCache = {};
 let isViewingBatchDetail = false;
+let currentAnalysisController = null;
+let isDemoMode = false;
 
 // Initialize app after i18n is loaded
 document.addEventListener('DOMContentLoaded', async function() {
@@ -22,7 +24,55 @@ document.addEventListener('DOMContentLoaded', async function() {
             analyzeDomain();
         }
     });
+
+    // Check for URL parameters from presentation mode
+    const urlParams = new URLSearchParams(window.location.search);
+    const demoParam = urlParams.get('demo');
+    const domainParam = urlParams.get('domain') || demoParam;
+
+    // Check if coming from presentation demo
+    if (demoParam) {
+        isDemoMode = true;
+        showDemoBanner();
+    }
+
+    if (domainParam) {
+        // Set the domain in the input and trigger analysis
+        document.getElementById('domain-input').value = domainParam;
+        // Small delay to ensure UI is ready
+        setTimeout(() => {
+            analyzeDomain();
+        }, 100);
+        // Clean up URL
+        window.history.replaceState({}, '', '/');
+    }
+
 });
+
+// Global keyboard listener for demo mode (P key to return to presentation)
+document.addEventListener('keydown', function(e) {
+    if (isDemoMode && (e.key === 'p' || e.key === 'P') && !isTypingInInput(e)) {
+        returnToPresentation();
+    }
+});
+
+// Check if user is typing in an input field
+function isTypingInInput(e) {
+    const tagName = e.target.tagName.toLowerCase();
+    return tagName === 'input' || tagName === 'textarea';
+}
+
+// Show the demo banner
+function showDemoBanner() {
+    const banner = document.getElementById('demo-banner');
+    document.body.classList.add('demo-mode');
+    banner.classList.remove('hidden');
+}
+
+// Return to presentation at slide 11
+function returnToPresentation() {
+    window.location.href = '/presentation?slide=11';
+}
 
 function getActiveInput() {
     if (isNavbarMode) {
@@ -90,6 +140,12 @@ async function analyzeDomain() {
         return;
     }
 
+    // Cancel any pending request to prevent race conditions
+    if (currentAnalysisController) {
+        currentAnalysisController.abort();
+    }
+    currentAnalysisController = new AbortController();
+
     btn.classList.add('loading');
     btn.disabled = true;
     errorEl.classList.remove('visible');
@@ -102,7 +158,8 @@ async function analyzeDomain() {
         const response = await fetch('/api/analyze', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ domain })
+            body: JSON.stringify({ domain }),
+            signal: currentAnalysisController.signal
         });
 
         const data = await response.json();
@@ -144,8 +201,13 @@ async function analyzeDomain() {
         document.getElementById('current-domain-display').textContent = data.domain;
 
     } catch (error) {
+        // Ignore AbortError - this is expected when cancelling a pending request
+        if (error.name === 'AbortError') {
+            return;
+        }
         showError(error.message);
     } finally {
+        currentAnalysisController = null;
         btn.classList.remove('loading');
         btn.disabled = false;
     }

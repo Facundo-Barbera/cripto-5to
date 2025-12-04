@@ -1,0 +1,76 @@
+\documentclass[12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\setlength{\parskip}{0.75em}
+\setlength{\parindent}{0pt}
+\setlist[itemize]{leftmargin=*,labelsep=0.5em}
+\setlist[enumerate]{leftmargin=*,labelsep=0.5em}
+
+\begin{document}
+
+\begin{center}
+\textbf{INSTITUTO TECNOL\'OGICO Y DE ESTUDIOS SUPERIORES DE}\\
+\textbf{MONTERREY}\\[1em]
+Aplicaci\'on de criptograf\'ia y seguridad (Gpo 302)\\[0.5em]
+Profesores: Alberto F. Mart\'inez\\
+Alejandro Parra Briones\\
+Dr. Mohd Anas Wajid\\[1em]
+\textbf{Reporte T\'ecnico: Evaluaci\'on de la Adopci\'on}\\
+\textbf{y Salud Criptogr\'afica de DNSSEC en}\\
+\textbf{Dominios .MX}\\[0.5em]
+\textbf{Reporte Ejecutivo}\\[1em]
+\textbf{Integrantes:}\\
+Alberto Boughton Reyes A01178500\\
+Valeria Garcia Hernandez A01742811\\
+Facundo Bautista Barbera A01066843\\
+Emiliano Ruiz L\'opez A01659693\\
+Daniel Garnelo Martinez A00573086\\[0.5em]
+Monterrey N.L. 4 de diciembre de 2025
+\end{center}
+
+\section*{Reporte Ejecutivo}
+
+\section{Introducci\'on}
+El proyecto evalu\'o el nivel de protecci\'on que ofrecen los dominios web m\'as relevantes de M\'exico al operar en el sistema de nombres de dominio (DNS). El foco se encontr\'o en DNSSEC, tecnolog\'ia que firma digitalmente las respuestas y que, bien implementada, impide redireccionamientos falsos, suplantaci\'on de sitios y robo de informaci\'on. Para una ciudadan\'ia que realiza tr\'amites, operaciones financieras y gestiones acad\'emicas en l\'inea, la ausencia de esta protecci\'on permite que un atacante redirija al usuario a un portal falso sin levantar sospechas, por lo que la confianza del pa\'is en sus servicios digitales depende de manera directa de la correcta adopci\'on de DNSSEC.
+
+\section{Desarrollo}
+Se construy\'o un panorama ejecutivo de los principales sectores del pa\'is (gobierno, educaci\'on, banca, empresas comerciales y medios) mediante una herramienta propia que consulta registros DNS en tiempo real, verifica el cumplimiento de las mejores pr\'acticas internacionales y contrasta los hallazgos con verificaciones manuales en plataformas reconocidas de la industria. El an\'alisis se enfoc\'o en determinar si cada dominio cuenta con DNSSEC activo, si la configuraci\'on completa la cadena de confianza y si la protecci\'on se mantiene estable en el tiempo; de esta forma se evit\'o profundizar en detalles t\'ecnicos y se privilegi\'o el entendimiento de riesgos para los responsables de negocio.
+
+\section{Resultados}
+\subsection{Hallazgos generales}
+El uso de DNSSEC en M\'exico sigue siendo limitado: de todos los dominios evaluados solo seis muestran la tecnolog\'ia activada y, de ellos, \'unicamente gob.mx, pemex.gob.mx y unam.mx ofrecen una configuraci\'on completa y coherente con los est\'andares. El resto carece totalmente de DNSSEC o bien mantiene implementaciones incompletas que no alcanzan a proteger al usuario final.
+
+\subsection{Impacto al usuario final}
+Un dominio protegido con DNSSEC confirma su autenticidad y reduce con claridad la probabilidad de fraudes, transacciones inconclusas o suplantaciones. En la situaci\'on actual, millones de mexicanos interact\'uan diariamente con portales que no brindan esa garant\'ia, lo que se traduce en un riesgo mayor de robo de credenciales, intercepci\'on de operaciones financieras y manipulaci\'on de comunicaciones oficiales. Los sectores bancario, gubernamental y de comercio electr\'onico son los m\'as expuestos por la criticidad de los datos que administran.
+
+\section{Evaluaci\'on por sector}
+\subsection{Gobierno}
+Aunque gob.mx y PEMEX demostraron una adopci\'on ejemplar, la mayor\'ia de las dependencias federales y estatales siguen operando sin protecci\'on DNSSEC activa. Esta brecha es especialmente cr\'itica debido al volumen de datos personales, expedientes sensibles y tr\'amites que residen en esos portales.
+
+\subsection{Educaci\'on}
+La UNAM mantiene una protecci\'on completa, pero la realidad del resto de las instituciones acad\'emicas es heterog\'enea y, en muchos casos, inexistente. Las plataformas educativas, los correos institucionales y los servicios digitales asociados contin\'uan expuestos a manipulaciones de DNS que podr\'ian comprometer calificaciones, pagos o datos de investigaci\'on.
+
+\subsection{Sector financiero}
+Ninguno de los bancos analizados tiene DNSSEC activo, lo que posiciona a este sector como el de mayor riesgo operativo para el pa\'is. La falta de firmas digitales permite que contrase\~nas, transferencias, datos personales y estados financieros puedan ser interceptados mediante ataques de redireccionamiento altamente plausibles.
+
+\subsection{Sector comercial y medios}
+Telecomunicaciones, supermercados y conglomerados medi\'aticos operan sin la protecci\'on, por lo que cada visita a sus plataformas representa una oportunidad para que un atacante suplante identidad y reproduzca campa\~nas de phishing en masa. La afectaci\'on potencial alcanza a millones de consumidores que realizan compras o consumen informaci\'on diariamente.
+
+\section{Conclusiones}
+La adopci\'on de DNSSEC en M\'exico existe, pero sigue siendo marginal y se concentra en muy pocos casos de \'exito. La dificultad no reside en instalar la tecnolog\'ia sino en cerrar adecuadamente la cadena de confianza y mantenerla vigente, tarea que hoy la mayor\'ia de los operadores no ha logrado. Mientras los sectores cr\'iticos carezcan de esta protecci\'on, los datos personales y financieros de la poblaci\'on continuar\'an expuestos, a pesar de que ya se demostr\'o que la implementaci\'on estable es factible y replicable. En consecuencia, ofrecer un servicio digital sin DNSSEC equivale a renunciar a una capa b\'asica de verificaci\'on de identidad.
+
+\section{Recomendaciones}
+El pa\'is necesita una estrategia nacional que coloque a DNSSEC al mismo nivel que HTTPS en los reglamentos de seguridad digital. Resulta prioritario establecer lineamientos obligatorios para sectores de alto riesgo, acompa\~nados de programas de capacitaci\'on y auditor\'ias peri\'odicas que aseguren la continuidad operativa de las firmas. Desde lo t\'ecnico, cada organizaci\'on debe completar la cadena de confianza, mantener las firmas actualizadas, favorecer algoritmos modernos, habilitar validaci\'on interna y automatizar revisiones para detectar desalineaciones antes de que impacten al usuario. Por \'ultimo, se recomienda que el gobierno lidere una pol\'itica de adopci\'on gradual, que la banca incluya DNSSEC en sus requisitos regulatorios, que las universidades repliquen los modelos exitosos existentes y que las empresas integren esta medida a sus marcos de ciberseguridad corporativos.
+
+\section{Reflexi\'on final}
+M\'exico cuenta con la infraestructura y el talento necesarios para operar DNSSEC a gran escala; lo que falta es el compromiso sostenido de las organizaciones para cerrar la brecha. Mientras los atacantes perfeccionan sus t\'acticas, muchos portales contin\'uan sin una verificaci\'on b\'asica de autenticidad. El pa\'is debe considerar a DNSSEC como un requisito esencial para garantizar el desarrollo seguro de la econom\'ia digital.
+
+\section{Repositorios y c\'odigo utilizado}
+El an\'alisis se apoya en el repositorio DNSSEC Analyzer disponible en la rama Reportes de \url{https://github.com/Facundo-Barbera/DNSSEC-Analyzer/tree/Reportes}.
+
+La estructura incluye los m\'odulos \texttt{analyzer/generator.py}, \texttt{analyzer/lim\_advisor.py} y \texttt{analyzer/rfc\_validator}. Adem\'as de los reportes en Markdown y el archivo \texttt{\_summary.json} que alimenta las tablas.
+
+\end{document}

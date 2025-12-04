@@ -5,3 +5,10 @@ __pycache__/
 *.pyc
 .vercel
 .env*.local
+*.aux
+*.fdb_latexmk    # ojo, en tu captura el archivo es fdb_..., no fbd_...
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
