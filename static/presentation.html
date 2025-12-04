@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="presentation.pageTitle">DNSSEC - Presentación</title>
-    <link rel="icon" type="image/png" href="/static/favicon.png">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="/css/style.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body class="presentation-body">
@@ -13,7 +13,7 @@
         <!-- Slide 1: Portada -->
         <div class="slide active" data-slide="1">
             <div class="slide-content slide-portada">
-                <img src="/static/logo.png" alt="DNSSEC Logo" class="presentation-logo">
+                <img src="/logo.png" alt="DNSSEC Logo" class="presentation-logo">
                 <h1 class="slide-title-main" data-i18n="presentation.slide1.title">DNSSEC CADENA DE CONFIANZA</h1>
                 <p class="slide-date" data-i18n="presentation.slide1.date">Martes 3 Diciembre 2025</p>
                 <div class="team-section">
@@ -319,6 +319,18 @@
             </div>
         </div>
 
+        <!-- Slide 13: Gracias -->
+        <div class="slide" data-slide="13">
+            <div class="slide-content slide-portada">
+                <h1 class="slide-title-main" data-i18n="presentation.slide13.title">¡GRACIAS!</h1>
+                <p class="slide-subtitle-thanks" data-i18n="presentation.slide13.subtitle">Thank you!</p>
+                <div class="thanks-icon">
+                    <span>🙏</span>
+                </div>
+                <p class="slide-questions" data-i18n="presentation.slide13.questions">¿Preguntas? / Questions?</p>
+            </div>
+        </div>
+
         <!-- Navigation Controls -->
         <div class="presentation-nav">
             <button class="nav-arrow nav-prev" onclick="prevSlide()" aria-label="Previous slide">
@@ -327,7 +339,7 @@
             <div class="progress-container">
                 <div class="progress-dots" id="progress-dots"></div>
                 <div class="slide-counter">
-                    <span id="current-slide-num">1</span> / <span id="total-slides">12</span>
+                    <span id="current-slide-num">1</span> / <span id="total-slides">13</span>
                 </div>
             </div>
             <button class="nav-arrow nav-next" onclick="nextSlide()" aria-label="Next slide">
@@ -366,7 +378,7 @@
         </div>
     </div>
 
-    <script src="/static/js/i18n.js"></script>
-    <script src="/static/js/presentation.js"></script>
+    <script src="/js/i18n.js"></script>
+    <script src="/js/presentation.js"></script>
 </body>
 </html>

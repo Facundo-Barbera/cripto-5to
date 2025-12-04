@@ -7,7 +7,6 @@ services:
       - FLASK_ENV=development
       - FLASK_DEBUG=1
     volumes:
-      - ./templates:/app/templates
       - ./static:/app/static
       - ./analyzer:/app/analyzer
       - ./app.py:/app/app.py
