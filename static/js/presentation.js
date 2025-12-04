@@ -80,6 +80,14 @@ function initKeyboardNavigation() {
             case 'Q':
                 toggleQRModal();
                 break;
+            case 'p':
+            case 'P':
+                // Close demo iframe if open
+                const overlay = document.getElementById('demo-iframe-overlay');
+                if (overlay && !overlay.classList.contains('hidden')) {
+                    closeDemoIframe();
+                }
+                break;
         }
     });
 }
@@ -188,21 +196,55 @@ document.addEventListener('fullscreenchange', () => {
     }
 });
 
-// Domain analysis from presentation
-function analyzeDomainFromPresentation(domain) {
-    // Navigate to main app with demo parameter (shows return banner)
-    window.location.href = `/?demo=${encodeURIComponent(domain)}&returnSlide=${currentSlide}`;
+// Show demo in iframe overlay (preserves fullscreen)
+function showDemoIframe(domain, returnSlide) {
+    const overlay = document.getElementById('demo-iframe-overlay');
+    const iframe = document.getElementById('demo-iframe');
+
+    // Set iframe source with embed parameter
+    iframe.src = `/?embed=true&demo=${encodeURIComponent(domain)}&returnSlide=${returnSlide}`;
+
+    // Show overlay
+    overlay.classList.remove('hidden');
+
+    // Focus iframe for keyboard events
+    setTimeout(() => iframe.focus(), 100);
 }
 
-// Transition to demo mode
+// Close demo iframe and return to presentation
+function closeDemoIframe() {
+    const overlay = document.getElementById('demo-iframe-overlay');
+    const iframe = document.getElementById('demo-iframe');
+
+    // Hide overlay
+    overlay.classList.add('hidden');
+
+    // Clear iframe source
+    iframe.src = 'about:blank';
+}
+
+// Domain analysis from presentation (uses iframe to preserve fullscreen)
+function analyzeDomainFromPresentation(domain) {
+    showDemoIframe(domain, currentSlide);
+}
+
+// Transition to demo mode (uses iframe to preserve fullscreen)
 function transitionToDemo() {
     const container = document.querySelector('.presentation-container');
     container.classList.add('fade-out');
 
     setTimeout(() => {
-        window.location.href = '/?demo=gob.mx';
+        container.classList.remove('fade-out');
+        showDemoIframe('gob.mx', 11);
     }, 500);
 }
+
+// Listen for messages from iframe (for P key pressed inside iframe)
+window.addEventListener('message', function(event) {
+    if (event.data === 'closeDemoIframe') {
+        closeDemoIframe();
+    }
+});
 
 // Render D3.js pie charts for slide 9
 function renderMetricsCharts() {
