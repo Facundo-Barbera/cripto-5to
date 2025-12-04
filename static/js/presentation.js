@@ -76,6 +76,10 @@ function initKeyboardNavigation() {
                 e.preventDefault();
                 goToSlide(totalSlides);
                 break;
+            case 'q':
+            case 'Q':
+                toggleQRModal();
+                break;
         }
     });
 }
@@ -169,6 +173,11 @@ function toggleFullscreen() {
     }
 }
 
+function toggleQRModal() {
+    const modal = document.getElementById('qr-modal');
+    modal.classList.toggle('hidden');
+}
+
 // Handle fullscreen change events
 document.addEventListener('fullscreenchange', () => {
     const icon = document.getElementById('fullscreen-icon');
@@ -182,7 +191,7 @@ document.addEventListener('fullscreenchange', () => {
 // Domain analysis from presentation
 function analyzeDomainFromPresentation(domain) {
     // Navigate to main app with demo parameter (shows return banner)
-    window.location.href = `/?demo=${encodeURIComponent(domain)}`;
+    window.location.href = `/?demo=${encodeURIComponent(domain)}&returnSlide=${currentSlide}`;
 }
 
 // Transition to demo mode

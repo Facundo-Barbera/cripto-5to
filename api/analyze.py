@@ -5,6 +5,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from http.server import BaseHTTPRequestHandler
 import json
 from analyzer.rfc_validator import RFCValidator
+from analyzer.generator import sanitize_domain
 
 
 class handler(BaseHTTPRequestHandler):
@@ -23,7 +24,7 @@ class handler(BaseHTTPRequestHandler):
             self._send_error(400, 'Domain is required')
             return
 
-        domain = data['domain'].strip().lower()
+        domain = sanitize_domain(data['domain'])
         if not domain:
             self._send_error(400, 'Domain cannot be empty')
             return
