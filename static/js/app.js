@@ -8,6 +8,7 @@ let recommendationsCache = {};
 let isViewingBatchDetail = false;
 let currentAnalysisController = null;
 let isDemoMode = false;
+let demoReturnSlide = 11;
 
 // Initialize app after i18n is loaded
 document.addEventListener('DOMContentLoaded', async function() {
@@ -34,6 +35,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (demoParam) {
         isDemoMode = true;
         showDemoBanner();
+        const returnSlideParam = urlParams.get('returnSlide');
+        if (returnSlideParam) {
+            demoReturnSlide = parseInt(returnSlideParam) || 11;
+        }
     }
 
     if (domainParam) {
@@ -69,9 +74,9 @@ function showDemoBanner() {
     banner.classList.remove('hidden');
 }
 
-// Return to presentation at slide 11
+// Return to presentation at the slide where demo was started
 function returnToPresentation() {
-    window.location.href = '/presentation?slide=11';
+    window.location.href = `/presentation?slide=${demoReturnSlide}`;
 }
 
 function getActiveInput() {
