@@ -388,6 +388,18 @@
         </div>
     </div>
 
+    <!-- Demo Iframe Overlay (preserves fullscreen) -->
+    <div id="demo-iframe-overlay" class="demo-iframe-overlay hidden">
+        <div class="demo-iframe-banner">
+            <span class="demo-iframe-text" data-i18n="demo.bannerText">Live Demo</span>
+            <button class="demo-iframe-close" onclick="closeDemoIframe()">
+                <span data-i18n="demo.returnButton">Press P or click to return</span>
+                <span class="demo-iframe-arrow">→</span>
+            </button>
+        </div>
+        <iframe id="demo-iframe" class="demo-iframe" src="about:blank"></iframe>
+    </div>
+
     <script src="/js/i18n.js"></script>
     <script src="/js/presentation.js"></script>
 </body>

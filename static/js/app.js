@@ -9,6 +9,7 @@ let isViewingBatchDetail = false;
 let currentAnalysisController = null;
 let isDemoMode = false;
 let demoReturnSlide = 11;
+let isEmbedMode = false;
 
 // Initialize app after i18n is loaded
 document.addEventListener('DOMContentLoaded', async function() {
@@ -30,11 +31,21 @@ document.addEventListener('DOMContentLoaded', async function() {
     const urlParams = new URLSearchParams(window.location.search);
     const demoParam = urlParams.get('demo');
     const domainParam = urlParams.get('domain') || demoParam;
+    const embedParam = urlParams.get('embed');
+
+    // Check for embed mode (loaded in iframe from presentation)
+    if (embedParam === 'true') {
+        isEmbedMode = true;
+        document.body.classList.add('embed-mode');
+    }
 
     // Check if coming from presentation demo
     if (demoParam) {
         isDemoMode = true;
-        showDemoBanner();
+        // Only show demo banner if NOT in embed mode (parent handles banner in embed mode)
+        if (!isEmbedMode) {
+            showDemoBanner();
+        }
         const returnSlideParam = urlParams.get('returnSlide');
         if (returnSlideParam) {
             demoReturnSlide = parseInt(returnSlideParam) || 11;
@@ -56,8 +67,13 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 // Global keyboard listener for demo mode (P key to return to presentation)
 document.addEventListener('keydown', function(e) {
-    if (isDemoMode && (e.key === 'p' || e.key === 'P') && !isTypingInInput(e)) {
-        returnToPresentation();
+    if ((e.key === 'p' || e.key === 'P') && !isTypingInInput(e)) {
+        if (isEmbedMode) {
+            // Notify parent window to close iframe
+            window.parent.postMessage('closeDemoIframe', '*');
+        } else if (isDemoMode) {
+            returnToPresentation();
+        }
     }
 });
 
