@@ -9,6 +9,14 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
+    <div id="demo-banner" class="demo-banner hidden">
+        <span class="demo-banner-text" data-i18n="demo.bannerText">Live Demo</span>
+        <button class="demo-banner-button" onclick="returnToPresentation()">
+            <span data-i18n="demo.returnButton">Press P or click to return</span>
+            <span class="demo-banner-arrow">→</span>
+        </button>
+    </div>
+
     <nav id="navbar" class="navbar hidden">
         <div class="nav-title" onclick="resetToHome()">
             <img src="/static/logo.png" alt="Logo" class="nav-logo">
@@ -69,6 +77,9 @@
                 </div>
             </div>
             <div class="hero-lang-switcher">
+                <a href="/presentation" class="presentation-link">
+                    <span data-i18n="presentation.button">Presentation</span>
+                </a>
                 <div class="language-switcher" id="hero-lang-switcher">
                     <button class="lang-toggle" aria-label="Select language">
                         <span class="lang-current">EN</span>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="presentation.pageTitle">DNSSEC - Presentación</title>
+    <link rel="icon" type="image/png" href="/static/favicon.png">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body class="presentation-body">
+    <div class="presentation-container">
+        <!-- Slide 1: Portada -->
+        <div class="slide active" data-slide="1">
+            <div class="slide-content slide-portada">
+                <img src="/static/logo.png" alt="DNSSEC Logo" class="presentation-logo">
+                <h1 class="slide-title-main" data-i18n="presentation.slide1.title">DNSSEC CADENA DE CONFIANZA</h1>
+                <p class="slide-date" data-i18n="presentation.slide1.date">Martes 3 Diciembre 2025</p>
+                <div class="team-section">
+                    <h3 data-i18n="presentation.slide1.team">Equipo 2</h3>
+                    <ul class="team-list">
+                        <li>Alberto Boughton Reyes <span class="matricula">A01178500</span></li>
+                        <li>Valeria García Hernández <span class="matricula">A01742811</span></li>
+                        <li>Facundo Bautista Barbera <span class="matricula">A01066843</span></li>
+                        <li>Emiliano Ruiz López <span class="matricula">A01659693</span></li>
+                        <li>Daniel Garnelo Martínez <span class="matricula">A00573086</span></li>
+                    </ul>
+                </div>
+                <p class="slide-course" data-i18n="presentation.slide1.course">Aplicación de Criptografía y Seguridad</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: DNS -->
+        <div class="slide" data-slide="2">
+            <div class="slide-content">
+                <h1 class="slide-title" data-i18n="presentation.slide2.title">DNS</h1>
+                <div class="slide-body two-columns">
+                    <div class="column">
+                        <p class="slide-text" data-i18n="presentation.slide2.description">DNS traduce nombres de dominio a direcciones IP mediante consultas recursivas</p>
+                        <div class="dns-records-table">
+                            <div class="table-header">
+                                <span class="header-type" data-i18n="presentation.slide2.headerType">Registro</span>
+                                <span class="header-divider"></span>
+                                <span class="header-function" data-i18n="presentation.slide2.headerFunction">Función</span>
+                            </div>
+                            <div class="table-body">
+                                <div class="table-row">
+                                    <span class="record-type">SOA</span>
+                                    <span class="row-divider"></span>
+                                    <span class="record-function" data-i18n="presentation.slide2.soaDesc">Autoridad de la zona, servidor primario</span>
+                                </div>
+                                <div class="table-row">
+                                    <span class="record-type">A / AAAA</span>
+                                    <span class="row-divider"></span>
+                                    <span class="record-function" data-i18n="presentation.slide2.aDesc">Direcciones IPv4 e IPv6</span>
+                                </div>
+                                <div class="table-row">
+                                    <span class="record-type">NS</span>
+                                    <span class="row-divider"></span>
+                                    <span class="record-function" data-i18n="presentation.slide2.nsDesc">Servidores de nombres autoritativos</span>
+                                </div>
+                                <div class="table-row">
+                                    <span class="record-type">MX</span>
+                                    <span class="row-divider"></span>
+                                    <span class="record-function" data-i18n="presentation.slide2.mxDesc">Servidores de correo del dominio</span>
+                                </div>
+                                <div class="table-row">
+                                    <span class="record-type">CNAME</span>
+                                    <span class="row-divider"></span>
+                                    <span class="record-function" data-i18n="presentation.slide2.cnameDesc">Alias hacia otro dominio</span>
+                                </div>
+                                <div class="table-row">
+                                    <span class="record-type">TXT</span>
+                                    <span class="row-divider"></span>
+                                    <span class="record-function" data-i18n="presentation.slide2.txtDesc">Metadatos (SPF, DKIM, verificación)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column dns-diagram">
+                        <div class="dns-hierarchy">
+                            <div class="dns-node root">. (Root)</div>
+                            <div class="dns-arrow">↓</div>
+                            <div class="dns-node tld">.mx (TLD)</div>
+                            <div class="dns-arrow">↓</div>
+                            <div class="dns-node domain">gob.mx</div>
+                            <div class="dns-arrow">↓</div>
+                            <div class="dns-node subdomain">sat.gob.mx</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Diseño Original Sin Seguridad -->
+        <div class="slide" data-slide="3">
+            <div class="slide-content">
+                <h1 class="slide-title" data-i18n="presentation.slide3.title">DISEÑO ORIGINAL SIN SEGURIDAD</h1>
+                <div class="slide-body">
+                    <div class="history-block">
+                        <p class="slide-text" data-i18n="presentation.slide3.intro">DNS nació en 1987 optimizado para operación (RFCs 1034/1035)</p>
+                    </div>
+                    <h3 data-i18n="presentation.slide3.limitationsTitle">Limitaciones históricas:</h3>
+                    <ul class="limitations-list">
+                        <li data-i18n="presentation.slide3.limitation1">Mensajes cortos (512 bytes)</li>
+                        <li data-i18n="presentation.slide3.limitation2">Uso de UDP</li>
+                        <li data-i18n="presentation.slide3.limitation3">Foco en eficiencia</li>
+                    </ul>
+                    <h3 data-i18n="presentation.slide3.consequencesTitle">Consecuencias: vectores de suplantación</h3>
+                    <div class="attack-timeline">
+                        <div class="attack-item">
+                            <span class="attack-year">1997</span>
+                            <span class="attack-name">Kashpurref</span>
+                        </div>
+                        <div class="attack-item">
+                            <span class="attack-year">2008</span>
+                            <span class="attack-name">Kaminsky</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: ¿Qué es DNSSEC? -->
+        <div class="slide" data-slide="4">
+            <div class="slide-content">
+                <h1 class="slide-title" data-i18n="presentation.slide4.title">¿QUÉ ES DNSSEC?</h1>
+                <div class="slide-body">
+                    <p class="slide-text highlight-text" data-i18n="presentation.slide4.definition">Añade firmas digitales a respuestas DNS para validar origen e integridad</p>
+                    <h3 data-i18n="presentation.slide4.cryptoTitle">Basado en criptografía de clave pública:</h3>
+                    <div class="dnssec-components">
+                        <div class="dnssec-item">
+                            <span class="record-type">RRSIG</span>
+                            <span class="record-desc" data-i18n="presentation.slide4.rrsig">Firmas digitales</span>
+                        </div>
+                        <div class="dnssec-item">
+                            <span class="record-type">DS</span>
+                            <span class="record-desc" data-i18n="presentation.slide4.ds">Registros de delegado</span>
+                        </div>
+                        <div class="dnssec-item">
+                            <span class="record-type">NSEC/NSEC3</span>
+                            <span class="record-desc" data-i18n="presentation.slide4.nsec">Pruebas de no-existencia</span>
+                        </div>
+                    </div>
+                    <div class="objective-box">
+                        <p data-i18n="presentation.slide4.objective">Objetivo: construir cadena de confianza desde la raíz hasta el registro final</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Historia -->
+        <div class="slide" data-slide="5">
+            <div class="slide-content">
+                <h1 class="slide-title" data-i18n="presentation.slide5.title">HISTORIA</h1>
+                <div class="slide-body">
+                    <div class="rfc-timeline">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1997-1999</div>
+                            <div class="timeline-content">
+                                <h4>RFC 2065 y 2535</h4>
+                                <p data-i18n="presentation.slide5.obsolete">Primeras versiones obsoletas</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item highlight">
+                            <div class="timeline-year">2005</div>
+                            <div class="timeline-content">
+                                <h4>DNSSEC-bis</h4>
+                                <p>RFC 4033/4034/4035</p>
+                                <p class="timeline-note" data-i18n="presentation.slide5.operational">Estándar operativo</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2023</div>
+                            <div class="timeline-content">
+                                <h4>RFC 9364</h4>
+                                <p data-i18n="presentation.slide5.update">Actualización reciente</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Dominio .MX -->
+        <div class="slide" data-slide="6">
+            <div class="slide-content">
+                <h1 class="slide-title" data-i18n="presentation.slide6.title">DOMINIO .MX</h1>
+                <div class="slide-body mx-slide">
+                    <div class="mx-content">
+                        <ul class="mx-points">
+                            <li data-i18n="presentation.slide6.point1">.mx está firmado a nivel de TLD (permite validación desde la raíz)</li>
+                            <li data-i18n="presentation.slide6.point2">Sin embargo, la adopción a nivel de registrante es voluntaria: no todos los dominios .mx están firmados</li>
+                            <li class="opportunity" data-i18n="presentation.slide6.opportunity">Oportunidad: medir adopción, detectar configuraciones débiles o errores operativos</li>
+                        </ul>
+                    </div>
+                    <div class="mx-flag">
+                        <div class="flag-stripe green"></div>
+                        <div class="flag-stripe white">
+                            <span class="flag-emblem">🦅</span>
+                        </div>
+                        <div class="flag-stripe red"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Metodología -->
+        <div class="slide" data-slide="7">
+            <div class="slide-content">
+                <h1 class="slide-title" data-i18n="presentation.slide7.title">METODOLOGÍA</h1>
+                <div class="slide-body">
+                    <div class="methodology-source">
+                        <p data-i18n="presentation.slide7.source">Fuente: lecturas públicas (OSINT) realizadas desde un servidor recursivo — no se requiere autorización</p>
+                    </div>
+                    <h3 data-i18n="presentation.slide7.measureTitle">¿Qué medimos por dominio?</h3>
+                    <ol class="methodology-list">
+                        <li data-i18n="presentation.slide7.measure1">¿Está firmado? ¿Valida end-to-end?</li>
+                        <li data-i18n="presentation.slide7.measure2">Algoritmos y tamaños de clave (RSA / ECDSA / ED25519)</li>
+                        <li data-i18n="presentation.slide7.measure3">Tipo de prueba de no-existencia: NSEC vs NSEC3</li>
+                        <li data-i18n="presentation.slide7.measure4">Problemas comunes: firmas vencidas, DS desalineado, TTL anómalos</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Dominios Sample -->
+        <div class="slide" data-slide="8">
+            <div class="slide-content">
+                <h1 class="slide-title" data-i18n="presentation.slide8.title">DOMINIOS SAMPLE</h1>
+                <div class="slide-body">
+                    <p class="slide-subtitle" data-i18n="presentation.slide8.subtitle">Click en un dominio para analizar en vivo</p>
+                    <div class="domain-list">
+                        <button class="domain-button" onclick="analyzeDomainFromPresentation('unam.mx')">unam.mx</button>
+                        <button class="domain-button" onclick="analyzeDomainFromPresentation('tec.mx')">tec.mx</button>
+                        <button class="domain-button" onclick="analyzeDomainFromPresentation('gob.mx')">gob.mx</button>
+                        <button class="domain-button" onclick="analyzeDomainFromPresentation('sat.gob.mx')">sat.gob.mx</button>
+                        <button class="domain-button" onclick="analyzeDomainFromPresentation('ipn.mx')">ipn.mx</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Métricas -->
+        <div class="slide" data-slide="9">
+            <div class="slide-content">
+                <h1 class="slide-title" data-i18n="presentation.slide9.title">MÉTRICAS</h1>
+                <div class="slide-body metrics-body">
+                    <div class="charts-container">
+                        <div class="chart-wrapper">
+                            <h3 data-i18n="presentation.slide9.chainComplete">Chain Complete</h3>
+                            <div id="chart-chain-complete" class="pie-chart"></div>
+                            <div class="chart-legend">
+                                <span class="legend-yes"><span class="dot"></span> Yes: 3 (6.25%)</span>
+                                <span class="legend-no"><span class="dot"></span> No: 45 (93.75%)</span>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper">
+                            <h3 data-i18n="presentation.slide9.dnssecEnabled">DNSSEC Enabled</h3>
+                            <div id="chart-dnssec-enabled" class="pie-chart"></div>
+                            <div class="chart-legend">
+                                <span class="legend-yes"><span class="dot"></span> Yes: 6 (12.5%)</span>
+                                <span class="legend-no"><span class="dot"></span> No: 42 (87.5%)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="metrics-finding">
+                        <p data-i18n="presentation.slide9.finding">Hallazgo común: Firmas expiradas o caducidades mal gestionadas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Recomendaciones -->
+        <div class="slide" data-slide="10">
+            <div class="slide-content">
+                <h1 class="slide-title" data-i18n="presentation.slide10.title">RECOMENDACIONES</h1>
+                <div class="slide-body">
+                    <ol class="recommendations-list">
+                        <li data-i18n="presentation.slide10.rec1">Implementar DNSSEC con algoritmos modernos (preferir ECDSA/ED25519 cuando sea posible)</li>
+                        <li data-i18n="presentation.slide10.rec2">Mantener políticas de rotación de claves y monitorización de caducidades</li>
+                        <li data-i18n="presentation.slide10.rec3">Verificar alineamiento DS al publicar cambios en registrar/host</li>
+                        <li data-i18n="presentation.slide10.rec4">Evitar TTL excesivos para RR de firma; usar valores coherentes con operaciones</li>
+                        <li data-i18n="presentation.slide10.rec5">Validaciones periódicas (auditorías OSINT desde servidores recursivos)</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Plan de Demo -->
+        <div class="slide" data-slide="11">
+            <div class="slide-content slide-demo">
+                <h1 class="slide-title" data-i18n="presentation.slide11.title">PLAN DE DEMO</h1>
+                <div class="slide-body">
+                    <button class="demo-button" onclick="transitionToDemo()">
+                        <span data-i18n="presentation.slide11.button">Iniciar Demo</span>
+                        <span class="demo-arrow">→</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Conclusión -->
+        <div class="slide" data-slide="12">
+            <div class="slide-content">
+                <h1 class="slide-title" data-i18n="presentation.slide12.title">CONCLUSIÓN</h1>
+                <div class="slide-body">
+                    <ul class="conclusion-list">
+                        <li data-i18n="presentation.slide12.point1">DNSSEC protege contra la suplantación end-to-end</li>
+                        <li data-i18n="presentation.slide12.point2">Aunque .MX ya está firmado, la adopción entre registrantes sigue siendo irregular</li>
+                        <li data-i18n="presentation.slide12.point3">Para fortalecer el ecosistema, se requieren políticas claras, auditorías constantes y capacitación técnica</li>
+                        <li data-i18n="presentation.slide12.point4">Este reto ofrece una forma práctica y ética de medir y mejorar la salud criptográfica del .MX</li>
+                    </ul>
+                    <div class="conclusion-icon">
+                        <span class="shield-icon">🛡️</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="presentation-nav">
+            <button class="nav-arrow nav-prev" onclick="prevSlide()" aria-label="Previous slide">
+                <span>←</span>
+            </button>
+            <div class="progress-container">
+                <div class="progress-dots" id="progress-dots"></div>
+                <div class="slide-counter">
+                    <span id="current-slide-num">1</span> / <span id="total-slides">12</span>
+                </div>
+            </div>
+            <button class="nav-arrow nav-next" onclick="nextSlide()" aria-label="Next slide">
+                <span>→</span>
+            </button>
+        </div>
+
+        <!-- Exit Button -->
+        <button class="presentation-exit" onclick="exitPresentation()" aria-label="Exit presentation">
+            <span>✕</span>
+        </button>
+
+        <!-- Fullscreen Button -->
+        <button class="presentation-fullscreen" onclick="toggleFullscreen()" aria-label="Toggle fullscreen">
+            <span id="fullscreen-icon">⛶</span>
+        </button>
+
+        <!-- Language Switcher -->
+        <div class="presentation-lang">
+            <div class="language-switcher" id="presentation-lang-switcher">
+                <button class="lang-toggle" aria-label="Select language">
+                    <span class="lang-current">ES</span>
+                    <span class="lang-arrow">▼</span>
+                </button>
+                <div class="lang-dropdown">
+                    <button data-lang="es" class="lang-option active">
+                        <span class="lang-code">ES</span>
+                        <span class="lang-name">Español</span>
+                    </button>
+                    <button data-lang="en" class="lang-option">
+                        <span class="lang-code">EN</span>
+                        <span class="lang-name">English</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/i18n.js"></script>
+    <script src="/static/js/presentation.js"></script>
+</body>
+</html>

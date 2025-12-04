@@ -810,11 +810,33 @@ header h1 {
 .hero-lang-switcher {
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 1rem;
     margin-top: 1.5rem;
 }
 
 .hero-lang-switcher .language-switcher {
     margin-left: 0;
+}
+
+/* Presentation link button */
+.presentation-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid var(--accent-cyan);
+    border-radius: 8px;
+    color: var(--accent-cyan);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.presentation-link:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
 }
 
 /* Hide hero switcher when navbar is visible */
@@ -2035,4 +2057,1258 @@ header h1 {
     .key-header {
         flex-wrap: wrap;
     }
+}
+
+/* ==========================================================================
+   PRESENTATION MODE STYLES
+   ========================================================================== */
+
+.presentation-body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.presentation-container {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-primary);
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+}
+
+.presentation-container.fade-out {
+    animation: fadeOut 0.5s ease-out forwards;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Slides */
+.slide {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 6rem;
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.slide.active {
+    display: flex;
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+.slide.slide-exit {
+    display: flex;
+    animation: slideOut 0.5s ease-out forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+}
+
+.slide-content {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.slide-title {
+    font-size: 3.5rem;
+    color: var(--accent-cyan);
+    margin-bottom: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+    position: relative;
+    display: inline-block;
+}
+
+.slide-title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+}
+
+.slide-title-main {
+    font-size: 3.5rem;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--success-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    font-weight: 800;
+}
+
+.slide-text {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.highlight-text {
+    color: var(--accent-cyan);
+    font-weight: 500;
+}
+
+.slide-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+/* Slide 1: Portada */
+.slide-portada {
+    text-align: center;
+}
+
+.presentation-logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.3));
+}
+
+.slide-date {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.team-section {
+    margin: 2rem 0;
+}
+
+.team-section h3 {
+    font-size: 1.5rem;
+    color: var(--accent-cyan);
+    margin-bottom: 1rem;
+}
+
+.team-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 2rem;
+}
+
+.team-list li {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.matricula {
+    color: var(--text-secondary);
+    font-family: monospace;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+}
+
+.slide-course {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-top: 2rem;
+    font-style: italic;
+}
+
+/* Slide 2: DNS - Two columns */
+.two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    text-align: left;
+}
+
+.column h3 {
+    color: var(--accent-cyan);
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    margin-top: 1rem;
+}
+
+/* DNS Records Table */
+.dns-records-table {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+    max-height: 320px;
+}
+
+.table-header,
+.table-row {
+    display: flex;
+    align-items: center;
+    padding: 0.35rem 0.75rem;
+}
+
+.table-header {
+    background: var(--bg-tertiary);
+    border-bottom: 2px solid var(--accent-cyan);
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.header-type {
+    width: 90px;
+    flex-shrink: 0;
+    color: var(--accent-cyan);
+    font-size: 0.75rem;
+}
+
+.header-divider,
+.row-divider {
+    width: 2px;
+    align-self: stretch;
+    background: var(--accent-cyan);
+    margin: 0 0.75rem;
+    opacity: 0.4;
+}
+
+.header-function {
+    color: var(--accent-cyan);
+    flex: 1;
+    font-size: 0.75rem;
+}
+
+.table-row {
+    border-bottom: 1px solid var(--bg-tertiary);
+    transition: background 0.2s ease;
+}
+
+.table-row:last-child {
+    border-bottom: none;
+}
+
+.table-row:hover {
+    background: rgba(0, 212, 255, 0.05);
+}
+
+/* Scoped to avoid conflict with Slide 4 .record-type */
+.dns-records-table .record-type {
+    width: 90px;
+    flex-shrink: 0;
+    color: var(--success-green);
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.dns-records-table .record-function {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    flex: 1;
+}
+
+.dns-hierarchy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
+.dns-node {
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.dns-node.root {
+    background: linear-gradient(135deg, var(--accent-cyan), #0099cc);
+    color: var(--bg-primary);
+}
+
+.dns-node.tld {
+    background: linear-gradient(135deg, var(--success-green), var(--success-green-dark));
+    color: var(--bg-primary);
+}
+
+.dns-node.domain {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 2px solid var(--accent-cyan);
+}
+
+.dns-node.subdomain {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px dashed var(--text-secondary);
+}
+
+.dns-arrow {
+    font-size: 1.5rem;
+    color: var(--accent-cyan);
+    padding: 0.5rem 0;
+}
+
+/* Slide 3: Security issues */
+.history-block {
+    background: var(--bg-secondary);
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    border-left: 4px solid var(--accent-cyan);
+}
+
+.limitations-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.limitations-list li {
+    background: var(--bg-tertiary);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    color: var(--text-primary);
+}
+
+.slide-body h3 {
+    color: var(--accent-cyan);
+    font-size: 1.25rem;
+    margin: 2rem 0 1rem;
+}
+
+.attack-timeline {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.attack-item {
+    background: linear-gradient(135deg, var(--error-red), var(--error-red-dark));
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.attack-year {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.attack-name {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+}
+
+/* Slide 4: DNSSEC Components */
+.dnssec-components {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.dnssec-item {
+    background: var(--bg-secondary);
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid var(--bg-tertiary);
+    min-width: 180px;
+}
+
+.record-type {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--success-green);
+    font-family: monospace;
+    margin-bottom: 0.5rem;
+}
+
+.record-desc {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.objective-box {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 212, 170, 0.1));
+    border: 1px solid var(--accent-cyan);
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    margin-top: 2rem;
+}
+
+.objective-box p {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+/* Slide 5: Timeline */
+.rfc-timeline {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline-line {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 4px;
+    background: var(--bg-tertiary);
+    transform: translateY(-50%);
+}
+
+.timeline-item {
+    position: relative;
+    display: inline-block;
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 0 2rem;
+    border: 1px solid var(--bg-tertiary);
+    vertical-align: middle;
+}
+
+.timeline-item.highlight {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+.timeline-year {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-cyan);
+    margin-bottom: 0.5rem;
+}
+
+.timeline-content h4 {
+    color: var(--success-green);
+    margin: 0 0 0.25rem;
+    font-family: monospace;
+}
+
+.timeline-content p {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.timeline-note {
+    color: var(--success-green) !important;
+    font-weight: 500;
+    margin-top: 0.5rem !important;
+}
+
+/* Slide 6: Mexico */
+.mx-slide {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.mx-points {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.mx-points li {
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+.mx-points li.opportunity {
+    background: linear-gradient(135deg, rgba(0, 212, 170, 0.15), rgba(0, 160, 128, 0.15));
+    border: 1px solid var(--success-green);
+}
+
+.mx-flag {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    height: 150px;
+}
+
+.flag-stripe {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flag-stripe.green {
+    background: #006847;
+}
+
+.flag-stripe.white {
+    background: #fff;
+}
+
+.flag-stripe.red {
+    background: #ce1126;
+}
+
+.flag-emblem {
+    font-size: 3rem;
+}
+
+/* Slide 7: Methodology */
+.methodology-source {
+    background: var(--bg-secondary);
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--success-green);
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.methodology-source p {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.methodology-list {
+    text-align: left;
+    padding-left: 2rem;
+}
+
+.methodology-list li {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    padding: 0.75rem 0;
+    line-height: 1.5;
+}
+
+/* Slide 8: Domain buttons */
+.domain-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.domain-button {
+    background: var(--bg-secondary);
+    border: 2px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+    padding: 1.25rem 2.5rem;
+    font-size: 1.5rem;
+    font-family: monospace;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.domain-button:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+}
+
+/* Slide 9: Metrics */
+.metrics-body {
+    text-align: center;
+}
+
+.charts-container {
+    display: flex;
+    gap: 4rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.chart-wrapper {
+    text-align: center;
+}
+
+.chart-wrapper h3 {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.pie-chart {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.chart-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.legend-yes, .legend-no {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.legend-yes .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--success-green);
+}
+
+.legend-no .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--error-red);
+}
+
+.legend-yes {
+    color: var(--success-green);
+}
+
+.legend-no {
+    color: var(--error-red);
+}
+
+.metrics-finding {
+    background: var(--bg-secondary);
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--warning-yellow);
+}
+
+.metrics-finding p {
+    color: var(--warning-yellow);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Slide 10: Recommendations */
+.recommendations-list {
+    text-align: left;
+    padding-left: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.recommendations-list li {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    padding: 1rem 0;
+    line-height: 1.5;
+    border-bottom: 1px solid var(--bg-tertiary);
+}
+
+.recommendations-list li:last-child {
+    border-bottom: none;
+}
+
+/* Slide 11: Demo */
+.slide-demo {
+    text-align: center;
+}
+
+.demo-text {
+    font-size: 2rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    font-style: italic;
+}
+
+.demo-button {
+    background: linear-gradient(135deg, var(--accent-cyan), var(--success-green));
+    border: none;
+    color: var(--bg-primary);
+    padding: 1.5rem 4rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.demo-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+}
+
+.demo-arrow {
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.demo-button:hover .demo-arrow {
+    transform: translateX(5px);
+}
+
+/* Slide 12: Conclusion */
+.conclusion-list {
+    list-style: none;
+    padding: 0;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.conclusion-list li {
+    position: relative;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    padding: 1rem 0 1rem 2rem;
+    line-height: 1.5;
+}
+
+.conclusion-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--success-green);
+    font-weight: bold;
+}
+
+.conclusion-icon {
+    margin-top: 2rem;
+}
+
+.shield-icon {
+    font-size: 4rem;
+    filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.3));
+}
+
+/* Navigation Controls */
+.presentation-nav {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    z-index: 100;
+}
+
+.nav-arrow {
+    background: var(--bg-secondary);
+    border: 1px solid var(--bg-tertiary);
+    color: var(--text-primary);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.nav-arrow:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+    border-color: var(--accent-cyan);
+}
+
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.progress-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.progress-dot:hover {
+    background: var(--text-secondary);
+}
+
+.progress-dot.active {
+    background: var(--accent-cyan);
+    transform: scale(1.2);
+}
+
+.progress-dot.visited {
+    background: var(--success-green);
+}
+
+.slide-counter {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-family: monospace;
+}
+
+/* Exit and Fullscreen buttons */
+.presentation-exit,
+.presentation-fullscreen {
+    position: fixed;
+    top: 1.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--bg-tertiary);
+    color: var(--text-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.presentation-exit {
+    right: 1.5rem;
+}
+
+.presentation-fullscreen {
+    right: 4.5rem;
+}
+
+.presentation-exit:hover,
+.presentation-fullscreen:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+    border-color: var(--accent-cyan);
+}
+
+/* Language Switcher in Presentation */
+.presentation-lang {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 100;
+}
+
+.presentation-lang .language-switcher {
+    position: relative;
+}
+
+.presentation-lang .lang-toggle {
+    background: var(--bg-secondary);
+    border: 1px solid var(--bg-tertiary);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+.presentation-lang .lang-toggle:hover {
+    border-color: var(--accent-cyan);
+    color: var(--text-primary);
+}
+
+.presentation-lang .lang-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--bg-tertiary);
+    border-radius: 8px;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.presentation-lang .lang-dropdown.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.presentation-lang .lang-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.presentation-lang .lang-option:hover {
+    background: var(--bg-tertiary);
+}
+
+.presentation-lang .lang-option.active {
+    color: var(--accent-cyan);
+}
+
+.presentation-lang .lang-code {
+    font-weight: bold;
+}
+
+.presentation-lang .lang-arrow {
+    font-size: 0.75rem;
+    transition: transform 0.3s;
+}
+
+/* Responsive Presentation Styles */
+@media (max-width: 1024px) {
+    .slide {
+        padding: 3rem 4rem;
+    }
+
+    .slide-title {
+        font-size: 2.5rem;
+    }
+
+    .slide-title-main {
+        font-size: 2.5rem;
+    }
+
+    .two-columns {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .mx-slide {
+        grid-template-columns: 1fr;
+    }
+
+    .charts-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .dnssec-components {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .attack-timeline {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .slide {
+        padding: 5rem 1.5rem 6rem 1.5rem;
+    }
+
+    .slide-content {
+        max-height: calc(100vh - 11rem);
+        overflow-y: auto;
+        padding-bottom: 1rem;
+    }
+
+    .slide-title {
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .slide-title-main {
+        font-size: 1.75rem;
+    }
+
+    .slide-text {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .team-list {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .domain-button {
+        padding: 1rem 1.5rem;
+        font-size: 1.25rem;
+    }
+
+    .demo-button {
+        padding: 1rem 2rem;
+        font-size: 1.25rem;
+    }
+
+    .progress-dots {
+        display: none;
+    }
+
+    .presentation-nav {
+        bottom: 1rem;
+    }
+
+    .presentation-exit,
+    .presentation-fullscreen {
+        top: 1rem;
+    }
+
+    .presentation-exit {
+        right: 1rem;
+    }
+
+    .presentation-fullscreen {
+        right: 3.5rem;
+    }
+
+    .presentation-lang {
+        top: 1rem;
+        left: 1rem;
+    }
+
+    .limitations-list {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .timeline-item {
+        margin: 1rem 0;
+        display: block;
+    }
+
+    .timeline-line {
+        display: none;
+    }
+
+    /* DNSSEC components for mobile */
+    .dnssec-components {
+        gap: 1rem;
+    }
+
+    .dnssec-item {
+        padding: 1rem;
+        min-width: auto;
+    }
+
+    .record-type {
+        font-size: 1.25rem;
+    }
+
+    .record-desc {
+        font-size: 0.9rem;
+    }
+
+    /* Objective box for mobile */
+    .objective-box {
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+
+    .objective-box p {
+        font-size: 1rem;
+    }
+
+    /* Attack timeline for mobile */
+    .attack-item {
+        padding: 1rem 1.5rem;
+    }
+
+    .attack-year {
+        font-size: 1.5rem;
+    }
+
+    /* Metrics charts for mobile */
+    .charts-container {
+        gap: 1.5rem;
+    }
+
+    .pie-chart {
+        width: 160px;
+        height: 160px;
+    }
+
+    .chart-wrapper h3 {
+        font-size: 1.1rem;
+    }
+
+    .metrics-finding {
+        padding: 1rem;
+    }
+
+    .metrics-finding p {
+        font-size: 0.95rem;
+    }
+
+    /* Recommendations list for mobile */
+    .recommendations-list li {
+        font-size: 1rem;
+        padding: 0.75rem 0;
+    }
+
+    /* Conclusion list for mobile */
+    .conclusion-list li {
+        font-size: 1.1rem;
+        padding: 0.75rem 0 0.75rem 1.5rem;
+    }
+
+    /* Methodology for mobile */
+    .methodology-list li {
+        font-size: 1.1rem;
+        padding: 0.5rem 0;
+    }
+
+    .methodology-source p {
+        font-size: 1rem;
+    }
+
+    /* MX slide for mobile */
+    .mx-points li {
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .mx-flag {
+        height: 100px;
+    }
+
+    /* History block for mobile */
+    .history-block {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .history-block p {
+        font-size: 1rem;
+    }
+}
+
+
+/* Demo Banner Styles */
+.demo-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 44px;
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+    border-bottom: 2px solid var(--accent-cyan);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    z-index: 1100;
+    transform: translateY(0);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.demo-banner.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.demo-banner-text {
+    color: var(--accent-cyan);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.demo-banner-button {
+    background: transparent;
+    border: 1px solid var(--text-secondary);
+    color: var(--text-primary);
+    padding: 0.35rem 1rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.demo-banner-button:hover {
+    background: var(--accent-cyan);
+    border-color: var(--accent-cyan);
+    color: var(--bg-primary);
+}
+
+.demo-banner-arrow {
+    transition: transform 0.2s ease;
+}
+
+.demo-banner-button:hover .demo-banner-arrow {
+    transform: translateX(3px);
+}
+
+/* Adjust navbar position when demo banner is visible */
+body.demo-mode .navbar {
+    top: 44px;
+}
+
+body.demo-mode .container.with-navbar {
+    padding-top: calc(80px + 44px);
 }

@@ -218,5 +218,100 @@
       "medium": "Confianza media",
       "low": "Baja confianza"
     }
+  },
+  "presentation": {
+    "pageTitle": "DNSSEC - Presentación",
+    "button": "Presentación",
+    "slide1": {
+      "title": "DNSSEC CADENA DE CONFIANZA",
+      "date": "Martes 3 Diciembre 2025",
+      "team": "Equipo 2",
+      "course": "Aplicación de Criptografía y Seguridad"
+    },
+    "slide2": {
+      "title": "DNS",
+      "description": "DNS traduce nombres de dominio a direcciones IP mediante consultas recursivas",
+      "headerType": "Registro",
+      "headerFunction": "Función",
+      "soaDesc": "Autoridad de la zona, servidor primario",
+      "aDesc": "Direcciones IPv4 e IPv6",
+      "nsDesc": "Servidores de nombres autoritativos",
+      "mxDesc": "Servidores de correo del dominio",
+      "cnameDesc": "Alias hacia otro dominio",
+      "txtDesc": "Metadatos (SPF, DKIM, verificación)"
+    },
+    "slide3": {
+      "title": "DISEÑO ORIGINAL SIN SEGURIDAD",
+      "intro": "DNS nació en 1987 optimizado para operación (RFCs 1034/1035)",
+      "limitationsTitle": "Limitaciones históricas:",
+      "limitation1": "Mensajes cortos (512 bytes)",
+      "limitation2": "Uso de UDP",
+      "limitation3": "Foco en eficiencia",
+      "consequencesTitle": "Consecuencias: vectores de suplantación"
+    },
+    "slide4": {
+      "title": "¿QUÉ ES DNSSEC?",
+      "definition": "Añade firmas digitales a respuestas DNS para validar origen e integridad",
+      "cryptoTitle": "Basado en criptografía de clave pública:",
+      "rrsig": "Firmas digitales",
+      "ds": "Registros de delegado",
+      "nsec": "Pruebas de no-existencia",
+      "objective": "Objetivo: construir cadena de confianza desde la raíz hasta el registro final"
+    },
+    "slide5": {
+      "title": "HISTORIA",
+      "obsolete": "Primeras versiones obsoletas",
+      "operational": "Estándar operativo",
+      "update": "Actualización reciente"
+    },
+    "slide6": {
+      "title": "DOMINIO .MX",
+      "point1": ".mx está firmado a nivel de TLD (permite validación desde la raíz)",
+      "point2": "Sin embargo, la adopción a nivel de registrante es voluntaria: no todos los dominios .mx están firmados",
+      "opportunity": "Oportunidad: medir adopción, detectar configuraciones débiles o errores operativos"
+    },
+    "slide7": {
+      "title": "METODOLOGÍA",
+      "source": "Fuente: lecturas públicas (OSINT) realizadas desde un servidor recursivo — no se requiere autorización",
+      "measureTitle": "¿Qué medimos por dominio?",
+      "measure1": "¿Está firmado? ¿Valida end-to-end?",
+      "measure2": "Algoritmos y tamaños de clave (RSA / ECDSA / ED25519)",
+      "measure3": "Tipo de prueba de no-existencia: NSEC vs NSEC3",
+      "measure4": "Problemas comunes: firmas vencidas, DS desalineado, TTL anómalos"
+    },
+    "slide8": {
+      "title": "DOMINIOS SAMPLE",
+      "subtitle": "Click en un dominio para analizar en vivo"
+    },
+    "slide9": {
+      "title": "MÉTRICAS",
+      "chainComplete": "Cadena Completa",
+      "dnssecEnabled": "DNSSEC Habilitado",
+      "finding": "Hallazgo común: Firmas expiradas o caducidades mal gestionadas"
+    },
+    "slide10": {
+      "title": "RECOMENDACIONES",
+      "rec1": "Implementar DNSSEC con algoritmos modernos (preferir ECDSA/ED25519 cuando sea posible)",
+      "rec2": "Mantener políticas de rotación de claves y monitorización de caducidades",
+      "rec3": "Verificar alineamiento DS al publicar cambios en registrar/host",
+      "rec4": "Evitar TTL excesivos para RR de firma; usar valores coherentes con operaciones",
+      "rec5": "Validaciones periódicas (auditorías OSINT desde servidores recursivos)"
+    },
+    "slide11": {
+      "title": "PLAN DE DEMO",
+      "subtitle": "Demo insana",
+      "button": "Iniciar Demo"
+    },
+    "slide12": {
+      "title": "CONCLUSIÓN",
+      "point1": "DNSSEC protege contra la suplantación end-to-end",
+      "point2": "Aunque .MX ya está firmado, la adopción entre registrantes sigue siendo irregular",
+      "point3": "Para fortalecer el ecosistema, se requieren políticas claras, auditorías constantes y capacitación técnica",
+      "point4": "Este reto ofrece una forma práctica y ética de medir y mejorar la salud criptográfica del .MX"
+    }
+  },
+  "demo": {
+    "bannerText": "Demo en Vivo",
+    "returnButton": "Presiona P o haz clic para volver"
   }
 }
