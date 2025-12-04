@@ -224,7 +224,7 @@
     "button": "Presentación",
     "slide1": {
       "title": "DNSSEC CADENA DE CONFIANZA",
-      "date": "Martes 3 Diciembre 2025",
+      "date": "Martes 3 de Diciembre de 2025",
       "team": "Equipo 2",
       "course": "Aplicación de Criptografía y Seguridad"
     },
@@ -280,8 +280,8 @@
       "measure4": "Problemas comunes: firmas vencidas, DS desalineado, TTL anómalos"
     },
     "slide8": {
-      "title": "DOMINIOS SAMPLE",
-      "subtitle": "Click en un dominio para analizar en vivo"
+      "title": "DOMINIOS DE EJEMPLO",
+      "subtitle": "Haz clic en un dominio para analizar en vivo"
     },
     "slide9": {
       "title": "MÉTRICAS",
@@ -308,6 +308,11 @@
       "point2": "Aunque .MX ya está firmado, la adopción entre registrantes sigue siendo irregular",
       "point3": "Para fortalecer el ecosistema, se requieren políticas claras, auditorías constantes y capacitación técnica",
       "point4": "Este reto ofrece una forma práctica y ética de medir y mejorar la salud criptográfica del .MX"
+    },
+    "slide13": {
+      "title": "¡GRACIAS!",
+      "subtitle": "Por su atención",
+      "questions": "¿Preguntas?"
     }
   },
   "demo": {

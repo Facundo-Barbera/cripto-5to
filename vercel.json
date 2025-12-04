@@ -55,6 +55,10 @@
       "dest": "/static/$1"
     },
     {
+      "src": "/presentation",
+      "dest": "/static/presentation.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/static/$1"
     }
