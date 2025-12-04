@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1764809629.54322 "/home/val/Projects/DNSSEC-Analyzer/docs/reportes_finales/version_2/reporte_tecnico/main.tex" "main.pdf" "main" 1764809630.81733 0
-  "/home/val/Projects/DNSSEC-Analyzer/docs/reportes_finales/version_2/reporte_tecnico/main.tex" 1764809506.46889 34315 4caed45b9ba44b6b445c44dd10d8cc53 ""
+["pdflatex"] 1764810839.16864 "/home/val/Projects/DNSSEC-Analyzer/docs/reportes_finales/version_2/reporte_tecnico/main.tex" "main.pdf" "main" 1764810840.48555 0
+  "/home/val/Projects/DNSSEC-Analyzer/docs/reportes_finales/version_2/reporte_tecnico/main.tex" 1764809633.06095 34315 4caed45b9ba44b6b445c44dd10d8cc53 ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1755987285 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx1095.tfm" 1755987285 3584 21b378cca2e40816b0e6d74a4dc98f04 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm" 1755987285 3584 402da0b29eafbad07963b1224b222f18 ""
@@ -88,10 +88,10 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1755987285 42087 b0f9697c952c8f5a8eede4134282cb0d ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1764734265 5306876 69c328245ae101f6bc10b01e1f2bf9d5 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1764734239 2030631 209b3bbcce5946b20d4aa7f8d0d435b0 ""
-  "main.aux" 1764809630.68295 6188 8fca0b44b4d712bfef4179ef343494df "pdflatex"
-  "main.out" 1764809630.68695 9045 9f41b15c5b0310d3dbf68bcbb5c29c77 "pdflatex"
-  "main.tex" 1764809506.46889 34315 4caed45b9ba44b6b445c44dd10d8cc53 ""
-  "main.toc" 1764809630.68695 3865 5d6ea8e0dd1eefd9f0c9ececde2d3c3a "pdflatex"
+  "main.aux" 1764810840.32179 6188 8fca0b44b4d712bfef4179ef343494df "pdflatex"
+  "main.out" 1764810840.32579 9045 9f41b15c5b0310d3dbf68bcbb5c29c77 "pdflatex"
+  "main.tex" 1764809633.06095 34315 4caed45b9ba44b6b445c44dd10d8cc53 ""
+  "main.toc" 1764810840.32679 3865 5d6ea8e0dd1eefd9f0c9ececde2d3c3a "pdflatex"
   (generated)
   "main.aux"
   "main.log"
