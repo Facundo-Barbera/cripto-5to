@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from analyzer.rfc_validator import RFCValidator
 from analyzer.generator import sanitize_domain, DNSSECAnalyzer
@@ -13,20 +13,48 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 CORS(app)
 
 # In-memory storage for batch jobs
 batch_jobs = {}
 
+# Serve HTML files from static folder (unified with Vercel)
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return send_from_directory('static', 'index.html')
 
 
 @app.route('/presentation')
 def presentation():
-    return render_template('presentation.html')
+    return send_from_directory('static', 'presentation.html')
+
+
+# Path rewrites to match Vercel configuration
+# This allows HTML to use root paths like /css/, /js/, /locales/
+@app.route('/css/<path:filename>')
+def serve_css(filename):
+    return send_from_directory('static/css', filename)
+
+
+@app.route('/js/<path:filename>')
+def serve_js(filename):
+    return send_from_directory('static/js', filename)
+
+
+@app.route('/locales/<path:filename>')
+def serve_locales(filename):
+    return send_from_directory('static/locales', filename)
+
+
+@app.route('/favicon.png')
+def serve_favicon():
+    return send_from_directory('static', 'favicon.png')
+
+
+@app.route('/logo.png')
+def serve_logo():
+    return send_from_directory('static', 'logo.png')
 
 @app.route('/api/analyze', methods=['POST'])
 def analyze():

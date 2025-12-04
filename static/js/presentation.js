@@ -2,7 +2,7 @@
 // Navigation, keyboard controls, D3.js charts, and interactivity
 
 let currentSlide = 1;
-const totalSlides = 12;
+const totalSlides = 13;
 let chartsRendered = false;
 
 // Initialize presentation when DOM is ready
