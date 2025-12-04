@@ -2966,6 +2966,68 @@ header h1 {
     border-color: var(--accent-cyan);
 }
 
+/* Demo Iframe Overlay (preserves fullscreen) */
+.demo-iframe-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+    background: var(--bg-primary);
+    display: flex;
+    flex-direction: column;
+}
+
+.demo-iframe-overlay.hidden {
+    display: none;
+}
+
+.demo-iframe-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--success-green) 100%);
+    color: var(--bg-primary);
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.demo-iframe-text {
+    font-size: 0.9rem;
+}
+
+.demo-iframe-close {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    color: var(--bg-primary);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.demo-iframe-close:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.demo-iframe-arrow {
+    font-size: 1rem;
+}
+
+.demo-iframe {
+    flex: 1;
+    width: 100%;
+    border: none;
+    background: var(--bg-primary);
+}
+
 /* Language Switcher in Presentation */
 .presentation-lang {
     position: fixed;
