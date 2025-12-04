@@ -21,7 +21,6 @@ def sanitize_domain(input_str: str) -> str:
     """
     Sanitize user input to extract clean domain.
     - Strip protocol (http://, https://)
-    - Strip www. prefix
     - Strip trailing slashes and paths
     - Convert to lowercase
     """
@@ -31,8 +30,6 @@ def sanitize_domain(input_str: str) -> str:
     domain = input_str.strip().lower()
     # Remove protocol
     domain = re.sub(r'^https?://', '', domain)
-    # Remove www. prefix
-    domain = re.sub(r'^www\.', '', domain)
     # Remove path/query/fragment
     domain = domain.split('/')[0].split('?')[0].split('#')[0]
     # Remove any trailing dots
