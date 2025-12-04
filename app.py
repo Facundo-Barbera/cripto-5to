@@ -23,6 +23,11 @@ batch_jobs = {}
 def index():
     return render_template('index.html')
 
+
+@app.route('/presentation')
+def presentation():
+    return render_template('presentation.html')
+
 @app.route('/api/analyze', methods=['POST'])
 def analyze():
     data = request.get_json()

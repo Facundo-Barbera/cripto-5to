@@ -218,5 +218,100 @@
       "medium": "Medium confidence",
       "low": "Low confidence"
     }
+  },
+  "presentation": {
+    "pageTitle": "DNSSEC - Presentation",
+    "button": "Presentation",
+    "slide1": {
+      "title": "DNSSEC CHAIN OF TRUST",
+      "date": "Tuesday, December 3, 2025",
+      "team": "Team 2",
+      "course": "Cryptography and Security Application"
+    },
+    "slide2": {
+      "title": "DNS",
+      "description": "DNS translates domain names to IP addresses through recursive queries",
+      "headerType": "Record",
+      "headerFunction": "Function",
+      "soaDesc": "Zone authority, primary server",
+      "aDesc": "IPv4 and IPv6 addresses",
+      "nsDesc": "Authoritative name servers",
+      "mxDesc": "Domain mail servers",
+      "cnameDesc": "Alias to another domain",
+      "txtDesc": "Metadata (SPF, DKIM, verification)"
+    },
+    "slide3": {
+      "title": "ORIGINAL DESIGN WITHOUT SECURITY",
+      "intro": "DNS was born in 1987 optimized for operation (RFCs 1034/1035)",
+      "limitationsTitle": "Historical limitations:",
+      "limitation1": "Short messages (512 bytes)",
+      "limitation2": "UDP usage",
+      "limitation3": "Focus on efficiency",
+      "consequencesTitle": "Consequences: spoofing vectors"
+    },
+    "slide4": {
+      "title": "WHAT IS DNSSEC?",
+      "definition": "Adds digital signatures to DNS responses to validate origin and integrity",
+      "cryptoTitle": "Based on public key cryptography:",
+      "rrsig": "Digital signatures",
+      "ds": "Delegation records",
+      "nsec": "Non-existence proofs",
+      "objective": "Objective: build chain of trust from the root to the final record"
+    },
+    "slide5": {
+      "title": "HISTORY",
+      "obsolete": "First obsolete versions",
+      "operational": "Operational standard",
+      "update": "Recent update"
+    },
+    "slide6": {
+      "title": ".MX DOMAIN",
+      "point1": ".mx is signed at TLD level (allows validation from the root)",
+      "point2": "However, adoption at registrant level is voluntary: not all .mx domains are signed",
+      "opportunity": "Opportunity: measure adoption, detect weak configurations or operational errors"
+    },
+    "slide7": {
+      "title": "METHODOLOGY",
+      "source": "Source: public readings (OSINT) performed from a recursive server — no authorization required",
+      "measureTitle": "What do we measure per domain?",
+      "measure1": "Is it signed? Does it validate end-to-end?",
+      "measure2": "Algorithms and key sizes (RSA / ECDSA / ED25519)",
+      "measure3": "Type of non-existence proof: NSEC vs NSEC3",
+      "measure4": "Common problems: expired signatures, misaligned DS, anomalous TTLs"
+    },
+    "slide8": {
+      "title": "SAMPLE DOMAINS",
+      "subtitle": "Click on a domain to analyze live"
+    },
+    "slide9": {
+      "title": "METRICS",
+      "chainComplete": "Chain Complete",
+      "dnssecEnabled": "DNSSEC Enabled",
+      "finding": "Common finding: Expired signatures or poorly managed expirations"
+    },
+    "slide10": {
+      "title": "RECOMMENDATIONS",
+      "rec1": "Implement DNSSEC with modern algorithms (prefer ECDSA/ED25519 when possible)",
+      "rec2": "Maintain key rotation policies and expiration monitoring",
+      "rec3": "Verify DS alignment when publishing changes in registrar/host",
+      "rec4": "Avoid excessive TTLs for signature RRs; use values consistent with operations",
+      "rec5": "Periodic validations (OSINT audits from recursive servers)"
+    },
+    "slide11": {
+      "title": "DEMO PLAN",
+      "subtitle": "Insane demo",
+      "button": "Start Demo"
+    },
+    "slide12": {
+      "title": "CONCLUSION",
+      "point1": "DNSSEC protects against end-to-end spoofing",
+      "point2": "Although .MX is already signed, adoption among registrants remains irregular",
+      "point3": "To strengthen the ecosystem, clear policies, constant audits and technical training are required",
+      "point4": "This challenge offers a practical and ethical way to measure and improve the cryptographic health of .MX"
+    }
+  },
+  "demo": {
+    "bannerText": "Live Demo",
+    "returnButton": "Press P or click to return"
   }
 }
