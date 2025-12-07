@@ -7,34 +7,66 @@ A school project to analyze and validate DNSSEC configurations for domain names,
 - Checks if a domain has DNSSEC enabled
 - Validates the chain of trust (DS, DNSKEY, RRSIG records)
 - Provides a web interface to view results
-
-## Quick Start
-
-```bash
-pip install -r requirements.txt
-python app.py
-```
+- Includes CLI tools for batch analysis and RFC validation
 
 ## Tech Stack
 
 - Python / Flask
 - dnspython for DNS queries
 
-## Deployment
+## Running the Web Interface
+
+The web frontend should be accessed via:
+
+### Vercel (Recommended for Production)
 
 Hosted on [Vercel](https://vercel.com) as a serverless application:
 - API endpoints run as Python serverless functions (`/api/*`)
 - Static frontend served from `/static`
 
-### Docker
+### Docker (Recommended for Local Development)
 
-Run locally with Docker Compose (includes hot-reload):
+Run the full web application locally with Docker Compose (includes hot-reload):
 
 ```bash
 docker compose up
 ```
 
 App will be available at `http://localhost:5050`
+
+## Running CLI Tools Locally
+
+For local command-line analysis, use the CLI tools in the `analyzer/` directory:
+
+### DNSSEC Batch Analyzer
+
+Analyze multiple domains from a file and generate detailed reports:
+
+```bash
+pip install -r requirements.txt
+python analyzer/generator.py <domains_file.txt> [output_directory]
+```
+
+Example:
+```bash
+python analyzer/generator.py domains_mx.txt dnssec_reports
+```
+
+### RFC Validator
+
+Validate a single domain against DNSSEC RFC compliance:
+
+```bash
+pip install -r requirements.txt
+python analyzer/rfc_validator.py <domain>
+```
+
+Example:
+```bash
+python analyzer/rfc_validator.py unam.mx
+```
+
+This will generate a detailed compliance report and save it as `{domain}_rfc_validation.json`.
 
 ## Credits
 
