@@ -112,40 +112,16 @@ Un dominio protegido con DNSSEC confirma su autenticidad y reduce con claridad l
 \end{figure}
 
 \section{Evaluaci\'on por sector}
-\subsection{Gobierno}
-Aunque gob.mx y PEMEX demostraron una adopci\'on ejemplar, la mayor\'ia de las dependencias federales y estatales siguen operando sin protecci\'on DNSSEC activa. Esta brecha es especialmente cr\'itica debido al volumen de datos personales, expedientes sensibles y tr\'amites que residen en esos portales.
+\textbf{Gobierno.} Aunque gob.mx y PEMEX exhiben una implementaci\'on ejemplar de DNSSEC, la mayor\'ia de las dependencias federales y estatales contin\'uan con la cadena de confianza abierta o inexistente. Esta situaci\'on expone expedientes sensibles, tr\'amites digitales y sistemas de recaudo, por lo que el rezago gubernamental debe convertirse en prioridad nacional.
 
-\subsection{Educaci\'on}
-La UNAM mantiene una protecci\'on completa, pero la realidad del resto de las instituciones acad\'emicas es heterog\'enea y, en muchos casos, inexistente. Las plataformas educativas, los correos institucionales y los servicios digitales asociados contin\'uan expuestos a manipulaciones de DNS que podr\'ian comprometer calificaciones, pagos o datos de investigaci\'on.
+\textbf{Educaci\'on.} La UNAM es el referente positivo y demuestra que la firma de la zona .mx es viable dentro del ecosistema acad\'emico. Sin embargo, instituciones como IPN, UDG y la mayor parte de las universidades privadas siguen sin publicar su DS o ni siquiera han iniciado el proceso, de modo que plataformas escolares, correos y servicios de pago permanecen vulnerables a manipulación.
 
-\subsection{Sector financiero}
-Ninguno de los bancos analizados tiene DNSSEC activo, lo que posiciona a este sector como el de mayor riesgo operativo para el pa\'is. La falta de firmas digitales permite que contrase\~nas, transferencias, datos personales y estados financieros puedan ser interceptados mediante ataques de redireccionamiento altamente plausibles.
+\textbf{Sector financiero.} Ninguno de los bancos analizados cuenta con DNSSEC habilitado, lo que convierte a esta industria en la m\'as expuesta para la ciudadan\'ia. La ausencia de firmas digitales facilita ataques de redireccionamiento que pueden derivar en robo de credenciales, transferencias fraudulentas o interrupciones en los canales de banca en l\'inea.
 
-\subsection{Sector comercial y medios}
-Telecomunicaciones, supermercados y conglomerados medi\'aticos operan sin la protecci\'on, por lo que cada visita a sus plataformas representa una oportunidad para que un atacante suplante identidad y reproduzca campa\~nas de phishing en masa. La afectaci\'on potencial alcanza a millones de consumidores que realizan compras o consumen informaci\'on diariamente.
+\textbf{Sector comercial y medios.} Telecomunicaciones, supermercados y conglomerados medi\'aticos operan sin la protecci\'on criptogr\'afica, por lo que cada campa\~na de marketing, portal de compras o sitio de noticias se convierte en un vector de phishing altamente veros\'imil. Esta brecha impacta directamente al consumidor final, que interact\'ua con estos servicios de manera cotidiana sin verificaci\'on de identidad.
 
 \section{Conclusiones}
 La adopci\'on de DNSSEC en M\'exico existe, pero sigue siendo marginal y se concentra en muy pocos casos de \'exito. La dificultad no reside en instalar la tecnolog\'ia sino en cerrar adecuadamente la cadena de confianza y mantenerla vigente, tarea que hoy la mayor\'ia de los operadores no ha logrado. Mientras los sectores cr\'iticos carezcan de esta protecci\'on, los datos personales y financieros de la poblaci\'on continuar\'an expuestos, a pesar de que ya se demostr\'o que la implementaci\'on estable es factible y replicable. En consecuencia, ofrecer un servicio digital sin DNSSEC equivale a renunciar a una capa b\'asica de verificaci\'on de identidad.
-
-\section{Conclusiones particulares}
-\textbf{Alberto Boughton Reyes}\\
-Integr\'e el an\'alisis y las m\'etricas que respaldan cada conclusi\'on. Este trabajo me permiti\'o enlazar los conceptos de criptograf\'ia vistos en clase con la redacci\'on de hallazgos ejecutivos, entendiendo por qu\'e un registro DS ausente invalida todo el esfuerzo de firma y c\'omo eso se traduce en riesgo para los usuarios.
-
-\medskip
-\textbf{Valeria Garc\'ia Hern\'andez}\\
-Lider\'e las consultas DNSSEC y la validaci\'on con herramientas de l\'inea de comandos. Aprend\'i a diagnosticar paso a paso la cadena de confianza y a comparar las respuestas autenticadas con lo observado en los validadores externos, habilidades que fortalecen mi perfil de ingenier\'ia en ciencia de datos con una base s\'olida de operaciones seguras.
-
-\medskip
-\textbf{Facundo Bautista Barbera}\\
-Desarroll\'e la automatizaci\'on del pipeline y los procesamientos en JSON. Esto me dio pr\'actica en la instrumentaci\'on de \texttt{dnspython} y en la trazabilidad de fallos criptogr\'aficos, demostrando c\'omo la programaci\'on aplicada simplifica auditor\'ias de gran escala en contextos de ciberseguridad.
-
-\medskip
-\textbf{Emiliano Ruiz L\'opez}\\
-Analic\'e los algoritmos y tama\~nos de clave detectados. La experiencia reforz\'o mi comprensi\'on de por qu\'e ED25519 o RSA de 2048 bits representan un equilibrio entre rendimiento y resistencia criptogr\'afica, y c\'omo justificarlos ante un socio formador que busca decisiones t\'ecnicas basadas en evidencia.
-
-\medskip
-\textbf{Daniel Garnelo Mart\'inez}\\
-Redact\'e las buenas pr\'acticas y el an\'alisis de riesgos con base en los RFC relevantes. Practiqu\'e la traducci\'on de requisitos t\'ecnicos a recomendaciones ejecutivas, algo indispensable para comunicar proyectos de ciberseguridad a perfiles no t\'ecnicos dentro y fuera del aula.
 
 \section{Taxonom\'ia de contribuciones}
 \textbf{Contributor Roles Taxonomy (CRediT)}
@@ -168,6 +144,26 @@ Clasificaci\'on de algoritmos, tama\~nos de clave y evaluaci\'on criptogr\'afica
 \medskip
 \textbf{Daniel Garnelo Mart\'inez}\\
 Redacci\'on t\'ecnica, integraci\'on de RFCs y elaboraci\'on de recomendaciones.
+
+\section{Conclusiones particulares}
+\textbf{Alberto Boughton Reyes}\\
+Integr\'e el an\'alisis y las m\'etricas que respaldan cada conclusi\'on. Este trabajo me permiti\'o enlazar los conceptos de criptograf\'ia vistos en clase con la redacci\'on de hallazgos ejecutivos, entendiendo por qu\'e un registro DS ausente invalida todo el esfuerzo de firma y c\'omo eso se traduce en riesgo para los usuarios.
+
+\medskip
+\textbf{Valeria Garc\'ia Hern\'andez}\\
+Lider\'e las consultas DNSSEC y la validaci\'on con herramientas de l\'inea de comandos. Aprend\'i a diagnosticar paso a paso la cadena de confianza y a comparar las respuestas autenticadas con lo observado en los validadores externos, habilidades que fortalecen mi perfil de ingenier\'ia en ciencia de datos con una base s\'olida de operaciones seguras.
+
+\medskip
+\textbf{Facundo Bautista Barbera}\\
+Desarroll\'e la automatizaci\'on del pipeline y los procesamientos en JSON. Esto me dio pr\'actica en la instrumentaci\'on de \texttt{dnspython} y en la trazabilidad de fallos criptogr\'aficos, demostrando c\'omo la programaci\'on aplicada simplifica auditor\'ias de gran escala en contextos de ciberseguridad.
+
+\medskip
+\textbf{Emiliano Ruiz L\'opez}\\
+Analic\'e los algoritmos y tama\~nos de clave detectados. La experiencia reforz\'o mi comprensi\'on de por qu\'e ED25519 o RSA de 2048 bits representan un equilibrio entre rendimiento y resistencia criptogr\'afica, y c\'omo justificarlos ante un socio formador que busca decisiones t\'ecnicas basadas en evidencia.
+
+\medskip
+\textbf{Daniel Garnelo Mart\'inez}\\
+Redact\'e las buenas pr\'acticas y el an\'alisis de riesgos con base en los RFC relevantes. Practiqu\'e la traducci\'on de requisitos t\'ecnicos a recomendaciones ejecutivas, algo indispensable para comunicar proyectos de ciberseguridad a perfiles no t\'ecnicos dentro y fuera del aula.
 
 \section{Recomendaciones}
 El pa\'is necesita una estrategia nacional que coloque a DNSSEC al mismo nivel que HTTPS en los reglamentos de seguridad digital. Resulta prioritario establecer lineamientos obligatorios para sectores de alto riesgo, acompa\~nados de programas de capacitaci\'on y auditor\'ias peri\'odicas que aseguren la continuidad operativa de las firmas. Desde lo t\'ecnico, cada organizaci\'on debe completar la cadena de confianza, mantener las firmas actualizadas, favorecer algoritmos modernos, habilitar validaci\'on interna y automatizar revisiones para detectar desalineaciones antes de que impacten al usuario. Por \'ultimo, se recomienda que el gobierno lidere una pol\'itica de adopci\'on gradual, que la banca incluya DNSSEC en sus requisitos regulatorios, que las universidades repliquen los modelos exitosos existentes y que las empresas integren esta medida a sus marcos de ciberseguridad corporativos.

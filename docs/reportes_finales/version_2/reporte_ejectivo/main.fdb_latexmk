@@ -1,8 +1,8 @@
 # Fdb version 4
-["pdflatex"] 1765140895.25104 "/home/val/Projects/DNSSEC-Analyzer/docs/reportes_finales/version_2/reporte_ejectivo/main.tex" "main.pdf" "main" 1765140897.72108 0
+["pdflatex"] 1765145570.59903 "/home/val/Projects/DNSSEC-Analyzer/docs/reportes_finales/version_2/reporte_ejectivo/main.tex" "main.pdf" "main" 1765145572.63738 0
   "../Requsitos/logo-nic-blue.png" 1765137643.82641 22682 cf928bdd5ff4b3ef3f600fc555ed84cb ""
   "../Requsitos/tecnologico-de-monterrey-blue.png" 1765137701.16865 107838 55e7d4b58f17df5d254700718d845d12 ""
-  "/home/val/Projects/DNSSEC-Analyzer/docs/reportes_finales/version_2/reporte_ejectivo/main.tex" 1765140894.82961 13218 e50f7f56b8a96a64799ecdc20e56b146 ""
+  "/home/val/Projects/DNSSEC-Analyzer/docs/reportes_finales/version_2/reporte_ejectivo/main.tex" 1765145567.55746 13290 98350870d9390bac916711035f4642ca ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1755987285 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm" 1755987285 3584 402da0b29eafbad07963b1224b222f18 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx1440.tfm" 1755987285 3584 13049b61b922a28b158a38aeff75ee9b ""
@@ -189,9 +189,9 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1755987285 42087 b0f9697c952c8f5a8eede4134282cb0d ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1764734265 5306876 69c328245ae101f6bc10b01e1f2bf9d5 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1764734239 2030631 209b3bbcce5946b20d4aa7f8d0d435b0 ""
-  "main.aux" 1765140897.57561 2894 97fef9e210d7381673cf19f0c30f8c5a "pdflatex"
-  "main.out" 1765140897.57861 2249 48ef566c78d2129926432772c56e074e "pdflatex"
-  "main.tex" 1765140894.82961 13218 e50f7f56b8a96a64799ecdc20e56b146 ""
+  "main.aux" 1765145572.50742 2405 c5f3725527abf56ee1e362f08685baf7 "pdflatex"
+  "main.out" 1765145572.50942 1707 03df4ea42c2e157493ac5e92828b23b2 "pdflatex"
+  "main.tex" 1765145567.55746 13290 98350870d9390bac916711035f4642ca ""
   (generated)
   "main.aux"
   "main.log"

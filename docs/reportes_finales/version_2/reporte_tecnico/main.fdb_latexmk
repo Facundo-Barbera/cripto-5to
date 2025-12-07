@@ -1,8 +1,8 @@
 # Fdb version 4
-["pdflatex"] 1765141148.92855 "/home/val/Projects/DNSSEC-Analyzer/docs/reportes_finales/version_2/reporte_tecnico/main.tex" "main.pdf" "main" 1765141152.04035 0
+["pdflatex"] 1765145579.06826 "/home/val/Projects/DNSSEC-Analyzer/docs/reportes_finales/version_2/reporte_tecnico/main.tex" "main.pdf" "main" 1765145581.77651 0
   "../Requsitos/logo-nic-blue.png" 1765137643.82641 22682 cf928bdd5ff4b3ef3f600fc555ed84cb ""
   "../Requsitos/tecnologico-de-monterrey-blue.png" 1765137701.16865 107838 55e7d4b58f17df5d254700718d845d12 ""
-  "/home/val/Projects/DNSSEC-Analyzer/docs/reportes_finales/version_2/reporte_tecnico/main.tex" 1765141145.1956 41492 cd8b6f56f8983642e3f160206d0fb411 ""
+  "/home/val/Projects/DNSSEC-Analyzer/docs/reportes_finales/version_2/reporte_tecnico/main.tex" 1765145575.42339 41227 c22ff7bee6ff47bde077f4ffe2663153 ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1755987285 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx1095.tfm" 1755987285 3584 21b378cca2e40816b0e6d74a4dc98f04 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm" 1755987285 3584 402da0b29eafbad07963b1224b222f18 ""
@@ -205,10 +205,10 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1755987285 42087 b0f9697c952c8f5a8eede4134282cb0d ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1764734265 5306876 69c328245ae101f6bc10b01e1f2bf9d5 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1764734239 2030631 209b3bbcce5946b20d4aa7f8d0d435b0 ""
-  "main.aux" 1765141151.82359 6806 0b5c4bf81c8c04e69d05a0d1509d4e7b "pdflatex"
-  "main.out" 1765141151.82759 8611 1166f4475a77d9cbc7890febf2ed4ba2 "pdflatex"
-  "main.tex" 1765141145.1956 41492 cd8b6f56f8983642e3f160206d0fb411 ""
-  "main.toc" 1765141151.82859 3704 e68fb940f970466e1c14152b552993bb "pdflatex"
+  "main.aux" 1765145581.56125 5447 864d3c101c30be25e66242196d4153cb "pdflatex"
+  "main.out" 1765145581.56535 6279 3ac70898ae9491138e49d128d64b306a "pdflatex"
+  "main.tex" 1765145575.42339 41227 c22ff7bee6ff47bde077f4ffe2663153 ""
+  "main.toc" 1765145581.56535 2745 1d981244158e172a71213c9236a8f89b "pdflatex"
   (generated)
   "main.aux"
   "main.log"

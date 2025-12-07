@@ -262,26 +262,6 @@ Sitios de gran tráfico como \texttt{walmart.com.mx}, \texttt{femsa.com.mx}, \te
 La muestra analizada demuestra que DNSSEC todavía es una excepción entre los dominios .mx. Las implementaciones exitosas confirman que la tecnología es viable y puede operar de manera estable dentro del ecosistema nacional, pero los esfuerzos se concentran en unos cuantos organismos. El principal problema técnico detectado en los dominios que sí firmaron su zona es la ausencia del registro DS, lo que rompe la cadena de confianza justo antes de alcanzar al usuario final. Sectores críticos como finanzas y comercio electrónico aún no aprovechan DNSSEC, por lo que continúan expuestos a ataques de spoofing que podrían mitigarse mediante la validación criptográfica. La existencia de configuraciones completas en PEMEX, UNAM y el portal de gobierno evidencia que existen capacidades locales para adoptar y operar DNSSEC, pero también pone de manifiesto la falta de adopción homogénea.
 
 
-\section{Conclusiones particulares}
-\textbf{Alberto Boughton Reyes}\\
-Integré el análisis, las métricas y la revisión del cumplimiento RFC. Comprendí cómo traducir indicadores criptográficos complejos en hallazgos claros para el socio formador y reforcé la importancia de documentar cada ruptura de la cadena desde el registro DS hasta la evidencia final.
-
-\medskip
-\textbf{Valeria García Hernández}\\
-Lideré las consultas DNSSEC y la validación con herramientas CLI. Practiqué la reconstrucción manual de la cadena de confianza y el contraste con validadores externos, habilidades esenciales para un ingeniero en ciencia de datos que debe garantizar la integridad de la información que analiza.
-
-\medskip
-\textbf{Facundo Bautista Barbera}\\
-Desarrollé la automatización del pipeline y los procesos de consolidación en JSON. En el camino profundicé en \texttt{dnspython}, en el manejo de respuestas NXDOMAIN/NSEC y en la generación de reportes reproducibles que facilitan auditorías masivas en ciberseguridad.
-
-\medskip
-\textbf{Emiliano Ruiz López}\\
-Evalué los algoritmos y tamaños de clave identificados. El ejercicio reforzó los criterios aprendidos en clase para justificar el uso de ED25519, RSA-2048 o ECDSA frente a configuraciones obsoletas, y me permitió explicar esas diferencias con argumentos técnicos sólidos.
-
-\medskip
-\textbf{Daniel Garnelo Martínez}\\
-Redacté la sección de buenas prácticas y el análisis de riesgos. Aprendí a navegar los RFC para sintetizar recomendaciones accionables y a comunicar cómo cada hallazgo del analizador se traduce en controles concretos para proteger la cadena DNSSEC.
-
 \section{Taxonomía de contribuciones}
 \textbf{Contributor Roles Taxonomy (CRediT)}
 
@@ -303,6 +283,26 @@ Clasificación de algoritmos, tamaños de clave y evaluación criptográfica.
 \medskip
 \textbf{Daniel Garnelo Martínez}\\
 Redacción técnica, integración de RFCs y elaboración de recomendaciones.
+
+\section{Conclusiones particulares}
+\textbf{Alberto Boughton Reyes}\\
+Integré el análisis, las métricas y la revisión del cumplimiento RFC. Comprendí cómo traducir indicadores criptográficos complejos en hallazgos claros para el socio formador y reforcé la importancia de documentar cada ruptura de la cadena desde el registro DS hasta la evidencia final.
+
+\medskip
+\textbf{Valeria García Hernández}\\
+Lideré las consultas DNSSEC y la validación con herramientas CLI. Practiqué la reconstrucción manual de la cadena de confianza y el contraste con validadores externos, habilidades esenciales para un ingeniero en ciencia de datos que debe garantizar la integridad de la información que analiza.
+
+\medskip
+\textbf{Facundo Bautista Barbera}\\
+Desarrollé la automatización del pipeline y los procesos de consolidación en JSON. En el camino profundicé en \texttt{dnspython}, en el manejo de respuestas NXDOMAIN/NSEC y en la generación de reportes reproducibles que facilitan auditorías masivas en ciberseguridad.
+
+\medskip
+\textbf{Emiliano Ruiz López}\\
+Evalué los algoritmos y tamaños de clave identificados. El ejercicio reforzó los criterios aprendidos en clase para justificar el uso de ED25519, RSA-2048 o ECDSA frente a configuraciones obsoletas, y me permitió explicar esas diferencias con argumentos técnicos sólidos.
+
+\medskip
+\textbf{Daniel Garnelo Martínez}\\
+Redacté la sección de buenas prácticas y el análisis de riesgos. Aprendí a navegar los RFC para sintetizar recomendaciones accionables y a comunicar cómo cada hallazgo del analizador se traduce en controles concretos para proteger la cadena DNSSEC.
 
 \section{Recomendaciones Específicas}
 Las siguientes recomendaciones se derivan de la evidencia obtenida y se alinean con las guías de la IETF, NIC México y operadores con experiencia en despliegues DNSSEC (IETF DNSOP Working Group, s.f.; NIC México, s.f.). Su aplicación ordenada permite cerrar brechas desde la preparación del entorno, la instalación y configuración de las firmas, hasta la operación continua y las auditorías.
@@ -329,17 +329,16 @@ En el gobierno federal conviene establecer una política que obligue a cada depe
 \newpage 
 
 \section{Anexos}
-hacer un anexo de manera mas formal 
-Los anexos consolidan la información necesaria para replicar el análisis completo, comprender los elementos de DNSSEC utilizados y revisar ejemplos concretos de salidas correctas e incorrectas.
+Los anexos consolidan la información necesaria para replicar el análisis completo, comprender los elementos de DNSSEC utilizados y revisar ejemplos concretos de salidas correctas e incorrectas. A continuación se describen los elementos clave:
 
-\subsection{Comandos utilizados para la validación manual}
+\textbf{Comandos utilizados para la validación manual.}
 La consulta \texttt{dig +dnssec dominio.mx} muestra los registros relevantes de la zona, incluidos los RRSIG cuando existen, las claves DNSKEY solicitadas por implicación y el indicador \texttt{ad} cuando el resolver valida correctamente. Para revisar exclusivamente las claves se emplea \texttt{dig dominio.mx DNSKEY +dnssec}, que permite identificar qué registros corresponden a la KSK o a la ZSK y verificar el algoritmo. La delegación segura se inspecciona mediante \texttt{dig dominio.mx DS +dnssec}; si la respuesta es nula se confirma que la cadena permanece incompleta. Los mecanismos de negación se distinguen emitiendo \texttt{dig dominio.mx NSEC +dnssec} y \texttt{dig dominio.mx NSEC3PARAM +dnssec}, lo que facilita determinar si la zona expone listados directos o hashes. Finalmente, \texttt{delv dominio.mx} ejecuta la validación completa desde la raíz y explica cualquier ruptura de la cadena.
 
-\subsection{Elementos de DNSSEC utilizados en el análisis}
+\textbf{Elementos de DNSSEC utilizados en el análisis.}
 Los registros DNSKEY contienen las claves públicas que permiten validar las firmas; la KSK firma el conjunto DNSKEY y la ZSK protege el resto de los registros. Las firmas RRSIG garantizan integridad y autenticidad de cada conjunto consultado. Los registros DS, ubicados en la zona padre, forman el vínculo criptográfico entre el dominio y su TLD; sin ellos la cadena se interrumpe. Para negar la existencia de nombres se utilizan NSEC y NSEC3: el primero enumera dominios vecinos mientras que el segundo oculta la estructura mediante hashes, ambos firmados para impedir manipulación. La cadena de confianza completa recorre la raíz, el TLD .mx, el dominio y, en su caso, los subdominios, de modo que cualquier ruptura deja al usuario sin garantía de autenticidad.
 
-\subsection{Ejemplo de salida de DNSSEC correcta}
-Un dominio con DNSSEC completo muestra una salida similar a la siguiente:
+\textbf{Ejemplo de salida de DNSSEC correcta.}
+Un dominio con DNSSEC completo muestra una respuesta similar a la siguiente:
 \begin{verbatim}
 ;; flags: qr rd ad ; AD = authenticated data
 ...
@@ -349,33 +348,26 @@ mx.         3600 IN DS <hash>
 dominio.mx. 3600 IN RRSIG A ...
 dominio.mx. 3600 IN NSEC3 ...
 \end{verbatim}
-En esta respuesta el indicador \texttt{ad} confirma que la información fue autenticada, el registro DS conecta al dominio con .mx, las firmas RRSIG se encuentran vigentes y el mecanismo NSEC3 documenta la negación de existencia.
+En esta salida el indicador \texttt{ad} confirma que la información fue autenticada, el registro DS conecta al dominio con .mx, las firmas RRSIG se encuentran vigentes y el mecanismo NSEC3 documenta la negación de existencia.
 
-\subsection{Ejemplo de cadena incompleta}
-Cuando la zona está firmada pero falta el DS en .mx, \texttt{dig} reporta las claves y firmas locales pero indica ``NO DS record found''. El analizador clasifica este escenario como \textit{Enabled / Chain Incomplete}, lo que explica por qué los resolvers validadores no pueden confiar en la respuesta a pesar de que exista DNSKEY.
+\textbf{Ejemplo de cadena incompleta.}
+Cuando la zona está firmada pero falta el DS en .mx, \texttt{dig} reporta las claves y firmas locales pero indica “NO DS record found”. El analizador clasifica este escenario como \textit{Enabled / Chain Incomplete}, lo que explica por qué los resolvers validadores no pueden confiar en la respuesta a pesar de que exista DNSKEY.
 
-\subsection{Ejemplo de dominio sin DNSSEC}
+\textbf{Ejemplo de dominio sin DNSSEC.}
 Si la zona no implementa DNSSEC, la respuesta contiene únicamente los registros tradicionales (A, AAAA, MX) y carece de DNSKEY y RRSIG. En ese caso el analizador indica \textit{DNSSEC Disabled} y el RFC Score se reduce al mínimo (0/1).
 
-\subsection{Archivos generados por el analizador}
+\textbf{Archivos generados por el analizador.}
 Cada ejecución de \texttt{generator.py} produce reportes por dominio en formato Markdown que incluyen las claves DNSKEY, las firmas RRSIG, el registro DS disponible, el tipo de NSEC o NSEC3, los algoritmos empleados, el RFC Score y el estado final. Paralelamente se genera un archivo \texttt{\_summary.json} con campos como \texttt{dnssec\_enabled}, \texttt{chain\_complete}, \texttt{rfc\_score}, \texttt{rfc\_score\_max}, \texttt{status}, \texttt{nsec\_type} y \texttt{key\_algorithms}, que sirve como base para las tablas incluidas en este reporte.
 
-\subsection{Flujos de validación utilizados por el analizador}
+\textbf{Flujos de validación utilizados por el analizador.}
 El módulo \texttt{lim\_advisor.py} evalúa cada clave para identificar el algoritmo (RSA, ECDSA, Ed25519), la longitud de la KSK y la ZSK, la correcta separación de roles y señales de uso de claves obsoletas. De forma paralela, \texttt{rfc\_validator.py} confirma la presencia de RRSIG, revisa las ventanas de vigencia, enlaza los registros DS con las DNSKEY correspondientes, valida los formatos y campos obligatorios y comprueba que exista un mecanismo autenticado de negación de existencia.
 
-\subsection{Reproducción completa del análisis}
+\textbf{Reproducción completa del análisis.}
 Para duplicar el estudio se prepara un archivo con los dominios objetivo (por ejemplo \texttt{domains.txt}), se ejecuta \texttt{python3 analyzer/generator.py domains.txt} y se revisan los resultados en la carpeta de salida, donde cada dominio tiene su reporte y el archivo \texttt{\_summary.json} ofrece la consolidación. Comparar estos datos con los descritos en este documento permite verificar que la metodología produce resultados consistentes.
 
-\subsection{Entorno Docker para despliegue}
+\textbf{Entorno Docker para despliegue.}
 \label{anexo:docker}
-Cuando se requiere levantar la aplicación completa y verificar la interfaz web local, es necesario contar con Docker Desktop instalado en el equipo (descarga disponible en \url{https://www.docker.com/products/docker-desktop/}). El proceso recomendado es el siguiente:
-\begin{enumerate}
-    \item Clonar el repositorio: \texttt{git clone https://github.com/Facundo-Barbera/DNSSEC-Analyzer.git}
-    \item Abrir Docker Desktop y asegurarse de que el demonio esté en ejecución.
-    \item Dentro de la carpeta del proyecto, ejecutar \texttt{docker compose up} para orquestar los servicios definidos.
-    \item Una vez que los contenedores estén corriendo, acceder a \url{http://localhost:5050} para interactuar con la interfaz del analizador y revisar los resultados en tiempo real.
-\end{enumerate}
-Este flujo permite replicar la experiencia del socio formador y validar que los cambios realizados en el código se reflejen en la plataforma sin necesidad de configurar manualmente todas las dependencias.
+Cuando se requiere levantar la aplicación completa y verificar la interfaz web local, es necesario contar con Docker Desktop instalado en el equipo (descarga disponible en \url{https://www.docker.com/products/docker-desktop/}). El proceso recomendado es clonar el repositorio (\texttt{git clone https://github.com/Facundo-Barbera/DNSSEC-Analyzer.git}), abrir Docker Desktop para asegurarse de que el demonio esté activo, ejecutar \texttt{docker compose up} dentro de la carpeta del proyecto y acceder finalmente a \url{http://localhost:5050}. Este flujo permite replicar la experiencia del socio formador y validar que los cambios realizados en el código se reflejen en la plataforma sin necesidad de configurar manualmente todas las dependencias.
 
 \section{Repositorios y código utilizado}\label{repositorio}
 El análisis se apoya en el repositorio DNSSEC Analyzer disponible en la rama Reportes de \url{https://github.com/Facundo-Barbera/DNSSEC-Analyzer/tree/Reportes}. La estructura incluye los módulos \texttt{analyzer/generator.py}, \texttt{analyzer/lim\_advisor.py} y \texttt{analyzer/rfc\_validator.py}, además de los reportes en Markdown y el archivo \texttt{\_summary.json} que alimenta las tablas.
