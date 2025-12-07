@@ -1,0 +1,6 @@
+1. En el reporte técnico falta detallar con mayor precisión las actividades realizadas; la estructura existe pero requiere más contenido descriptivo.
+2. Las portadas de ambos documentos deben incluir al socio formador (NIC México) y a César Steve Salas Santos.
+3. Verificar el paginado, asegurar citas APA dentro del texto y evitar deformaciones en tablas/figuras, describiéndolas y referenciándolas explícitamente (por ejemplo: “En la Tabla 1…”); también se esperaban figuras.
+4. Corregir la redacción que sugiere que NIC México administra todos los ccTLD; solo gestiona el TLD .mx.
+5. En el reporte ejecutivo se solicita incluir el árbol DNS (o equivalente) con ejemplos y estadísticas que respalden los resultados, explicando cómo la herramienta ayuda al socio formador sin entrar en exceso técnico.
+6. Incluir las reflexiones del equipo y las individuales; sin la reflexión individual no se puede asignar el 40 % de la calificación correspondiente a los reportes.

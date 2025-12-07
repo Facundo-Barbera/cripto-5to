@@ -1,0 +1,13 @@
+Les doy mis observaciones. 
+
+En el reporte técnico, esperaba más detalles de la descripción de lo que hicieron. Parece que tienen la estructura, pero falta contenido. Sean detallados.
+
+Portadas ambos documentos. Falta incluir el nombre del socio formador (NIC México) y el nombre de Steve (César Steve Salas Santos).
+
+Estructura. No vi paginado del documento. Cuiden esto. También las citas, que deben ir en formato APA en el documento (aparte de enlistarlas al final del mismo). Cuiden que las tablas y figuras no se deformen. De hecho, esperaba ver figuras, y aseguren que figuras y tablas estén descritas y referenciadas en el documento (Por ejemplo: "En la Tabla 1 mostramos...".
+
+Página 2: NIC México únicamente gestiona a .mx, no al resto de los ccTLD.  A como está redactado, pareciera que administra a todos y eso no es cierto (versión técnica, ¿página 2?).
+
+En el reporte ejecutivo, la idea es que pongan el árbol DNS o su equivalente, con ejemplos, para sustentar los resultados obtenidos, y después estadísticas que respalden dichos resultados.  Es decir, sin caer en detalles técnicos de funcionamiento (se supone eso se describe completamente en el reporte técnico), en qué ayuda la herramienta que desarrollaron, cómo lo hace y qué resultados permite obtener al Socio Formador.
+
+No se les olvide poner la reflexión, tanto de equipo como individualmente. Si no está la reflexión individual, no se pueden asignar 40% de los puntos de cada evidencia (reportes, en concreto).
