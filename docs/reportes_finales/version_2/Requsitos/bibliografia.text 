@@ -1,0 +1,51 @@
+3.1 RFCs (Request for Comments)
+DNS (Base del Sistema de Nombres de Dominio)
+
+Mockapetris, P. (1987).
+RFC 1034 – Domain Names: Concepts and Facilities.
+https://datatracker.ietf.org/doc/rfc1034/
+
+Mockapetris, P. (1987).
+RFC 1035 – Domain Names: Implementation and Specification.
+https://datatracker.ietf.org/doc/rfc1035/
+
+DNSSEC (Especificaciones principales)
+
+Arends, R., et al. (2005).
+RFC 4033 – DNS Security Introduction and Requirements.
+https://datatracker.ietf.org/doc/rfc4033/
+
+Arends, R., et al. (2005).
+RFC 4034 – Resource Records for DNS Security Extensions.
+https://datatracker.ietf.org/doc/rfc4034/
+
+Arends, R., et al. (2005).
+RFC 4035 – Protocol Modifications for DNSSEC.
+https://datatracker.ietf.org/doc/rfc4035/
+
+Complementos y actualizaciones relevantes
+
+Laurie, B., et al. (2008).
+RFC 5155 – DNSSEC Hashed Authenticated Denial of Existence (NSEC3).
+https://datatracker.ietf.org/doc/rfc5155/
+
+D. J. Bernstein, et al. (2012).
+RFC 5702 – Use of SHA-2 Algorithms with RSA in DNSKEY and RRSIG.
+https://datatracker.ietf.org/doc/rfc5702/
+
+IETF DNSOP Working Group (documentos varios).
+Página de trabajos y drafts en curso:
+https://datatracker.ietf.org/wg/dnsop/documents/
+
+13.2 Documentación de ICANN y NIC México
+ICANN – Root DNSSEC Deployment
+
+https://www.icann.org/resources/pages/dnssec-what-is-it-2019-03-05-en
+
+NIC México – DNSSEC en .MX
+
+https://www.nic.mx/es/InformacionGral/DNSSEC
+
+Root Zone Management – Procedures and Key Signing Ceremonies
+
+https://www.iana.org/dnssec
