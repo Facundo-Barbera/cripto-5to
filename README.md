@@ -36,16 +36,26 @@ App will be available at `http://localhost:5050`
 
 ## Running CLI Tools Locally
 
-For local command-line analysis, use the CLI tools in the `analyzer/` directory:
+For local command-line analysis, use the CLI tools in the `analyzer/` directory.
+
+### Prerequisites
+
+First, install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
 
 ### DNSSEC Batch Analyzer
 
 Analyze multiple domains from a file and generate detailed reports:
 
 ```bash
-pip install -r requirements.txt
 python analyzer/generator.py <domains_file.txt> [output_directory]
 ```
+
+- `<domains_file.txt>` - Required: Path to a text file containing domains (one per line)
+- `[output_directory]` - Optional: Directory for output reports (default: `dnssec_reports`)
 
 Example:
 ```bash
@@ -57,9 +67,10 @@ python analyzer/generator.py domains_mx.txt dnssec_reports
 Validate a single domain against DNSSEC RFC compliance:
 
 ```bash
-pip install -r requirements.txt
 python analyzer/rfc_validator.py <domain>
 ```
+
+- `<domain>` - Required: Domain name to validate
 
 Example:
 ```bash
