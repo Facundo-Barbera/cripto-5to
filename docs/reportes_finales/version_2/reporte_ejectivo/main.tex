@@ -6,9 +6,9 @@
 \usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning,shapes.geometric}
+\usetikzlibrary{positioning,arrows.meta}
 \usepackage{pgfplots}
-\pgfplotsset{compat=1.18}
+\pgfplotsset{compat=1.17}
 \setlength{\parskip}{0.75em}
 \setlength{\parindent}{0pt}
 \setlist[itemize]{leftmargin=*,labelsep=0.5em}
@@ -48,23 +48,24 @@ El proyecto evalu\'o el nivel de protecci\'on que ofrecen los dominios web m\'as
 
 \begin{figure}[h]
     \centering
+    \resizebox{0.8\textwidth}{!}{
     \begin{tikzpicture}[
-        node distance=1.7cm,
-        every node/.style={draw, rounded corners, font=\small, align=center, minimum width=2.8cm, minimum height=1cm},
+        node distance=1.4cm,
+        every node/.style={draw, rounded corners, align=center, minimum width=3.2cm, font=\small},
         arrow/.style={-{Latex[length=3mm,width=2mm]}, thick}
     ]
         \node (root) {Zona Ra\'iz};
-        \node (mx) [below=of root] {TLD .mx};
-        \node (domain) [below left=1.7cm and -0.8cm of mx] {Dominio analizado};
-        \node (service) [below right=1.7cm and -0.8cm of mx] {Servicio\\(A/AAAA)};
-        \node (user) [below=of domain, xshift=1.4cm] {Usuario final};
+        \node (tld) [below=of root] {TLD .mx};
+        \node (domain) [below=of tld] {Dominio firmado};
+        \node (user) [below=of domain] {Usuario final};
+        \node (service) [right=3.5cm of domain] {Servicios\\(Registros A/AAAA)};
 
-        \draw[arrow] (root) -- node[right]{DS firmado} (mx);
-        \draw[arrow] (mx) -- node[left]{Delegaci\'on segura} (domain);
-        \draw[arrow] (domain) -- node[left]{DNSKEY + RRSIG} (user);
-        \draw[arrow] (domain) -- node[right]{Resuelve} (service);
-        \draw[arrow, dashed] (service) -- node[right]{Respuestas validadas} (user);
-    \end{tikzpicture}
+        \draw[arrow] (root) -- node[right]{DS firmado} (tld);
+        \draw[arrow] (tld) -- node[right]{Delegaci\'on segura} (domain);
+        \draw[arrow] (domain) -- node[right]{DNSKEY + RRSIG} (user);
+        \draw[arrow] (domain) -- node[above]{Traduce consultas} (service);
+        \draw[arrow, dashed] (service) |- node[pos=0.25,right]{Respuestas autenticadas} (user);
+    \end{tikzpicture}}
     \caption{Árbol resumido del DNS y cadena de confianza revisada para cada dominio .mx.}
     \label{fig:cadena-dns}
 \end{figure}
@@ -87,6 +88,7 @@ Un dominio protegido con DNSSEC confirma su autenticidad y reduce con claridad l
 
 \begin{figure}[h]
     \centering
+    \resizebox{0.85\textwidth}{!}{
     \begin{tikzpicture}
         \begin{axis}[
             ybar,
@@ -104,7 +106,7 @@ Un dominio protegido con DNSSEC confirma su autenticidad y reduce con claridad l
         ]
             \addplot coordinates {(DNSSEC habilitado,6) (DNSSEC ausente,40)};
         \end{axis}
-    \end{tikzpicture}
+    \end{tikzpicture}}
     \caption{Porcentaje de dominios con DNSSEC habilitado frente al total de la muestra.}
     \label{fig:estado-ejecutivo}
 \end{figure}

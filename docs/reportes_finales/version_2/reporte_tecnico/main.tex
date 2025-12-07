@@ -15,7 +15,7 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,shapes.geometric}
 \usepackage{pgfplots}
-\pgfplotsset{compat=1.18}
+\pgfplotsset{compat=1.17}
 \geometry{margin=1in}
 \setlength{\parskip}{0.6em}
 \setlength{\parindent}{0pt}
@@ -24,6 +24,7 @@
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 \begin{document}
 
+\pagenumbering{gobble}
 \begin{titlepage}
     \begin{center}
         \includegraphics[height=2cm]{../Requsitos/tecnologico-de-monterrey-blue.png}\hspace{1cm}
@@ -80,6 +81,7 @@ El módulo \texttt{rfc\_validator.py} se ejecuta sobre dicho resumen para evalua
 
 \begin{figure}[h]
     \centering
+    \resizebox{0.9\textwidth}{!}{
     \begin{tikzpicture}[
         node distance=1.8cm,
         process/.style={draw, rounded corners, minimum width=3.2cm, minimum height=1cm, align=center},
@@ -98,7 +100,7 @@ El módulo \texttt{rfc\_validator.py} se ejecuta sobre dicho resumen para evalua
         \draw[arrow] (reports) -- (analysis);
         \draw[arrow] (queries) -- (validator);
         \draw[arrow] (validator) -- (analysis);
-    \end{tikzpicture}
+    \end{tikzpicture}}
     \caption{Flujo de procesamiento automatizado empleado para generar la evidencia técnica.}
     \label{fig:pipeline-tecnico}
 \end{figure}
@@ -378,6 +380,7 @@ Este flujo permite replicar la experiencia del socio formador y validar que los 
 \section{Repositorios y código utilizado}\label{repositorio}
 El análisis se apoya en el repositorio DNSSEC Analyzer disponible en la rama Reportes de \url{https://github.com/Facundo-Barbera/DNSSEC-Analyzer/tree/Reportes}. La estructura incluye los módulos \texttt{analyzer/generator.py}, \texttt{analyzer/lim\_advisor.py} y \texttt{analyzer/rfc\_validator.py}, además de los reportes en Markdown y el archivo \texttt{\_summary.json} que alimenta las tablas.
 
+\newpage
 \section{Bibliografía}
 \begin{enumerate}
     \item Arends, R., Austein, R., Larson, M., Massey, D., \& Rose, S. (2005a). \textit{RFC 4033: DNS Security Introduction and Requirements}. Internet Engineering Task Force. \url{https://datatracker.ietf.org/doc/rfc4033/}
