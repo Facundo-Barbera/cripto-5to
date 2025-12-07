@@ -62,6 +62,48 @@ Telecomunicaciones, supermercados y conglomerados medi\'aticos operan sin la pro
 \section{Conclusiones}
 La adopci\'on de DNSSEC en M\'exico existe, pero sigue siendo marginal y se concentra en muy pocos casos de \'exito. La dificultad no reside en instalar la tecnolog\'ia sino en cerrar adecuadamente la cadena de confianza y mantenerla vigente, tarea que hoy la mayor\'ia de los operadores no ha logrado. Mientras los sectores cr\'iticos carezcan de esta protecci\'on, los datos personales y financieros de la poblaci\'on continuar\'an expuestos, a pesar de que ya se demostr\'o que la implementaci\'on estable es factible y replicable. En consecuencia, ofrecer un servicio digital sin DNSSEC equivale a renunciar a una capa b\'asica de verificaci\'on de identidad.
 
+\section{Conclusiones particulares}
+\textbf{Alberto Boughton Reyes}\\
+Particip\'e en la integraci\'on del an\'alisis, construcci\'on de m\'etricas y revisi\'on del cumplimiento RFC. Aprend\'i a interpretar errores criptogr\'aficos y la importancia del DS.
+
+\medskip
+\textbf{Valeria Garc\'ia Hern\'andez}\\
+Realic\'e las consultas DNSSEC y validaci\'on con herramientas CLI. Comprend\'i c\'omo validar una cadena completa y por qu\'e NSEC3 protege de enumeraci\'on.
+
+\medskip
+\textbf{Facundo Bautista Barbera}\\
+Automatizaci\'on del pipeline y del procesamiento del JSON. Profundic\'e en Python dnspython y en c\'omo detectar fallos criptogr\'aficos de manera reproducible.
+
+\medskip
+\textbf{Emiliano Ruiz L\'opez}\\
+Evalu\'e algoritmos y tama\~nos de clave. Entend\'i por qu\'e algoritmos modernos como ED25519 ofrecen ventajas significativas.
+
+\medskip
+\textbf{Daniel Garnelo Mart\'inez}\\
+Redact\'e la secci\'on de buenas pr\'acticas y an\'alisis de riesgos. Aprend\'i a interpretar RFCs y alinear configuraciones DNSSEC con est\'andares actuales.
+
+\section{Taxonom\'ia de contribuciones}
+\textbf{Contributor Roles Taxonomy (CRediT)}
+
+\textbf{Alberto Boughton Reyes}\\
+Supervisi\'on general del proyecto, an\'alisis estad\'istico, redacci\'on de conclusiones.
+
+\medskip
+\textbf{Valeria Garc\'ia Hern\'andez}\\
+Recolecci\'on de datos, extracci\'on de DNSKEY/DS, validaci\'on con delv.
+
+\medskip
+\textbf{Facundo Bautista Barbera}\\
+Preparaci\'on del repositorio, automatizaci\'on Python, consolidaci\'on del JSON.
+
+\medskip
+\textbf{Emiliano Ruiz L\'opez}\\
+Clasificaci\'on de algoritmos, tama\~nos de clave y evaluaci\'on criptogr\'afica.
+
+\medskip
+\textbf{Daniel Garnelo Mart\'inez}\\
+Redacci\'on t\'ecnica, integraci\'on de RFCs y elaboraci\'on de recomendaciones.
+
 \section{Recomendaciones}
 El pa\'is necesita una estrategia nacional que coloque a DNSSEC al mismo nivel que HTTPS en los reglamentos de seguridad digital. Resulta prioritario establecer lineamientos obligatorios para sectores de alto riesgo, acompa\~nados de programas de capacitaci\'on y auditor\'ias peri\'odicas que aseguren la continuidad operativa de las firmas. Desde lo t\'ecnico, cada organizaci\'on debe completar la cadena de confianza, mantener las firmas actualizadas, favorecer algoritmos modernos, habilitar validaci\'on interna y automatizar revisiones para detectar desalineaciones antes de que impacten al usuario. Por \'ultimo, se recomienda que el gobierno lidere una pol\'itica de adopci\'on gradual, que la banca incluya DNSSEC en sus requisitos regulatorios, que las universidades repliquen los modelos exitosos existentes y que las empresas integren esta medida a sus marcos de ciberseguridad corporativos.
 

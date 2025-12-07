@@ -1,0 +1,17 @@
+
+Contributor Roles Taxonomy (CRediT)
+
+Alberto Boughton Reyes
+Supervisión general del proyecto, análisis estadístico, redacción de conclusiones.
+
+Valeria García Hernández
+Recolección de datos, extracción de DNSKEY/DS, validación con delv.
+
+Facundo Bautista Barbera
+Preparación del repositorio, automatización Python, consolidación del JSON.
+
+Emiliano Ruiz López
+Clasificación de algoritmos, tamaños de clave y evaluación criptográfica.
+
+Daniel Garnelo Martínez
+Redacción técnica, integración de RFCs y elaboración de recomendaciones.

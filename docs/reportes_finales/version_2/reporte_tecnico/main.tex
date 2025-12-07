@@ -218,6 +218,48 @@ Sitios de gran tráfico como \texttt{walmart.com.mx}, \texttt{femsa.com.mx}, \te
 La muestra analizada demuestra que DNSSEC todavía es una excepción entre los dominios .mx. Las implementaciones exitosas confirman que la tecnología es viable y puede operar de manera estable dentro del ecosistema nacional, pero los esfuerzos se concentran en unos cuantos organismos. El principal problema técnico detectado en los dominios que sí firmaron su zona es la ausencia del registro DS, lo que rompe la cadena de confianza justo antes de alcanzar al usuario final. Sectores críticos como finanzas y comercio electrónico aún no aprovechan DNSSEC, por lo que continúan expuestos a ataques de spoofing que podrían mitigarse mediante la validación criptográfica. La existencia de configuraciones completas en PEMEX, UNAM y el portal de gobierno evidencia que existen capacidades locales para adoptar y operar DNSSEC, pero también pone de manifiesto la falta de adopción homogénea.
 
 
+\section{Conclusiones particulares}
+\textbf{Alberto Boughton Reyes}\\
+Participé en la integración del análisis, construcción de métricas y revisión del cumplimiento RFC. Aprendí a interpretar errores criptográficos y la importancia del DS.
+
+\medskip
+\textbf{Valeria García Hernández}\\
+Realicé las consultas DNSSEC y validación con herramientas CLI. Comprendí cómo validar una cadena completa y por qué NSEC3 protege de enumeración.
+
+\medskip
+\textbf{Facundo Bautista Barbera}\\
+Automatización del pipeline y del procesamiento del JSON. Profundicé en Python dnspython y en cómo detectar fallos criptográficos de manera reproducible.
+
+\medskip
+\textbf{Emiliano Ruiz López}\\
+Evalué algoritmos y tamaños de clave. Entendí por qué algoritmos modernos como ED25519 ofrecen ventajas significativas.
+
+\medskip
+\textbf{Daniel Garnelo Martínez}\\
+Redacté la sección de buenas prácticas y análisis de riesgos. Aprendí a interpretar RFCs y alinear configuraciones DNSSEC con estándares actuales.
+
+\section{Taxonomía de contribuciones}
+\textbf{Contributor Roles Taxonomy (CRediT)}
+
+\textbf{Alberto Boughton Reyes}\\
+Supervisión general del proyecto, análisis estadístico, redacción de conclusiones.
+
+\medskip
+\textbf{Valeria García Hernández}\\
+Recolección de datos, extracción de DNSKEY/DS, validación con delv.
+
+\medskip
+\textbf{Facundo Bautista Barbera}\\
+Preparación del repositorio, automatización Python, consolidación del JSON.
+
+\medskip
+\textbf{Emiliano Ruiz López}\\
+Clasificación de algoritmos, tamaños de clave y evaluación criptográfica.
+
+\medskip
+\textbf{Daniel Garnelo Martínez}\\
+Redacción técnica, integración de RFCs y elaboración de recomendaciones.
+
 \section{Recomendaciones Específicas}
 Las siguientes recomendaciones se derivan de la evidencia obtenida y se alinean con las guías de la IETF, NIC México y operadores con experiencia en despliegues DNSSEC. Su aplicación ordenada permite cerrar brechas desde la preparación del entorno, la instalación y configuración de las firmas, hasta la operación continua y las auditorías.
 \subsection{Publicación del registro DS en .mx}

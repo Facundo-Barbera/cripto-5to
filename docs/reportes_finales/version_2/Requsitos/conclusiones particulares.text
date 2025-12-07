@@ -1,0 +1,20 @@
+8. Conclusiones particulares
+Alberto Boughton Reyes
+
+Participé en la integración del análisis, construcción de métricas y revisión del cumplimiento RFC. Aprendí a interpretar errores criptográficos y la importancia del DS.
+
+Valeria García Hernández
+
+Realicé las consultas DNSSEC y validación con herramientas CLI. Comprendí cómo validar una cadena completa y por qué NSEC3 protege de enumeración.
+
+Facundo Bautista Barbera
+
+Automatización del pipeline y del procesamiento del JSON. Profundicé en Python dnspython y en cómo detectar fallos criptográficos de manera reproducible.
+
+Emiliano Ruiz López
+
+Evalué algoritmos y tamaños de clave. Entendí por qué algoritmos modernos como ED25519 ofrecen ventajas significativas.
+
+Daniel Garnelo Martínez
+
+Redacté la sección de buenas prácticas y análisis de riesgos. Aprendí a interpretar RFCs y alinear configuraciones DNSSEC con estándares actuales.
