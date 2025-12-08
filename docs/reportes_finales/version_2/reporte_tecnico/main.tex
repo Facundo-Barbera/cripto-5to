@@ -13,6 +13,7 @@
 \usepackage[table]{xcolor}
 \usepackage{graphicx}
 \usepackage{tikz}
+\usepackage{ragged2e}
 \usetikzlibrary{arrows.meta,positioning,shapes.geometric}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
@@ -108,11 +109,12 @@ El módulo \texttt{rfc\_validator.py} se ejecuta sobre dicho resumen para evalua
 Además de la automatización, se emplean consultas manuales para confirmar hallazgos y comprender el origen de los fallos. La verificación más general se ejecuta con \texttt{dig +dnssec dominio.mx} para observar el estado de las firmas. La extracción de claves se realiza con \texttt{dig dominio.mx DNSKEY +dnssec}, mientras que la presencia del registro DS en la zona padre se comprueba usando \texttt{dig dominio.mx DS +dnssec}. Para determinar el mecanismo de negación autenticada se emplean \texttt{dig dominio.mx NSEC +dnssec} y \texttt{dig dominio.mx NSEC3PARAM +dnssec}, y para revisar la validación completa desde la raíz se ejecuta \texttt{delv dominio.mx}. Los resultados manuales se comparan con los emitidos por el analizador para confirmar que la lógica automatizada refleja el estado real de los dominios.
 
 \subsection{Herramientas}
-El trabajo combina las capacidades de Python 3 y la librería \texttt{dnspython}, encargada de emitir las consultas programáticas para cada registro. La utilería \texttt{dig} con la opción \texttt{+dnssec} permite revisar firmas y claves directamente desde el sistema operativo y sirve como referencia independiente. Las consultas específicas de NSEC y NSEC3PARAM ayudan a diferenciar el mecanismo de negación autenticada implementado en cada dominio. La herramienta \texttt{delv}, incluida en Berkeley Internet Name Domain (BIND), ejecuta la validación completa y detalla cualquier ruptura de la cadena de confianza. Para enriquecer el diagnóstico se contrastan los hallazgos con validadores externos como DNSViz, el DNSSEC Debugger de Verisign y los laboratorios de Stichting Internet Domeinregistratie Nederland (SIDN), los cuales ofrecen visualizaciones y advertencias adicionales. Para reproducir el entorno completo también es necesario contar con Docker Desktop actualizado, ya que la aplicación puede levantarse mediante \texttt{docker compose} (ver Anexo \ref{anexo:docker}).
+El trabajo combina las capacidades de Python 3 y la librería \texttt{dnspython}, encargada de emitir las consultas programáticas para cada registro. La utilería \texttt{dig} con la opción \texttt{+dnssec} permite revisar firmas y claves directamente desde el sistema operativo y sirve como referencia independiente. Las consultas específicas de NSEC y NSEC3PARAM ayudan a diferenciar el mecanismo de negación autenticada implementado en cada dominio. La herramienta \texttt{delv}, incluida en Berkeley Internet Name Domain (BIND), ejecuta la validación completa y detalla cualquier ruptura de la cadena de confianza. Para enriquecer el diagnóstico se contrastan los hallazgos con validadores externos como DNSViz, el DNSSEC Debugger de Verisign y los laboratorios de Stichting Internet Domeinregistratie Nederland (SIDN), los cuales ofrecen visualizaciones y advertencias adicionales. En cuanto a la reproducción, el repositorio permite tres caminos documentados: (1) ejecutar el CLI de Python instalando las dependencias (\texttt{pip install -r requirements.txt}) y corriendo \texttt{python analyzer/generator.py domains\_mx.txt} o \texttt{python analyzer/rfc\_validator.py dominio.mx}, (2) levantar localmente la aplicación completa con \texttt{docker compose up} y consultar \url{http://localhost:5050} siguiendo las instrucciones descritas en el README principal del repositorio (\url{https://github.com/Facundo-Barbera/DNSSEC-Analyzer}) y en el Anexo \ref{anexo:docker}, y (3) utilizar el despliegue en Vercel para revisar la interfaz estática y los endpoints serverless cuando se requiere una demostración remota. Para el caso local es indispensable contar con Docker Desktop actualizado, como se detalla en el Anexo \ref{anexo:docker}.
 
 \section{Criterios de Validación y Lógica del Analizador}
 \subsection{Componentes del analizador}
-El repositorio integra dos módulos principales dentro de la carpeta \texttt{analyzer}. \texttt{generator.py} implementa la clase \texttt{DNSSECAnalyzer}, la cual define el resolutor recursivo, maneja cachés para evitar consultas repetidas y ofrece métodos como \texttt{check\_domain\_status()} y \texttt{\_detect\_nsec\_from\_nxdomain()} para caracterizar cada dominio antes y durante la prueba. A partir de ahí coordina las consultas de DNSKEY, DS, RRSIG, NSEC/NSEC3 y genera, para cada conjunto de registros, estructuras JSON con la clave pública, algoritmo, tamaño y vigencias detectadas. También documenta condiciones excepcionales (NXDOMAIN, SERVFAIL, timeouts) y captura los mensajes de advertencia emitidos por los servidores autoritativos.
+
+{\justifying El repositorio integra dos módulos principales dentro de la carpeta \texttt{analyzer}. \texttt{generator.py} implementa la clase \texttt{DNSSECAnalyzer}, la cual define el resolutor recursivo, maneja cachés para evitar consultas repetidas y ofrece métodos como \texttt{check\_domain\_status()} y \texttt{\_detect\_nsec\_from\_nxdomain()} para caracterizar cada dominio antes y durante la prueba. A partir de ahí coordina las consultas de DNSKEY, DS, RRSIG, NSEC/NSEC3 y genera, para cada conjunto de registros, estructuras JSON con la clave pública, algoritmo, tamaño y vigencias detectadas. También documenta condiciones excepcionales (NXDOMAIN, SERVFAIL, timeouts) y captura los mensajes de advertencia emitidos por los servidores autoritativos.}
 
 Por su parte, \texttt{rfc\_validator.py} consume la salida consolidada y valida los criterios definidos para la puntuación RFC: verifica la alineación DS-DNSKEY, calcula si las firmas expiran dentro de un umbral riesgoso, revisa si existe un mecanismo auténtico de negación de existencia y clasifica los errores más frecuentes. Ambos módulos alimentan los reportes en Markdown y los tabulados que se incluyen en este documento, permitiendo que cada hallazgo traceable tenga su evidencia directa en el repositorio.
 
@@ -328,16 +330,17 @@ La revisión continua evita incidentes producidos por expiraciones o configuraci
 En el gobierno federal conviene establecer una política que obligue a cada dependencia a publicar su DS y a monitorear activamente la vigencia de las firmas, especialmente en dependencias financieras o sociales. En el sector educativo bastaría con que instituciones que ya firmaron, como IPN y UDG, publiquen su DS para cerrar el ciclo y sirvan como referencia para el resto. Las instituciones financieras deberían priorizar DNSSEC al mismo nivel que Hypertext Transfer Protocol Secure (HTTPS) o HTTP Strict Transport Security (HSTS) para proteger portales de autenticación y transferencias, mientras que el comercio electrónico puede integrar DNSSEC como complemento a sus controles existentes para reducir intentos de redireccionamiento malicioso.
 \newpage 
 
-\section{Anexos}
+\section*{Anexos}
+\addcontentsline{toc}{section}{Anexos}
 Los anexos consolidan la información necesaria para replicar el análisis completo, comprender los elementos de DNSSEC utilizados y revisar ejemplos concretos de salidas correctas e incorrectas. A continuación se describen los elementos clave:
 
-\textbf{Comandos utilizados para la validación manual.}
+\subsection*{Comandos utilizados para la validación manual.}
 La consulta \texttt{dig +dnssec dominio.mx} muestra los registros relevantes de la zona, incluidos los RRSIG cuando existen, las claves DNSKEY solicitadas por implicación y el indicador \texttt{ad} cuando el resolver valida correctamente. Para revisar exclusivamente las claves se emplea \texttt{dig dominio.mx DNSKEY +dnssec}, que permite identificar qué registros corresponden a la KSK o a la ZSK y verificar el algoritmo. La delegación segura se inspecciona mediante \texttt{dig dominio.mx DS +dnssec}; si la respuesta es nula se confirma que la cadena permanece incompleta. Los mecanismos de negación se distinguen emitiendo \texttt{dig dominio.mx NSEC +dnssec} y \texttt{dig dominio.mx NSEC3PARAM +dnssec}, lo que facilita determinar si la zona expone listados directos o hashes. Finalmente, \texttt{delv dominio.mx} ejecuta la validación completa desde la raíz y explica cualquier ruptura de la cadena.
 
-\textbf{Elementos de DNSSEC utilizados en el análisis.}
+\subsection*{Elementos de DNSSEC utilizados en el análisis.}
 Los registros DNSKEY contienen las claves públicas que permiten validar las firmas; la KSK firma el conjunto DNSKEY y la ZSK protege el resto de los registros. Las firmas RRSIG garantizan integridad y autenticidad de cada conjunto consultado. Los registros DS, ubicados en la zona padre, forman el vínculo criptográfico entre el dominio y su TLD; sin ellos la cadena se interrumpe. Para negar la existencia de nombres se utilizan NSEC y NSEC3: el primero enumera dominios vecinos mientras que el segundo oculta la estructura mediante hashes, ambos firmados para impedir manipulación. La cadena de confianza completa recorre la raíz, el TLD .mx, el dominio y, en su caso, los subdominios, de modo que cualquier ruptura deja al usuario sin garantía de autenticidad.
 
-\textbf{Ejemplo de salida de DNSSEC correcta.}
+\subsection*{Ejemplo de salida de DNSSEC correcta.}
 Un dominio con DNSSEC completo muestra una respuesta similar a la siguiente:
 \begin{verbatim}
 ;; flags: qr rd ad ; AD = authenticated data
@@ -350,30 +353,33 @@ dominio.mx. 3600 IN NSEC3 ...
 \end{verbatim}
 En esta salida el indicador \texttt{ad} confirma que la información fue autenticada, el registro DS conecta al dominio con .mx, las firmas RRSIG se encuentran vigentes y el mecanismo NSEC3 documenta la negación de existencia.
 
-\textbf{Ejemplo de cadena incompleta.}
+\subsection*{Ejemplo de cadena incompleta.}
 Cuando la zona está firmada pero falta el DS en .mx, \texttt{dig} reporta las claves y firmas locales pero indica “NO DS record found”. El analizador clasifica este escenario como \textit{Enabled / Chain Incomplete}, lo que explica por qué los resolvers validadores no pueden confiar en la respuesta a pesar de que exista DNSKEY.
 
-\textbf{Ejemplo de dominio sin DNSSEC.}
+\subsection*{Ejemplo de dominio sin DNSSEC.}
 Si la zona no implementa DNSSEC, la respuesta contiene únicamente los registros tradicionales (A, AAAA, MX) y carece de DNSKEY y RRSIG. En ese caso el analizador indica \textit{DNSSEC Disabled} y el RFC Score se reduce al mínimo (0/1).
 
-\textbf{Archivos generados por el analizador.}
+\subsection*{Archivos generados por el analizador.}
 Cada ejecución de \texttt{generator.py} produce reportes por dominio en formato Markdown que incluyen las claves DNSKEY, las firmas RRSIG, el registro DS disponible, el tipo de NSEC o NSEC3, los algoritmos empleados, el RFC Score y el estado final. Paralelamente se genera un archivo \texttt{\_summary.json} con campos como \texttt{dnssec\_enabled}, \texttt{chain\_complete}, \texttt{rfc\_score}, \texttt{rfc\_score\_max}, \texttt{status}, \texttt{nsec\_type} y \texttt{key\_algorithms}, que sirve como base para las tablas incluidas en este reporte.
 
-\textbf{Flujos de validación utilizados por el analizador.}
+\subsection*{Flujos de validación utilizados por el analizador.}
 El módulo \texttt{lim\_advisor.py} evalúa cada clave para identificar el algoritmo (RSA, ECDSA, Ed25519), la longitud de la KSK y la ZSK, la correcta separación de roles y señales de uso de claves obsoletas. De forma paralela, \texttt{rfc\_validator.py} confirma la presencia de RRSIG, revisa las ventanas de vigencia, enlaza los registros DS con las DNSKEY correspondientes, valida los formatos y campos obligatorios y comprueba que exista un mecanismo autenticado de negación de existencia.
 
-\textbf{Reproducción completa del análisis.}
+\subsection*{Reproducción completa del análisis.}
 Para duplicar el estudio se prepara un archivo con los dominios objetivo (por ejemplo \texttt{domains.txt}), se ejecuta \texttt{python3 analyzer/generator.py domains.txt} y se revisan los resultados en la carpeta de salida, donde cada dominio tiene su reporte y el archivo \texttt{\_summary.json} ofrece la consolidación. Comparar estos datos con los descritos en este documento permite verificar que la metodología produce resultados consistentes.
 
-\textbf{Entorno Docker para despliegue.}
+\subsection*{Entorno Docker para despliegue.}
 \label{anexo:docker}
 Cuando se requiere levantar la aplicación completa y verificar la interfaz web local, es necesario contar con Docker Desktop instalado en el equipo (descarga disponible en \url{https://www.docker.com/products/docker-desktop/}). El proceso recomendado es clonar el repositorio (\texttt{git clone https://github.com/Facundo-Barbera/DNSSEC-Analyzer.git}), abrir Docker Desktop para asegurarse de que el demonio esté activo, ejecutar \texttt{docker compose up} dentro de la carpeta del proyecto y acceder finalmente a \url{http://localhost:5050}. Este flujo permite replicar la experiencia del socio formador y validar que los cambios realizados en el código se reflejen en la plataforma sin necesidad de configurar manualmente todas las dependencias.
 
-\section{Repositorios y código utilizado}\label{repositorio}
-El análisis se apoya en el repositorio DNSSEC Analyzer disponible en la rama Reportes de \url{https://github.com/Facundo-Barbera/DNSSEC-Analyzer/tree/Reportes}. La estructura incluye los módulos \texttt{analyzer/generator.py}, \texttt{analyzer/lim\_advisor.py} y \texttt{analyzer/rfc\_validator.py}, además de los reportes en Markdown y el archivo \texttt{\_summary.json} que alimenta las tablas.
+\section*{Repositorios y código utilizado}\label{repositorio}
+\addcontentsline{toc}{section}{Repositorios y código utilizado}
+El análisis se apoya en el repositorio DNSSEC Analyzer disponible en la rama Reportes de \url{https://github.com/Facundo-Barbera/DNSSEC-Analyzer/tree/Reportes}. \newline 
+La estructura incluye los módulos \texttt{analyzer/generator.py}, \texttt{analyzer/lim\_advisor.py} y \texttt{analyzer/rfc\_validator.py}, además de los reportes en Markdown y el archivo \texttt{\_summary.json} que alimenta las tablas.
 
 \newpage
-\section{Bibliografía}
+\section*{Bibliografía}
+\addcontentsline{toc}{section}{Bibliografía}
 \begin{enumerate}
     \item Arends, R., Austein, R., Larson, M., Massey, D., \& Rose, S. (2005a). \textit{RFC 4033: DNS Security Introduction and Requirements}. Internet Engineering Task Force. \url{https://datatracker.ietf.org/doc/rfc4033/}
     \item Arends, R., Austein, R., Larson, M., Massey, D., \& Rose, S. (2005b). \textit{RFC 4034: Resource Records for DNS Security Extensions}. Internet Engineering Task Force. \url{https://datatracker.ietf.org/doc/rfc4034/}

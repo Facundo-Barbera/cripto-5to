@@ -44,7 +44,7 @@ Monterrey N.L. 4 de diciembre de 2025
 \pagenumbering{arabic}
 
 \section{Introducci\'on}
-El proyecto evalu\'o el nivel de protecci\'on que ofrecen los dominios web m\'as relevantes de M\'exico al operar en el sistema de nombres de dominio (DNS). El foco se encontr\'o en DNSSEC, tecnolog\'ia que firma digitalmente las respuestas y que, bien implementada, impide redireccionamientos falsos, suplantaci\'on de sitios y robo de informaci\'on. Para una ciudadan\'ia que realiza tr\'amites, operaciones financieras y gestiones acad\'emicas en l\'inea, la ausencia de esta protecci\'on permite que un atacante redirija al usuario a un portal falso sin levantar sospechas, por lo que la confianza del pa\'is en sus servicios digitales depende de manera directa de la correcta adopci\'on de DNSSEC. La Figura \ref{fig:cadena-dns} resume la cadena de confianza evaluada y permite relacionar cada hallazgo con los eslabones que lo originan.
+El proyecto evalu\'o el nivel de protecci\'on que ofrecen los dominios web m\'as relevantes de M\'exico al operar en el sistema de nombres de dominio (DNS). El foco se encontr\'o en DNSSEC, tecnolog\'ia que firma digitalmente las respuestas y que, bien implementada, impide redireccionamientos falsos, suplantaci\'on de sitios y robo de informaci\'on (Arends et al., 2005a, 2005b, 2005c). Para una ciudadan\'ia que realiza tr\'amites, operaciones financieras y gestiones acad\'emicas en l\'inea, la ausencia de esta protecci\'on permite que un atacante redirija al usuario a un portal falso sin levantar sospechas, por lo que la confianza del pa\'is en sus servicios digitales depende de manera directa de la correcta adopci\'on de DNSSEC. Adem\'as, el ecosistema \texttt{.mx} est\'a firmado por NIC M\'exico, por lo que cada entidad nacional puede sumarse a la cadena de confianza publicando su registro DS (NIC M\'exico, s.f.). La Figura \ref{fig:cadena-dns} resume la cadena de confianza evaluada y permite relacionar cada hallazgo con los eslabones que lo originan.
 
 \begin{figure}[h]
     \centering
@@ -166,7 +166,7 @@ Analic\'e los algoritmos y tama\~nos de clave detectados. La experiencia reforz\
 Redact\'e las buenas pr\'acticas y el an\'alisis de riesgos con base en los RFC relevantes. Practiqu\'e la traducci\'on de requisitos t\'ecnicos a recomendaciones ejecutivas, algo indispensable para comunicar proyectos de ciberseguridad a perfiles no t\'ecnicos dentro y fuera del aula.
 
 \section{Recomendaciones}
-El pa\'is necesita una estrategia nacional que coloque a DNSSEC al mismo nivel que HTTPS en los reglamentos de seguridad digital. Resulta prioritario establecer lineamientos obligatorios para sectores de alto riesgo, acompa\~nados de programas de capacitaci\'on y auditor\'ias peri\'odicas que aseguren la continuidad operativa de las firmas. Desde lo t\'ecnico, cada organizaci\'on debe completar la cadena de confianza, mantener las firmas actualizadas, favorecer algoritmos modernos, habilitar validaci\'on interna y automatizar revisiones para detectar desalineaciones antes de que impacten al usuario. Por \'ultimo, se recomienda que el gobierno lidere una pol\'itica de adopci\'on gradual, que la banca incluya DNSSEC en sus requisitos regulatorios, que las universidades repliquen los modelos exitosos existentes y que las empresas integren esta medida a sus marcos de ciberseguridad corporativos.
+El pa\'is necesita una estrategia nacional que coloque a DNSSEC al mismo nivel que HTTPS en los reglamentos de seguridad digital. Resulta prioritario establecer lineamientos obligatorios para sectores de alto riesgo, acompa\~nados de programas de capacitaci\'on y auditor\'ias peri\'odicas que aseguren la continuidad operativa de las firmas, siguiendo las mejores pr\'acticas publicadas por la IETF y operadores como ICANN (ICANN, 2019; IETF DNSOP Working Group, s.f.). Desde lo t\'ecnico, cada organizaci\'on debe completar la cadena de confianza, mantener las firmas actualizadas, favorecer algoritmos modernos, habilitar validaci\'on interna y automatizar revisiones para detectar desalineaciones antes de que impacten al usuario. Por \'ultimo, se recomienda que el gobierno lidere una pol\'itica de adopci\'on gradual, que la banca incluya DNSSEC en sus requisitos regulatorios, que las universidades repliquen los modelos exitosos existentes y que las empresas integren esta medida a sus marcos de ciberseguridad corporativos.
 
 \section{Reflexi\'on final}
 M\'exico cuenta con la infraestructura y el talento necesarios para operar DNSSEC a gran escala; lo que falta es el compromiso sostenido de las organizaciones para cerrar la brecha. Mientras los atacantes perfeccionan sus t\'acticas, muchos portales contin\'uan sin una verificaci\'on b\'asica de autenticidad. El pa\'is debe considerar a DNSSEC como un requisito esencial para garantizar el desarrollo seguro de la econom\'ia digital.
@@ -175,5 +175,16 @@ M\'exico cuenta con la infraestructura y el talento necesarios para operar DNSSE
 El an\'alisis se apoya en el repositorio DNSSEC Analyzer disponible en la rama Reportes de \url{https://github.com/Facundo-Barbera/DNSSEC-Analyzer/tree/Reportes}.
 
 La estructura incluye los m\'odulos \texttt{analyzer/generator.py}, \texttt{analyzer/lim\_advisor.py} y \texttt{analyzer/rfc\_validator}. Adem\'as de los reportes en Markdown y el archivo \texttt{\_summary.json} que alimenta las tablas.
+
+\newpage
+\section{Bibliograf\'ia}
+\begin{enumerate}
+    \item Arends, R., Austein, R., Larson, M., Massey, D., \& Rose, S. (2005a). \textit{RFC 4033: DNS Security Introduction and Requirements}. Internet Engineering Task Force. \url{https://datatracker.ietf.org/doc/rfc4033/}
+    \item Arends, R., Austein, R., Larson, M., Massey, D., \& Rose, S. (2005b). \textit{RFC 4034: Resource Records for DNS Security Extensions}. Internet Engineering Task Force. \url{https://datatracker.ietf.org/doc/rfc4034/}
+    \item Arends, R., Austein, R., Larson, M., Massey, D., \& Rose, S. (2005c). \textit{RFC 4035: Protocol Modifications for DNSSEC}. Internet Engineering Task Force. \url{https://datatracker.ietf.org/doc/rfc4035/}
+    \item ICANN. (2019). \textit{Root DNSSEC Deployment}. \url{https://www.icann.org/resources/pages/dnssec-what-is-it-2019-03-05-en}
+    \item IETF DNSOP Working Group. (s.f.). \textit{Documentos y borradores}. \url{https://datatracker.ietf.org/wg/dnsop/documents/}
+    \item NIC M\'exico. (s.f.). \textit{DNSSEC en .MX}. \url{https://www.nic.mx/es/InformacionGral/DNSSEC}
+\end{enumerate}
 
 \end{document}
